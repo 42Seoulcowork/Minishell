@@ -6,13 +6,13 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/12 19:00:08 by juyojeon          #+#    #+#              #
-#    Updated: 2023/03/12 19:00:58 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/03/12 19:02:04 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
-SRCS = aaa.c
+SRCS = test.c
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)

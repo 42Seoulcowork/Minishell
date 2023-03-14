@@ -6,7 +6,7 @@
 #    By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/12 19:00:08 by juyojeon          #+#    #+#              #
-#    Updated: 2023/03/14 13:29:22 by jaekkang         ###   ########.fr        #
+#    Updated: 2023/03/14 14:13:02 by jaekkang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,20 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) $< -o $@ -lreadline
+	@printf	"Get Ready for the Minishell\n"
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean :
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
+	@printf	"Run to Clean\n"
 
-fclean : clean
-	rm -f $(NAME)
+fclean :
+	@rm -f $(OBJS)
+	@rm -f $(NAME)
+	@printf	"Run to fClean\n"
 
 re : fclean all
 

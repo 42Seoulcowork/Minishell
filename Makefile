@@ -3,25 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/12 19:00:08 by juyojeon          #+#    #+#              #
-#    Updated: 2023/03/12 19:06:23 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/03/14 13:29:22 by jaekkang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
-SRCS = test2.c
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror
+
+SRCS = main.c
+
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	cc $(CFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 %.o : %.c
-	cc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -f $(OBJS)

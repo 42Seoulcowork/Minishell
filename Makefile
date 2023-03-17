@@ -8,7 +8,7 @@ INC = -I./includes/
 
 R_FLAG =  -lreadline #-L${HOME}/.brew/opt/readline/lib
 
-R_INC = -I${HOME}/.brew/opt/readline/include
+#R_INC = -I${HOME}/.brew/opt/readline/include
 
 LIB_FLAG = -Llib -lft
 # > ${HOME} 환경변수를 이용해서 경로 부분이 자동으로 치환되게끔 하자.

@@ -7,6 +7,7 @@ int	main(void)
 
 	while (1)
 	{
+		asdas;
 		str = readline("$>");
 		if (!str)
 			break ;

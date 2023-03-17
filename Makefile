@@ -12,7 +12,7 @@ INC = -I${HOME}/.brew/opt/readline/include
 # > brew로 readline을 설치한 맥이라면 어디서든 경로를 잘 찾을 수 있을 것이다.
 
 SRCS = \
-	0_main.c \
+	main.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -10,7 +10,7 @@ int	main(void)
 	path = ft_split(getenv("PATH"), ':');
 	while (1)
 	{
-		str = readline("$>");
+		str = readline("minishell$ ");
 		if (!str)
 			break ;
 		printf("%s\n", str);

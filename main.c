@@ -3,14 +3,17 @@
 int	main(void)
 {
 	char	*str;
+	char	*cwd;
 
 	while (1)
 	{
-		str = readline("prompt : ");
-		if (str)
-			printf("%s\n", str);
-		else
+		str = readline("$>");
+		if (!str)
 			break ;
+		printf("%s\n", str);
+		cwd = getcwd(NULL, 1);
+		if (cwd)
+			printf("%s\n", cwd);
 		add_history(str);
 		free(str);
 	}

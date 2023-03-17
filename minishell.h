@@ -6,7 +6,7 @@
 /*   By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:26:42 by jaekkang          #+#    #+#             */
-/*   Updated: 2023/03/14 14:10:29 by jaekkang         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:01:57 by myko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 # include <stdio.h>
 
 # include <readline/readline.h>
-// readline()을 위한 헤더
 # include <readline/history.h>
-// add_history()을 위한 헤더
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <signal.h>
+# include <dirent.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include <term.h>
 
-# define HELLO "Hello, Worlds!"
 
 #endif

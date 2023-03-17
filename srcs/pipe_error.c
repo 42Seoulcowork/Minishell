@@ -3,7 +3,6 @@
 int	error(int errnum, char *problem)
 {
 	problem = ft_strjoin("pipex: ", problem);
-	ft_putstr_fd(problem, 2);
 	if (errnum == ARGC_ERROR)
 		ft_putstr_fd("pipex: Invaild argument\n", STDERR_FILENO);
 	else if (errnum == COMMAND_ERROR)

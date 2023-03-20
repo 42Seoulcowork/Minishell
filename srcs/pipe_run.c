@@ -11,15 +11,17 @@ static void	working_pid(t_envp tenvp)
 	while (++i < tenvp.argc)
 	{
 		if (pipe(fds) == -1)
-			error(PIPE_ERROR, "pipe");
+			error(PIPE_ERROR, "pipe", &tenvp);
 		if (i == tenvp.argc - 1)
 		{
 			close(fds[0]);
 			close(fds[1]);
 		}
+		if (tenvp.exit_status)
+			break ;
 		pid = fork();
 		if (pid == -1)
-			error(FORK_ERROR, "fork");
+			error(FORK_ERROR, "fork", &tenvp);
 		if (pid == 0)
 		{
 			if (i < tenvp.argc - 1)
@@ -33,13 +35,13 @@ static void	working_pid(t_envp tenvp)
 		{
 			if (i == tenvp.argc - 1)
 			{
-				if (waitpid(pid, NULL, 0) == -1)
-					error(RUN_ERROR, "pid");
+				if (waitpid(pid, &status, 0) == -1)
+					error(RUN_ERROR, "pid", &tenvp);
 			}
 			else
 			{
 				if (waitpid(pid, &status, WNOHANG) == -1)
-					error(RUN_ERROR, "pid");
+					error(RUN_ERROR, "pid", &tenvp);
 				dup2(fds[0], STDIN_FILENO);
 				close(fds[1]);
 			}

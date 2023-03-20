@@ -13,10 +13,9 @@ int	main(int ac, char **av, char **envp)
 	envp_init(&tenvp, envp);
 	while (1)
 	{
-		str = readline("minishell$ ");
+		str = readline("$>");
 		if (!str)
 			break ;
-//		printf("%s\n", str);
 		if (ft_strchr(str, 124))
 			pipex(str, tenvp);
 		else

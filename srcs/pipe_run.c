@@ -3,33 +3,48 @@
 static void	working_pid(t_envp tenvp)
 {
 	int		fds[2];
-	pid_t	pid;
+	pid_t	pid_1;
+	pid_t	pid_2;
 	int		i;
-	int		status;
 
 	i = -1;
 	while (++i < tenvp.argc - 1)
 	{
 		if (pipe(fds) == -1)
 			error(PIPE_ERROR, "pipe");
-		pid = fork();
-		if (pid == -1)
+		pid_1 = fork();
+		if (pid_1 == -1)
 			error(FORK_ERROR, "fork");
-		if (pid == 0)
+		else if (pid_1 == 0)
 		{
-			dup2(fds[1], STDOUT_FILENO);
-			close(fds[0]);
+			close(fds[READ_END]);
+			dup2(fds[WRITE_END], STDOUT_FILENO);
 			work_pid(i, tenvp);
+			close(fds[WRITE_END]);
+			exit(0);
 		}
 		else
 		{
-			if (waitpid(pid, &status, WNOHANG) == -1)
-				error(RUN_ERROR, "pid");
-			dup2(fds[0], STDIN_FILENO);
-			close(fds[1]);
+			pid_2 = fork();
+			if (pid_2 == -1)
+				error(FORK_ERROR, "fork");
+			else if (pid_2 == 0)
+			{
+				close(fds[WRITE_END]);
+				dup2(fds[READ_END], STDIN_FILENO);
+				work_pid(i + 1, tenvp);
+				close(fds[READ_END]);
+				exit(0);
+			}
+			else
+			{
+				close(fds[0]);
+				close(fds[1]);
+				waitpid(pid_1, NULL, 0);
+				waitpid(pid_2, NULL, 0);
+			}
 		}
 	}
-	work_pid(i, tenvp);
 }
 
 static int	argv_len(char **argv)

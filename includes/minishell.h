@@ -20,7 +20,6 @@
 # define WRITE_END 1
 
 typedef enum s_erroridx {
-	ARGC_ERROR,
 	PIPE_ERROR,
 	FORK_ERROR,
 	MALLOC_ERROR,
@@ -32,10 +31,12 @@ typedef enum s_erroridx {
 }	t_erroridx;
 
 typedef struct s_envp{
+	int 	exit_status;
 	int		argc;
 	char	**argv;
 	char	**paths;
 	char	**envp;
+	pid_t	main_pid;
 }			t_envp;
 
 // envp_init.c
@@ -54,10 +55,10 @@ char	**argv_init(int i, t_envp tenvp);
 void	work_pid(int argc, t_envp tenvp);
 
 // pipe_error.c
-int		error(int errnum, char *problem);
+int		error(int errnum, char *problem, t_envp *tenvp);
 
 // pipe_utils.c
-char	**path_init(void);
+char	**path_init(t_envp *tenvp);
 char	*ft_path(char *filename, char **path_option);
 void	check_str(int flag, char **new_argv);
 

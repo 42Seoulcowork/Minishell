@@ -14,6 +14,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		str = readline("minishell$ ");
+		tenvp.exit_status = 0;
 		if (!str)
 		{
 			printf("exit\n");

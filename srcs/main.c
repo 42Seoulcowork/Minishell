@@ -15,8 +15,10 @@ int	main(int ac, char **av, char **envp)
 	{
 		str = readline("minishell$ ");
 		if (!str)
+		{
+			printf("exit\n");
 			break ;
-//		printf("%s\n", str);
+		}
 		if (ft_strchr(str, 124))
 			pipex(str, tenvp);
 		else

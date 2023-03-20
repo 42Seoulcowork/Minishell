@@ -14,16 +14,20 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		str = readline("minishell$ ");
-		tenvp.exit_status = 0;
 		if (!str)
 		{
 			printf("exit\n");
 			break ;
 		}
-		if (ft_strchr(str, '|'))
-			pipex(str, tenvp);
+		if (ft_strcmp(str, "echo $?") == 0)
+		{
+			printf("%d\n", tenvp.exit_status);
+			tenvp.exit_status = 0;
+		}
+		else if (ft_strchr(str, '|'))
+			pipex(str, &tenvp);
 		else
-			run_cmd(str, tenvp);
+			run_cmd(str, &tenvp);
 		add_history(str);
 		free(str);
 	}

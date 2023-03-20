@@ -19,7 +19,7 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-		if (ft_strchr(str, 124))
+		if (ft_strchr(str, '|'))
 			pipex(str, tenvp);
 		else
 			run_cmd(str, tenvp);

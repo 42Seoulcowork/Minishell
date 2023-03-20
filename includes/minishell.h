@@ -43,16 +43,16 @@ typedef struct s_envp{
 void	envp_init(t_envp *tenvp, char **envp);
 
 // run_cmd.c
-void	run_cmd(char *str, t_envp tenvp);
+void	run_cmd(char *str, t_envp *tenvp);
 
 // pipe_run.c
-int		pipex(char *str, t_envp tenvp);
+int		pipex(char *str, t_envp *tenvp);
 
 // pipe_pid.c
-char	**exception2(int i, t_envp tenvp);
-char	**exception(int i, t_envp tenvp, char *cmd);
-char	**argv_init(int i, t_envp tenvp);
-void	work_pid(int argc, t_envp tenvp);
+char	**exception2(int i, t_envp *tenvp);
+char	**exception(int i, t_envp *tenvp, char *cmd);
+char	**argv_init(int i, t_envp *tenvp);
+void	work_pid(int argc, t_envp *tenvp);
 
 // pipe_error.c
 int		error(int errnum, char *problem, t_envp *tenvp);

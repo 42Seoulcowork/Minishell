@@ -26,9 +26,7 @@ void	run_cmd(char *cmd, t_envp tenvp)
 			error(RUN_ERROR, new_argv[0]);
 	}
 	else if (pid > 0)
-	{
 		waitpid(pid, &status, 0);
-	}
 	else
 		error(FORK_ERROR, "fork");
 }

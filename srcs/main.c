@@ -11,6 +11,7 @@ int	main(int ac, char **av, char **envp)
 	if (!ft_strcmp(av[0], "minishell"))
 		return (0);
 	envp_init(&tenvp, envp);
+	signal_setting();
 	while (1)
 	{
 		str = readline("minishell$ ");
@@ -28,7 +29,8 @@ int	main(int ac, char **av, char **envp)
 			pipex(str, &tenvp);
 		else
 			run_cmd(str, &tenvp);
-		add_history(str);
+		if (str[0] != '\0')
+			add_history(str);
 		free(str);
 	}
 	return (0);

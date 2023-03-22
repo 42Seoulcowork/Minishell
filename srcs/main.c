@@ -11,7 +11,7 @@ int	main(int ac, char **av, char **envp)
 	if (!ft_strcmp(av[0], "minishell"))
 		return (0);
 	envp_init(&tenvp, envp);
-	signal_setting();
+	//signal_setting();
 	while (1)
 	{
 		str = readline("minishell$ ");

@@ -1,0 +1,14 @@
+ADD_EXECUTABLE(
+        minishell
+        builtin_func.c
+        envp_init.c
+        main.c
+        parsing_start.c
+        pipe_error.c
+        pipe_pid.c
+        pipe_run.c
+        pipe_split_set.c
+        pipe_utils.c
+        run_cmd.c
+        signal_func.c
+)

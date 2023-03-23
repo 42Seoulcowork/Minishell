@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g
 
 INC = -I./includes/
 
@@ -41,7 +41,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(NAME): $(OBJS)
 	@make -C lib
-	@$(CC) $(CFLAG) $(LIB_FLAG) $(R_FLAG) $^ -o $@
+	@$(CC) $(CFLAG) $^ $(LIB_FLAG) $(R_FLAG) -o $@ # ubuntu는 object 파일이 라이브러리보다 앞에 있어야 한다.
 	@printf	"Get Ready for the Minishell\n"
 
 clean :

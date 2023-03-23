@@ -275,5 +275,6 @@ tags
 
 ### 우리가 만든 실행 파일
 minishell
+*/CMakeLists.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,visualstudiocode,clion,macos,linux,cmake

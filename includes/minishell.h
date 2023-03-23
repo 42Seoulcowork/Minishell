@@ -31,6 +31,8 @@ typedef enum s_erroridx {
 }	t_erroridx;
 
 typedef struct s_envp{
+	int		stdin_dup;
+	int		stdout_dup;
 	int 	exit_status;
 	int		argc;
 	char	**argv;

@@ -81,6 +81,19 @@ void	pipex(char *str, t_envp *tenvp)
 	status = working_pid(tenvp);
 	if (WIFEXITED(status))
 		tenvp->exit_status = WEXITSTATUS(status);
-	else
-		exit(1); // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
+	else // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
+	{
+		if (WIFSIGNALED(status))
+		{
+			ft_putnbr_fd(WTERMSIG(status), 2);
+			ft_putstr_fd("  시그널에 의한 비정상 종료\n", 2);
+		}
+		else if (WIFSTOPPED(status))
+		{
+			ft_putnbr_fd(WSTOPSIG(status), 2);
+			ft_putstr_fd("  강제 종료에 의한 비정상 종료\n", 2);
+		}
+		else
+			ft_putstr_fd("하하하 왜 에러일까요, 알아맞춰주세요\n", 2);
+	}
 }

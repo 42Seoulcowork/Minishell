@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+static void	fd_handler(int fds[], t_envp *tenvp)
+{
+	close(fds[0]);
+	close(fds[1]);
+	dup2(tenvp->stdin_dup, STDIN_FILENO);
+	dup2(tenvp->stdout_dup, STDOUT_FILENO);
+	close(tenvp->stdin_dup);
+	close(tenvp->stdout_dup);
+}
+
 static int	working_pid(t_envp *tenvp)
 {
 	int		fds[2];
@@ -12,11 +22,6 @@ static int	working_pid(t_envp *tenvp)
 	{
 		if (pipe(fds) == -1)
 			error(PIPE_ERROR, "pipe", tenvp);
-		if (i == tenvp->argc - 1)
-		{
-			close(fds[0]);
-			close(fds[1]);
-		}
 		if (tenvp->exit_status)
 			break ;
 		pid = fork();
@@ -47,6 +52,7 @@ static int	working_pid(t_envp *tenvp)
 			}
 		}
 	}
+	fd_handler(fds, tenvp);
 	return (status);
 }
 
@@ -70,6 +76,8 @@ void	pipex(char *str, t_envp *tenvp)
 	i = -1;
 	while (++i < tenvp->argc)
 		tenvp->argv[i] = ft_strtrim(tenvp->argv[i], " 	");
+	tenvp->stdin_dup = dup(STDIN_FILENO); // TODO dup도 오류 처리를 해주긴 해야할텐데...
+	tenvp->stdout_dup = dup(STDOUT_FILENO); // TODO dup도 오류 처리를 해주긴 해야할텐데...
 	status = working_pid(tenvp);
 	if (WIFEXITED(status))
 		tenvp->exit_status = WEXITSTATUS(status);

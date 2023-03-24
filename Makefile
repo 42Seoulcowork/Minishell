@@ -14,24 +14,28 @@ LIB_FLAG = -Llib -lft
 # > ${HOME} 환경변수를 이용해서 경로 부분이 자동으로 치환되게끔 하자.
 # > brew로 readline을 설치한 맥이라면 어디서든 경로를 잘 찾을 수 있을 것이다.
 
-SRC = main.c \
-	  envp_init.c \
-	  run_cmd.c \
-	  pipe_run.c \
-	  pipe_pid.c \
-	  pipe_utils.c \
-	  pipe_error.c \
-	  pipe_split_set.c
+SRC = main.c
+
+SRC_EXC = envp_init.c \
+		  run_cmd.c \
+		  pipe_run.c \
+		  pipe_pid.c \
+		  pipe_utils.c \
+		  pipe_error.c \
+		  pipe_split_set.c
+#SRC_PAR =
 
 OBJ = $(SRC:.c=.o)
 
 SRC_DIR = ./srcs/
+SRC_EXC_DIR = ./srcs/execute/
+SRC_PAR_DIR = ./srcs/parser/
 
-OBJ_DIR := ./objs/
+OBJ_DIR = ./objs/
 
-SRCS = $(addprefix $(SRC_DIR), $(SRC))
+SRCS = $(addprefix $(SRC_DIR), $(SRC)) $(addprefix $(SRC_EXC_DIR), $(SRC_EXC))
 
-OBJS := $(addprefix $(OBJ_DIR), $(OBJ))
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
 
 all : $(NAME)
 

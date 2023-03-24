@@ -6,11 +6,13 @@
 /*   By: subinlee <subinlee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:34:19 by subinlee          #+#    #+#             */
-/*   Updated: 2023/03/24 21:31:27 by subinlee         ###   ########.fr       */
+/*   Updated: 2023/03/24 22:13:26 by subinlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// #include "minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 // Header에 추가
 
@@ -84,72 +86,80 @@ t_cmdline	dequeue(t_queue *queue)
 	return (tmp_cmdline);
 }
 
-// #include <stdio.h>
+int	main()
+{
+	int			i;
+	t_node		*tmp;
+	t_queue		q;
+	t_cmdline	c1;
+	t_cmdline	c2;
+	t_cmdline	c3;
 
-// int	main()
-// {
-// 	t_queue	q;
-// 	t_cmdline	c1;
-// 	t_cmdline	c2;
-// 	t_cmdline	c3;
+	init_queue(&q);
 
-// 	init_queue(&q);
+	c1.path = "ls";
+	c1.cmd = (char **)malloc(sizeof(char *) * 4);
+	c1.cmd[0] = "ls";
+	c1.cmd[1] = "a";
+	c1.cmd[2] = "l";
+	c1.cmd[3] = NULL; // TODO
+	c1.rdr.type = "<<";
+	c1.rdr.file_name = "a";
 
-// 	c1.path = "ls";
-// 	c1.cmd = (char **)malloc(sizeof(char *) * 3);
-// 	c1.cmd[0] = "ls";
-// 	c1.cmd[1] = "a";
-// 	c1.cmd[2] = "l";
-// 	c1.rdr.type = "<<";
-// 	c1.rdr.file_name = "a";
+	c2.path = "grep";
+	c2.cmd = (char **)malloc(sizeof(char *) * 3);
+	c2.cmd[0] = "grep";
+	c2.cmd[1] = "\"\"";
+	c2.cmd[2] = NULL; // TODO
 
-// 	c2.path = "grep";
-// 	c2.cmd = (char **)malloc(sizeof(char *) * 2);
-// 	c2.cmd[0] = "grep";
-// 	c2.cmd[1] = "\"\"";
+	c3.path = "cat";
+	c3.cmd = (char **)malloc(sizeof(char *) * 2);
+	c3.cmd[0] = "cat";
+	c3.cmd[1] = NULL; // TODO
 
-// 	c3.path = "cat";
-// 	c3.cmd = (char **)malloc(sizeof(char *) * 1);
-// 	c3.cmd[0] = "cat";
+	enqueue(&q, c1);
+	enqueue(&q, c2);
+	enqueue(&q, c3);
 
-// 	enqueue(&q, c1);
-// 	enqueue(&q, c2);
-// 	enqueue(&q, c3);
+	tmp = q.front;
+	while (tmp)
+	{
+		printf("PATH: {%s}\n", tmp->cmdline.path);
+		printf("CMD: ");
+		i = 0;
+		while(tmp->cmdline.cmd[i])
+		{
+			printf("{%s}->", tmp->cmdline.cmd[i]);
+			i++;
+		}
+		printf("{NULL}\n");
+		printf("RDR TYPE: {%s}\n", tmp->cmdline.rdr.type);
+		printf("RDR FILE NAME: {%s}\n", tmp->cmdline.rdr.file_name);
+		printf("\n");
+		tmp = tmp->next;
+	}
 
-// 	printf("*** ENQUEUE ***\n");
-// 	printf("c1 path {%s}\n", c1.path);
-// 	printf("c1 cmd {%s}->{%s}->{%s}\n", c1.cmd[0], c1.cmd[1], c1.cmd[2]);
-// 	printf("c1 rdr type {%s}\n", c1.rdr.type);
-// 	printf("c1 rdr file name {%s}\n", c1.rdr.file_name);
-// 	printf("\n");
-// 	printf("c2 path {%s}\n", c2.path);
-// 	printf("c2 cmd {%s}->{%s}\n", c2.cmd[0], c2.cmd[1]);
-// 	printf("c2 rdr type {%s}\n", c2.rdr.type);
-// 	printf("c2 rdr file name {%s}\n", c2.rdr.file_name);
-// 	printf("\n");
-// 	printf("c3 path {%s}\n", c3.path);
-// 	printf("c3 cmd {%s}\n", c3.cmd[0]);
-// 	printf("c3 rdr type {%s}\n", c3.rdr.type);
-// 	printf("c3 rdr file name {%s}\n", c3.rdr.file_name);
+	dequeue(&q);
+	dequeue(&q);
 
-// 	dequeue(&q);
-// 	dequeue(&q);
+	printf("\n");
+	tmp = q.front;
+	while (tmp)
+	{
+		printf("PATH: {%s}\n", tmp->cmdline.path);
+		printf("CMD: ");
+		i = 0;
+		while(tmp->cmdline.cmd[i])
+		{
+			printf("{%s}->", tmp->cmdline.cmd[i]);
+			i++;
+		}
+		printf("{NULL}\n");
+		printf("RDR TYPE: {%s}\n", tmp->cmdline.rdr.type);
+		printf("RDR FILE NAME: {%s}\n", tmp->cmdline.rdr.file_name);
+		printf("\n");
+		tmp = tmp->next;
+	}
 
-// 	printf("*** DEQUEUE ***\n");
-// 	printf("c1 path {%s}\n", c1.path);
-// 	printf("c1 cmd {%s}->{%s}->{%s}\n", c1.cmd[0], c1.cmd[1], c1.cmd[2]);
-// 	printf("c1 rdr type {%s}\n", c1.rdr.type);
-// 	printf("c1 rdr file name {%s}\n", c1.rdr.file_name);
-// 	printf("\n");
-// 	printf("c2 path {%s}\n", c2.path);
-// 	printf("c2 cmd {%s}->{%s}\n", c2.cmd[0], c2.cmd[1]);
-// 	printf("c2 rdr type {%s}\n", c2.rdr.type);
-// 	printf("c2 rdr file name {%s}\n", c2.rdr.file_name);
-// 	printf("\n");
-// 	printf("c3 path {%s}\n", c3.path);
-// 	printf("c3 cmd {%s}\n", c3.cmd[0]);
-// 	printf("c3 rdr type {%s}\n", c3.rdr.type);
-// 	printf("c3 rdr file name {%s}\n", c3.rdr.file_name);
-
-// 	return (0);
-// }
+	return (0);
+}

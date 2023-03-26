@@ -39,11 +39,85 @@ declare -x {KEY}={VALUE}
 환경변수 {KEY} 값의 첫번째 글자에는 '_' 나 영어만 올 수 있다.
 이미 선언되어 있는 환경변수를 {KEY}로 하는 경우 해당 환경변수의 {VALUE}를 변경한다.
 
+만약 export 뒤에 인자를 넣으면 쉘이 꺼지기 전까지만 저장되는 환경변수를 생성한다.
+
+```shell
+> export water
+> export
+...
+...
+...
+declare -x water=""
+```
+
+`export {KEY}={VALUE}` 형식으로 입력하면 환경변수가 입력된다.
+만약 두 개 이상의 환경변수를 생성하고 싶다면 나열해서 쓰면 된다.
+
+```shell
+> export water=a fire="b" wind=23 air=f4a55 void
+> export
+declare -x air="f4a55"
+declare -x fire="b"
+declare -x void
+declare -x water="a"
+declare -x wind="23"
+```
+
+만약 {KEY}와 '=' 사이에 공백이 있다면 에러를 출력한다.
+
+```shell
+> export water =bb
+bash: export: '=bb': not a valid identifier
+> echo $?
+1
+```
+
+하지만 '='와 {VALUE} 사이의 공백은 에러로 출력하지 않는다.
+
+```shell
+> export water= bb
+> export
+declare -x bb
+declare -x water=""
+```
+
 ## 4. unset
 
+`unset` 은 쉘 환경에서 변수를 제거하는 명령어이다.
+
+```shell
+> str="hello world"
+> echo $str
+hello world
+> unset str
+> echo $str
+
+>
+```
+
+이때, str은 환경변수엔 저장되지 않는다.
+
+만약 지정되지 않은 변수를 입력하면 아무것도 하지 않는다.
+또한 지정되지 않은 변수를 echo로 출력하면 unset된 변수와 같이 빈 칸을 출력한다.
+
+```shell
+> unset a b asdf # a와 b는 지정되지 않은 변수
+> echo $a
+
+>
+```
 
 ## 5. env
 
+`env` 명령어는 현재 환경을 표시하거나 명령 실행을 위한 환경을 설정한다.
+
+만약 플래그나 매개변수가 없다면 다음과 같은 형식으로 환경변수를 출력한다.
+
+```shell
+{NAME}={VALUE}
+```
+
+`export` 처럼 정렬되진 않는다. 순서가 무엇인진 잘 모르겠다.
 
 ## 6. exit
 

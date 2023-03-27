@@ -1,0 +1,16 @@
+{
+	"files.associations": {
+		"*.c": "c",
+		"string": "c",
+		"__split_buffer": "c",
+		"array": "c",
+		"string_view": "c",
+		"vector": "c",
+		"__hash_table": "c",
+		"bitset": "c",
+		"initializer_list": "c",
+		"unordered_map": "c",
+		"utility": "c",
+		"sstream": "c"
+	}
+}

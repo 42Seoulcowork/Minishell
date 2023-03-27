@@ -1,5 +1,6 @@
 - **POSIX** (IEEE Std 1003.1-2017) **Shell Manual translate** by DeepL
     
+    [notion 정리] (https://brassy-plate-60f.notion.site/Minishell-07bcbfdcebf949688b827bdd36940bf9)
     [POSIX shell manual](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_07)
     
     - **2.1 Shell Introduction**

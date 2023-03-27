@@ -45,6 +45,7 @@ typedef struct s_envp{
 void	ft_pwd(void);
 void 	ft_exit(char **args);
 void	ft_echo(char **args);
+void	ft_env(char **envp);
 
 /* execute */
 // envp_init.c

@@ -32,6 +32,8 @@ int main(int ac, char **av, char **envp)
 			ft_pwd();
 		else if (ft_strncmp(str, "exit ", 5) == 0 || ft_strcmp(str, "exit") == 0)
 			ft_exit(ft_split(str, ' ')); // TODO 실제로는 토큰화되서 넘어올 것
+		else if (ft_strcmp(str, "env") == 0)
+			ft_env(envp);
 		else
 			run_cmd(str, &tenvp);
 		if (str[0] != '\0')

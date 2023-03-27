@@ -24,9 +24,10 @@ SRC =	main.c \
 		execute/pipe_utils.c \
 		execute/pipe_error.c \
 		execute/pipe_split_set.c \
-		bulit_in/ft_pwd.c \
-		bulit_in/ft_exit.c \
-		bulit_in/ft_echo.c \
+		built_in/ft_pwd.c \
+		built_in/ft_exit.c \
+		built_in/ft_echo.c \
+		built_in/ft_env.c \
 #		parser/tokenize.c \
 #		parser/token_utils.c \
 

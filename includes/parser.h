@@ -47,7 +47,6 @@ t_parsed_data	tokenize(char *input);
 t_token			*create_new_token(char *cmd, t_redir *rdirs);
 t_token			*create_token(char **cmd, t_redir *rdirs);
 void			init_tokenizer(t_parsed_data *data, t_token **token);
-void			init_data(t_parsed_data *data);
 void			print_queue(t_parsed_data *queue);
 void			enqueue(t_parsed_data *data, t_token *token);
 t_token			*tokendequeue(t_parsed_data *data);

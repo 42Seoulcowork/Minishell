@@ -23,7 +23,9 @@ static char	*get_word(char **line)
 
 void	init_tokenizer(t_parsed_data *data, t_token **token)
 {
-	init_data(data);
+	data->size = 0;
+	data->front = NULL;
+	data->rear = NULL;
 	*token = NULL;
 }
 
@@ -55,7 +57,10 @@ t_parsed_data	tokenize(char *input)
 		if (ft_isspace(*input))
 			input++;
 		else if (*input == '|')
+		{
 			enqueue(&data, create_new_token(ft_strdup("|"), NULL));
+			input++;
+		}
 		else if (*input == '<' || *input == '>')
 		{
 			printf("redirect 구현해야댐\n");

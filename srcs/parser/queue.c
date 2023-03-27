@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 void	init_queue(t_queue *queue)

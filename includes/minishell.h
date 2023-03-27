@@ -41,6 +41,12 @@ typedef struct s_envp{
 	pid_t	main_pid;
 }			t_envp;
 
+/* built_in */
+void	ft_pwd(void);
+void 	ft_exit(char **args);
+void	ft_echo(char **args);
+
+/* execute */
 // envp_init.c
 void	envp_init(t_envp *tenvp, char **envp);
 

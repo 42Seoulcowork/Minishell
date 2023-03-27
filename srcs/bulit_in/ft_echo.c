@@ -16,7 +16,7 @@ static int	check_echo_option(char **args)
 	return (i);
 }
 
-void	echo(char **args)// args는 node.cmdline.cmd
+void	ft_echo(char **args)// args는 node.cmdline.cmd
 {
 	int	i;// int? or size_t?
 	int	j;
@@ -24,7 +24,7 @@ void	echo(char **args)// args는 node.cmdline.cmd
 
 	if (!args[1])
 	{
-		write(1, "\n", 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		return ;
 	}
 	option_flag = check_echo_option(args);

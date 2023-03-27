@@ -1,15 +1,5 @@
 #include "minishell.h"
 
-void	init_data(t_parsed_data *data)
-{
-	data = (t_parsed_data *)malloc(sizeof(t_parsed_data));
-	if (!data)
-		return ;
-	data->size = 0;
-	data->front = NULL;
-	data->rear = NULL;
-}
-
 t_token	*create_token(char **cmd, t_redir *rdirs)
 {
 	t_token	*token;
@@ -25,6 +15,11 @@ t_token	*create_token(char **cmd, t_redir *rdirs)
 
 void	enqueue(t_parsed_data *data, t_token *token)
 {
+	int		i;
+	t_token	*tmp;
+
+	i = 0;
+	tmp = data->front;
 	if (data->rear == NULL)
 	{
 		data->front = token;
@@ -32,8 +27,11 @@ void	enqueue(t_parsed_data *data, t_token *token)
 	}
 	else
 	{
-		data->rear->next = token;
-		data->rear = token;
+		while (++i < data->size)
+			tmp = tmp->next;
+		tmp->next = token;
+//		data->rear = token;
+//		data->rear->next = token;
 	}
 	data->size++;
 }

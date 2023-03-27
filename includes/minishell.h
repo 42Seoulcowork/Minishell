@@ -41,6 +41,33 @@ typedef struct s_envp{
 	pid_t	main_pid;
 }			t_envp;
 
+typedef struct	s_rdr
+{
+	char	*type;
+	char	*file_name;
+}	t_rdr;
+
+typedef struct	s_cmdline // TODO 파싱 구조 설계
+{
+	char			*path;
+	char			**cmd;
+	struct s_rdr	rdr;
+}	t_cmdline;
+
+typedef struct	s_node
+{
+	struct s_cmdline	cmdline;
+	// struct s_node		*prev; // TODO 단방향으로 일단 구현함
+	struct s_node		*next;
+}	t_node;
+
+typedef struct s_queue
+{
+	int				size;
+	struct s_node	*front;
+	struct s_node	*rear;
+}	t_queue;
+
 // envp_init.c
 void	envp_init(t_envp *tenvp, char **envp);
 

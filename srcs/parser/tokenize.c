@@ -21,63 +21,52 @@ static char	*get_word(char **line)
 	return (word);
 }
 
-static void	add_token(t_token *tokens, t_token *new)
+void	init_tokenizer(t_parsed_data *data, t_token **token)
 {
-	t_token	*tmp;
-
-	if (!tokens)
-	{
-		tokens = new;
-		return ;
-	}
-	tmp = tokens;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
+	init_data(data);
+	*token = NULL;
 }
 
-t_token	*create_token(char *str, t_ttype type, t_rtype rtype, char *rfile)
+t_token	*create_new_token(char *cmd, t_redir *rdirs)
 {
-	t_token	*ret;
+	char	**tokens;
+	t_token	*new_token;
 
-	ret = (t_token *)ft_calloc(1, sizeof(t_token));
-	if (!ret)
+	if (!cmd || !*cmd)
 		return (NULL);
-	ret->str = str;
-	ret->type = type;
-	ret->redir_type = rtype;
-	ret->redir_file = rfile;
-	ret->next = NULL;
-	return (ret);
+	tokens = ft_split(cmd, ' ');
+	new_token = create_token(tokens, rdirs);
+	free(cmd);
+	return (new_token);
 }
 
-t_token	*tokenize(char *str)
+t_parsed_data	tokenize(char *input)
 {
-	t_token	*ret;
-	t_token	*token;
-	char	*tmp;
+	t_token			*token;
+	t_parsed_data	data;
+	t_redir			*rdirs;
 
-	tmp = ft_strdup(str);
-	ret = create_token(NULL, T_NEWLINE, 0, NULL);
-	while (*tmp)
+	init_tokenizer(&data, &token);
+	if (!input)
+		return (data);
+	rdirs = NULL;
+	while (*input)
 	{
-		if (ft_isspace(*tmp))
-			tmp++;
-		else if (is_metachar(*tmp))
+		if (ft_isspace(*input))
+			input++;
+		else if (*input == '|')
+			enqueue(&data, create_new_token(ft_strdup("|"), NULL));
+		else if (*input == '<' || *input == '>')
 		{
-			token = create_token(ft_substr(tmp, 0, 1), \
-				(t_ttype)(*tmp)++, 0, NULL);
-			add_token(ret, token);
+			printf("redirect 구현해야댐\n");
 		}
-		else if (*tmp == '\'' || *tmp == '\"')
-			printf("quote 처리해야댐\n");
 		else
 		{
-			token = create_token(get_word(&tmp), T_WORD, 0, NULL);
-			add_token(ret, token);
+			token = create_new_token(get_word(&input), rdirs);
+			if (token)
+				enqueue(&data, token);
+			rdirs = NULL;
 		}
 	}
-	token = create_token(NULL, T_EOF, 0, NULL);
-	add_token(ret, token);
-	return (ret);
+	return (data);
 }

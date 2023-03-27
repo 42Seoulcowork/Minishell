@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-typedef enum e_ttype
+typedef enum e_token_type
 {
 	T_WORD,
 	T_PIPE,
@@ -11,52 +11,46 @@ typedef enum e_ttype
 	T_SEMICOLON,
 	T_NEWLINE,
 	T_EOF,
-}	t_ttype;
+}	t_token_type;
 
-typedef enum e_rtype
+typedef enum e_redir_type
 {
 	RE_INPUT,
 	RE_OUTPUT,
 	RE_APPEND,
 	RE_HERE,
-}	t_rtype;
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	int					target_fd;
+	char				*file_name;
+	enum e_redir_type	redir_type;
+	struct s_redir		*next;
+}	t_redir;
 
 typedef struct s_token
 {
-	char			*str;
-	enum e_ttype	type;
-	char			*redir_file;
-	enum e_rtype	redir_type;
-	struct s_token	*next;
+	char				**cmd;
+	struct s_redir		*rdirs;
+	struct s_token		*next;
 }	t_token;
 
-typedef struct s_rdr
-{
-	char	*type;
-	char	*file_name;
-}	t_rdr;
-
-typedef struct s_cmdline
-{
-	char			*path;
-	char			**cmd;
-	struct s_rdr	rdr;
-}	t_cmdline;
-
-typedef struct s_node
-{
-	struct s_cmdline	cmdline;
-	struct s_node		*next;
-}	t_node;
-
-typedef struct s_queue
+typedef struct s_parsed_data
 {
 	int				size;
-	struct s_node	*front;
-	struct s_node	*rear;
-}	t_queue;
+	struct s_token	*front;
+	struct s_token	*rear;
+}	t_parsed_data;
 
-t_token	*tokenize(char *str);
-void	print_tokens(t_token *tokens);
+t_parsed_data	tokenize(char *input);
+t_token			*create_new_token(char *cmd, t_redir *rdirs);
+t_token			*create_token(char **cmd, t_redir *rdirs);
+void			init_tokenizer(t_parsed_data *data, t_token **token);
+void			init_data(t_parsed_data *data);
+void			print_queue(t_parsed_data *queue);
+void			enqueue(t_parsed_data *data, t_token *token);
+t_token			*tokendequeue(t_parsed_data *data);
+t_parsed_data	*parsing(char *str);
 
 #endif

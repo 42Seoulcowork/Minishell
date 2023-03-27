@@ -1,44 +1,51 @@
 #include "minishell.h"
 
-void	init_queue(t_queue *queue)
+void	init_data(t_parsed_data *data)
 {
-	queue->size = 0;
-	queue->front = NULL;
-	queue->rear = NULL;
-}
-
-void	enqueue(t_queue *queue, t_cmdline cmdline)
-{
-	t_node	*new;
-
-	new = (t_node *)malloc(sizeof(t_node));
-	if (!new)
+	data = (t_parsed_data *)malloc(sizeof(t_parsed_data));
+	if (!data)
 		return ;
-	new->cmdline.path = cmdline.path;
-	new->cmdline.cmd = cmdline.cmd;
-	new->cmdline.rdr = cmdline.rdr;
-	new->next = NULL;
-	if (queue->size == 0)
-		queue->front = new;
-	else
-		queue->rear->next = new;
-	queue->rear = new;
-	(queue->size)++;
+	data->size = 0;
+	data->front = NULL;
+	data->rear = NULL;
 }
 
-t_cmdline	dequeue(t_queue *queue)
+t_token	*create_token(char **cmd, t_redir *rdirs)
 {
-	t_node		*tmp_node;
-	t_cmdline	tmp_cmdline;
+	t_token	*token;
 
-	if (queue->size == 0)
-		return (tmp_cmdline);
-	tmp_node = queue->front;
-	tmp_cmdline.path = tmp_node->cmdline.path;
-	tmp_cmdline.cmd = tmp_node->cmdline.cmd;
-	tmp_cmdline.rdr = tmp_node->cmdline.rdr;
-	queue->front = tmp_node->next;
-	free(tmp_node);
-	(queue->size)--;
-	return (tmp_cmdline);
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->cmd = cmd;
+	token->rdirs = rdirs;
+	token->next = NULL;
+	return (token);
+}
+
+void	enqueue(t_parsed_data *data, t_token *token)
+{
+	if (data->rear == NULL)
+	{
+		data->front = token;
+		data->rear = token;
+	}
+	else
+	{
+		data->rear->next = token;
+		data->rear = token;
+	}
+	data->size++;
+}
+
+t_token	*tokendequeue(t_parsed_data *data)
+{
+	t_token	*token_tmp;
+
+	if (data->size == 0)
+		return (NULL);
+	token_tmp = data->front;
+	data->front = token_tmp->next;
+	(data->size)--;
+	return (token_tmp);
 }

@@ -40,6 +40,8 @@ int	main(int ac, char **av, char **envp)
 			ft_exit(ft_split(str, ' ')); // TODO 토큰을 사용하도록 변경해야 함
 		else if (ft_strcmp(str, "env") == 0)
 			ft_env(envp);
+		else if (ft_strncmp(str, "cd ", 3) == 0 || ft_strcmp(str, "cd") == 0)
+			ft_cd(ft_split(str, ' '), &tenvp);
 		else
 			run_cmd(str, &tenvp);
 		if (str[0] != '\0')

@@ -48,6 +48,7 @@ void	ft_pwd(void);
 void 	ft_exit(char **args);
 void	ft_echo(char **args);
 void	ft_env(char **envp);
+void	ft_cd(char **argv, t_envp *tenvp);
 
 /* execute */
 void	envp_init(t_envp *tenvp, char **envp);

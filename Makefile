@@ -17,6 +17,7 @@ LIB_FLAG = -Llib -lft
 # > brew로 readline을 설치한 맥이라면 어디서든 경로를 잘 찾을 수 있을 것이다.
 
 SRC =	main.c \
+		execute/execute.c \
 		execute/envp_init.c \
 		execute/run_cmd.c \
 		execute/pipe_run.c \
@@ -24,6 +25,7 @@ SRC =	main.c \
 		execute/pipe_utils.c \
 		execute/pipe_error.c \
 		execute/pipe_split_set.c \
+		built_in/ft_cd.c \
 		built_in/ft_pwd.c \
 		built_in/ft_exit.c \
 		built_in/ft_echo.c \

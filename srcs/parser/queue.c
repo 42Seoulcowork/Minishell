@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   queue.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: subinlee <subinlee@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 11:34:19 by subinlee          #+#    #+#             */
-/*   Updated: 2023/03/27 09:28:31 by subinlee         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -22,7 +11,7 @@ void	init_queue(t_queue *queue)
 void	enqueue(t_queue *queue, t_cmdline cmdline)
 {
 	t_node	*new;
-	
+
 	new = (t_node *)malloc(sizeof(t_node));
 	if (!new)
 		return ;

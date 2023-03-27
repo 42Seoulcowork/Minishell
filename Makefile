@@ -23,8 +23,9 @@ SRC =	main.c \
 		execute/pipe_pid.c \
 		execute/pipe_utils.c \
 		execute/pipe_error.c \
-		execute/pipe_split_set.c
-
+		execute/pipe_split_set.c \
+		parser/tokenize.c \
+		parser/token_utils.c \
 
 SRC_DIR = ./srcs/
 

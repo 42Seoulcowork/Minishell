@@ -4,6 +4,7 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*str;
 	t_envp	tenvp;
+	t_token	*tokens;
 
 	// ft_basic_signal();
 	if (ac != 1)
@@ -20,6 +21,10 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
+		tokens = tokenize(str);
+		if (tokens == NULL)
+			printf("No tokens");
+		print_tokens(tokens);
 		if (ft_strcmp(str, "echo $?") == 0)
 		{
 			printf("%d\n", tenvp.exit_status);

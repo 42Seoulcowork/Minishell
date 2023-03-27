@@ -16,8 +16,6 @@
 # include <term.h>
 # include "../lib/libft.h"
 
-# include "parser.h"
-
 # define READ_END 0
 # define WRITE_END 1
 
@@ -35,7 +33,7 @@ typedef enum s_erroridx {
 typedef struct s_envp{
 	int		stdin_dup;
 	int		stdout_dup;
-	int		exit_status;
+	int 	exit_status;
 	int		argc;
 	char	**argv;
 	char	**paths;
@@ -43,7 +41,13 @@ typedef struct s_envp{
 	pid_t	main_pid;
 }			t_envp;
 
+/* built_in */
+void	ft_pwd(void);
+void 	ft_exit(char **args);
+void	ft_echo(char **args);
+void	ft_env(char **envp);
 
+/* execute */
 // envp_init.c
 void	envp_init(t_envp *tenvp, char **envp);
 

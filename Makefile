@@ -23,7 +23,8 @@ SRC =	main.c \
 		execute/pipe_pid.c \
 		execute/pipe_utils.c \
 		execute/pipe_error.c \
-		execute/pipe_split_set.c
+		execute/pipe_split_set.c \
+		execute/bulitin_func.c \
 		bulit_in/ft_pwd.c \
 		built_in/ft_exit.c \
 		parser/tokenize.c \

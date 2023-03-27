@@ -16,6 +16,8 @@
 # include <term.h>
 # include "../lib/libft.h"
 
+# include "parser.h"
+
 # define READ_END 0
 # define WRITE_END 1
 
@@ -48,30 +50,17 @@ void	ft_echo(char **args);
 void	ft_env(char **envp);
 
 /* execute */
-// envp_init.c
 void	envp_init(t_envp *tenvp, char **envp);
-
-// run_cmd.c
 void	run_cmd(char *str, t_envp *tenvp);
-
-// pipe_run.c
 void	pipex(char *str, t_envp *tenvp);
-
-// pipe_pid.c
 char	**exception2(int i, t_envp *tenvp);
 char	**exception(int i, t_envp *tenvp, char *cmd);
 char	**argv_init(int i, t_envp *tenvp);
 void	work_pid(int argc, t_envp *tenvp);
-
-// pipe_error.c
 void	error(int errnum, char *problem, t_envp *tenvp);
-
-// pipe_utils.c
 char	**path_init(t_envp *tenvp);
 char	*ft_path(char *filename, char **path_option);
 void	check_str(int flag, char **new_argv);
-
-// pipe_split_set.c
 char	**ft_split_set(char *str, char *charset);
 
 #endif

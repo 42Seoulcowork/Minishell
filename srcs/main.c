@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		}
 		parsed_data = parsing(str);
-		print_queue(parsed_data);
+//		print_queue(parsed_data);
 		if (ft_strcmp(str, "echo $?") == 0)
 		{
 			printf("%d\n", tenvp.exit_status);

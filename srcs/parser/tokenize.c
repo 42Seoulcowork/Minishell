@@ -64,6 +64,7 @@ t_parsed_data	tokenize(char *input)
 		else if (*input == '<' || *input == '>')
 		{
 			printf("redirect 구현해야댐\n");
+			input++;
 		}
 		else
 		{

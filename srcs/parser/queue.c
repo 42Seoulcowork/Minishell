@@ -13,7 +13,7 @@ t_token	*create_token(char **cmd, t_redir *rdirs)
 	return (token);
 }
 
-void	enqueue(t_parsed_data *data, t_token *token)
+void	enqueue(t_p_data *data, t_token *token)
 {
 	if (data->front == NULL)
 	{
@@ -28,7 +28,7 @@ void	enqueue(t_parsed_data *data, t_token *token)
 	data->size++;
 }
 
-t_token	*dequeue(t_parsed_data *data)
+t_token	*dequeue(t_p_data *data)
 {
 	t_token	*token_tmp;
 

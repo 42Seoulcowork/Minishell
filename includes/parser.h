@@ -10,7 +10,7 @@ typedef enum e_token_type
 	T_REDIR_APPEND,
 	T_SEMICOLON,
 	T_NEWLINE,
-	T_EOF,
+	T_EOF
 }	t_token_type;
 
 typedef enum e_r_type
@@ -18,8 +18,20 @@ typedef enum e_r_type
 	RE_INPUT,
 	RE_HERE,
 	RE_OUTPUT,
-	RE_APPEND,
+	RE_APPEND
 }	t_r_type;
+
+typedef enum e_c_type
+{
+	EXTERN_FUNC,
+	ECHO_FUNC,
+	CD_FUNC,
+	PWD_FUNC,
+	EXPORT_FUNC,
+	UNSETv,
+	ENV_FUNC,
+	EXIT_FUNC
+}	t_c_type;
 
 typedef struct s_redir
 {
@@ -32,6 +44,7 @@ typedef struct s_redir
 typedef struct s_token
 {
 	char			**cmd;
+	enum e_c_type	cmd_type;
 	t_redir			*rdirs;
 	struct s_token	*next;
 }	t_token;
@@ -44,7 +57,7 @@ typedef struct s_p_data
 }	t_p_data;
 
 t_p_data	tokenize(char *input);
-t_p_data	*parsing(char *str);
+void		parsing(char *str, t_p_data *pdata);
 t_token		*create_token(char **cmd, t_redir *rdirs);
 t_token		*create_new_token(char *cmd, t_redir *rdirs);
 

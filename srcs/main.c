@@ -1,13 +1,11 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	main(int ac, char **av, char **envp)
 {
-	char			*str;
-	t_envp			tenvp;
-	t_parsed_data	*parsed_data;
-	t_env_node  	*head;
-
-	// ft_basic_signal();
+	char		*str;
+	t_envp		tenvp;
+	t_p_data	*parsed_data;
+	t_env_node  *head;
 
 	head = init_node(envp);
 	if (ac != 1)
@@ -24,8 +22,7 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-		parsed_data = parsing(str);
-		// print_queue(parsed_data);
+		parsing(str, parsed_data);
 		if (ft_strcmp(str, "echo $?") == 0)
 		{
 			printf("%d\n", tenvp.exit_status);

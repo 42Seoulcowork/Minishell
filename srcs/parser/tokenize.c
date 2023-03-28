@@ -25,7 +25,7 @@ static char	*get_word(char **line)
 	return (word);
 }
 
-void	init_tokenizer(t_parsed_data *data, t_token **token)
+void	init_tokenizer(t_p_data *data, t_token **token)
 {
 	data->size = 0;
 	data->front = NULL;
@@ -46,10 +46,10 @@ t_token	*create_new_token(char *cmd, t_redir *rdirs)
 	return (new_token);
 }
 
-t_parsed_data	tokenize(char *input)
+t_p_data	tokenize(char *input)
 {
 	t_token			*token;
-	t_parsed_data	data;
+	t_p_data	data;
 	t_redir			*rdirs;
 
 	init_tokenizer(&data, &token);

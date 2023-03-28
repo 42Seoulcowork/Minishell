@@ -25,7 +25,7 @@ void	print_token(t_token *token)
 		printf("\n");
 }
 
-void	print_queue(t_parsed_data *queue)
+void	print_queue(t_p_data *queue)
 {
 	t_token	*tmp;
 

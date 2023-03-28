@@ -1,0 +1,103 @@
+#include "minishell.h"
+
+t_env_node	*create_node(char *key, char *value)
+{
+	t_env_node	*new_node;
+
+	new_node = malloc(sizeof(t_env_node));
+	if (!new_node)
+		return (NULL);
+	new_node->key = key;
+	new_node->value = value;
+	new_node->next = NULL;
+	return (new_node);
+}
+
+t_env_node	*copy_list(t_env_node *head)
+{
+	t_env_node	*copy_head;
+	t_env_node	*tmp;
+
+	copy_head = create_node(head->key, head->value);
+	tmp = copy_head;
+	head = head->next;
+	while (head != NULL)
+	{
+		tmp->next = create_node(head->key, head->value);
+		tmp = tmp->next;
+		head = head->next;
+	}
+	return (copy_head);
+}
+
+size_t	get_node_len(t_env_node *head)
+{
+	size_t	i;
+
+	i = 0;
+	head = head->next;
+	while (head)
+	{
+		i++;
+		head = head->next;
+	}
+	return (i);
+}
+
+char	**convert_array(t_env_node *head)
+{
+	int		i;
+	char	*tmp;
+	char	**arr;
+
+	i = 0;
+	arr = malloc(sizeof(char *) * (get_node_len(head) + 1));
+	head = head->next;
+	while (head != NULL)
+	{
+		if (head->value)
+		{
+			tmp = ft_strjoin(head->key, "=");
+			arr[i] = ft_strjoin(tmp, head->value);
+			free(tmp);
+		}
+		else
+			arr[i] = ft_strdup(head->key);
+		head = head->next;
+		i++;
+	}
+	arr[i] = NULL;
+	return (arr);
+}
+
+t_env_node	*init_node(char **envp)
+{
+	int			i;
+	char		**tmp;
+	t_env_node	*tmp_node;
+	t_env_node	*head_node;
+
+	i = -1;
+	head_node = create_node(NULL, NULL);
+	tmp_node = head_node;
+	while (envp[++i])
+	{
+		tmp = ft_split(envp[i], '=');
+		if (!ft_strcmp(tmp[0], "OLDPWD"))
+		{
+			tmp[1] = NULL;
+		}
+		tmp_node->next = create_node(tmp[0], tmp[1]);
+		tmp_node = tmp_node->next;
+	}
+	return (head_node);
+}
+
+void	add_node(t_env_node *head, t_env_node *node)
+{
+	while (head->next != NULL)
+	{
+		head = head->next;
+	}
+	head->next = node;
+}

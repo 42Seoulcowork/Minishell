@@ -2,8 +2,8 @@
 
 static void	fd_handler(int fds[], t_envp *tenvp)
 {
-	close(fds[0]);
-	close(fds[1]);
+	close(fds[READ_END]);
+	close(fds[WRITE_END]);
 	dup2(tenvp->stdin_dup, STDIN_FILENO);
 	dup2(tenvp->stdout_dup, STDOUT_FILENO);
 	close(tenvp->stdin_dup);
@@ -31,8 +31,9 @@ static int	working_pid(t_envp *tenvp)
 		{
 			if (i < tenvp->argc - 1)
 			{
-				dup2(fds[1], STDOUT_FILENO);
-				close(fds[0]);
+				dup2(fds[WRITE_END], STDOUT_FILENO);
+				close(fds[WRITE_END]);
+				close(fds[READ_END]);
 			}
 			work_pid(i, tenvp);
 		}
@@ -47,8 +48,9 @@ static int	working_pid(t_envp *tenvp)
 			{
 				if (waitpid(pid, &status, WNOHANG) == -1)
 					error(RUN_ERROR, "pid", tenvp);
-				dup2(fds[0], STDIN_FILENO);
-				close(fds[1]);
+				dup2(fds[READ_END], STDIN_FILENO);
+				close(fds[READ_END]);
+				close(fds[WRITE_END]);
 			}
 		}
 	}

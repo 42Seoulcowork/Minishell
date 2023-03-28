@@ -15,28 +15,20 @@ t_token	*create_token(char **cmd, t_redir *rdirs)
 
 void	enqueue(t_parsed_data *data, t_token *token)
 {
-	int		i;
-	t_token	*tmp;
-
-	i = 0;
-	tmp = data->front;
-	if (data->rear == NULL)
+	if (data->front == NULL)
 	{
 		data->front = token;
 		data->rear = token;
 	}
 	else
 	{
-		while (++i < data->size)
-			tmp = tmp->next;
-		tmp->next = token;
-//		data->rear = token;
-//		data->rear->next = token;
+		data->rear->next = token;
+		data->rear = token;
 	}
 	data->size++;
 }
 
-t_token	*tokendequeue(t_parsed_data *data)
+t_token	*dequeue(t_parsed_data *data)
 {
 	t_token	*token_tmp;
 

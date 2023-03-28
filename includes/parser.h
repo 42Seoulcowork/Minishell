@@ -49,7 +49,7 @@ t_token			*create_token(char **cmd, t_redir *rdirs);
 void			init_tokenizer(t_parsed_data *data, t_token **token);
 void			print_queue(t_parsed_data *queue);
 void			enqueue(t_parsed_data *data, t_token *token);
-t_token			*tokendequeue(t_parsed_data *data);
+t_token			*dequeue(t_parsed_data *data);
 t_parsed_data	*parsing(char *str);
 
 #endif

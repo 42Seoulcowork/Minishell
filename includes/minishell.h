@@ -76,6 +76,6 @@ t_env_node	*init_node(char **envp);
 void		add_node(t_env_node *head, t_env_node *node);
 t_env_node	*copy_list(t_env_node *head);
 char		**convert_array(t_env_node *head);
-void		quick_sort(char **arr, size_t left, size_t right);
+void		quick_sort(char **arr, int left, int right);
 
 #endif

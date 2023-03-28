@@ -103,13 +103,4 @@ void	ft_export(t_env_node *head, char **cmd)
 		}
 		++i;
 	}
-	/*
-	tmp = ft_split(cmd[i], '=');
-	old_key = get_old_key_address(head, tmp[0]);
-	if (old_key == NULL)
-		add_node(head, create_node(tmp[0], tmp[1]));
-	else
-		old_key->value = tmp[1];
-	i++;
-	*/
 }

@@ -48,6 +48,8 @@ char	**convert_array(t_env_node *head)
 {
 	int		i;
 	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 	char	**arr;
 
 	i = 0;
@@ -58,8 +60,12 @@ char	**convert_array(t_env_node *head)
 		if (head->value)
 		{
 			tmp = ft_strjoin(head->key, "=");
-			arr[i] = ft_strjoin(tmp, head->value);
+			tmp2 = ft_strjoin(tmp, "\"");
+			tmp3 = ft_strjoin(tmp2, head->value);
+			arr[i] = ft_strjoin(tmp3, "\"");
 			free(tmp);
+			free(tmp2);
+			free(tmp3);
 		}
 		else
 			arr[i] = ft_strdup(head->key);

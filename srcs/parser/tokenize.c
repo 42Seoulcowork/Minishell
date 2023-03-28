@@ -2,6 +2,10 @@
 
 static int	is_metachar(char c)
 {
+	// - **`metacharacter`**
+    // 따옴표 없이 단어를 구분하는 문자입니다. 메타 문자는 `space`,
+	// `tab`, `newline`또는 다음 문자 중 하나입니다.
+	// '|', '&', ';', '(', ')', '<', 또는 '>'.
 	return (c == '|' || c == '<' || c == '>' || c == ';' || c == '\n');
 }
 

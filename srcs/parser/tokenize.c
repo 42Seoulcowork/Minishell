@@ -2,6 +2,10 @@
 
 static int	is_metachar(char c)
 {
+	// - **`metacharacter`**
+    // 따옴표 없이 단어를 구분하는 문자입니다. 메타 문자는 `space`,
+	// `tab`, `newline`또는 다음 문자 중 하나입니다.
+	// '|', '&', ';', '(', ')', '<', 또는 '>'.
 	return (c == '|' || c == '<' || c == '>' || c == ';' || c == '\n');
 }
 
@@ -23,7 +27,9 @@ static char	*get_word(char **line)
 
 void	init_tokenizer(t_parsed_data *data, t_token **token)
 {
-	init_data(data);
+	data->size = 0;
+	data->front = NULL;
+	data->rear = NULL;
 	*token = NULL;
 }
 
@@ -55,10 +61,14 @@ t_parsed_data	tokenize(char *input)
 		if (ft_isspace(*input))
 			input++;
 		else if (*input == '|')
+		{
 			enqueue(&data, create_new_token(ft_strdup("|"), NULL));
+			input++;
+		}
 		else if (*input == '<' || *input == '>')
 		{
 			printf("redirect 구현해야댐\n");
+			input++;
 		}
 		else
 		{

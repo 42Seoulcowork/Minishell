@@ -5,8 +5,11 @@ int	main(int ac, char **av, char **envp)
 	char			*str;
 	t_envp			tenvp;
 	t_parsed_data	*parsed_data;
+	t_env_node  	*head;
 
 	// ft_basic_signal();
+
+	head = init_node(envp);
 	if (ac != 1)
 		return (0);
 	if (!ft_strcmp(av[0], "minishell"))
@@ -37,9 +40,11 @@ int	main(int ac, char **av, char **envp)
 		else if (ft_strncmp(str, "exit ", 5) == 0 || ft_strcmp(str, "exit") == 0)
 			ft_exit(ft_split(str, ' '));// TODO 토큰을 사용하도록 변경해야 함
 		else if (ft_strcmp(str, "env") == 0)
-			ft_env(envp);
+			ft_env(head);
 		else if (ft_strncmp(str, "cd ", 3) == 0 || ft_strcmp(str, "cd") == 0)
 			ft_cd(ft_split(str, ' '), &tenvp);
+		else if (ft_strncmp(str, "export ", 7) == 0 || ft_strcmp(str, "export") == 0)
+			ft_export(head, ft_split(str, ' '));
 		else
 			run_cmd(str, &tenvp);
 		if (str[0] != '\0')

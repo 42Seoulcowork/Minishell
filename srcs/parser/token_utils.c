@@ -2,9 +2,11 @@
 
 void	print_token(t_token *token)
 {
+	int	i;
+
 	if (!token)
 		return ;
-	int i = 0;
+	i = 0;
 	while (token->cmd && token->cmd[i])
 	{
 		printf("[%d] : \"%s\" (redir : %s)\n", i, token->cmd[i],
@@ -25,9 +27,11 @@ void	print_token(t_token *token)
 
 void	print_queue(t_parsed_data *queue)
 {
+	t_token	*tmp;
+
+	tmp = queue->front;
 	if (queue == NULL)
 		return ;
-	t_token *tmp = queue->front;
 	while (tmp != NULL)
 	{
 		print_token(tmp);

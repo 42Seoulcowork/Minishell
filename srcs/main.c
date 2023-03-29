@@ -48,7 +48,12 @@ int	main(int ac, char **av, char **envp)
 		else if (ft_strncmp(str, "unset ", 6) == 0 || ft_strcmp(str, "unset") == 0)
 			ft_unset(head, ft_split(str, ' ')[1]);
 		else
+		{
+			char **tmp2;
+			tmp2 = convert_array(head);
+			tenvp.envp = tmp2;
 			run_cmd(str, &tenvp);
+		}
 		if (str[0] != '\0')
 			add_history(str);
 		free(str);

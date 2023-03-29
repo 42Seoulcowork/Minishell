@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <assert.h> // TODO 지워야 함
 
 t_env_node	*create_node(char *key, char *value)
 {
@@ -18,6 +19,7 @@ void	delete_node(t_env_node *head, char *key)
 	t_env_node	*prev;
 	t_env_node	*curr;
 
+	assert(key != NULL); // TODO 지워야 함
 	while (head->next != NULL)
 	{
 		if (ft_strcmp(head->next->key, key) == 0)

@@ -28,7 +28,9 @@ void	ft_echo(char **args)// args는 node.cmdline.cmd
 		return ;
 	}
 	option_flag = check_echo_option(args);
-	i = (option_flag > 0) ? 1 : 0;
+	i = 0;
+	if (option_flag > 0)
+		i = 1;
 	while (args[++i])
 	{
 		j = -1;

@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 		else if (ft_strncmp(str, "export ", 7) == 0 || ft_strcmp(str, "export") == 0)
 			ft_export(head, ft_split(str, ' '));
 		else if (ft_strncmp(str, "unset ", 6) == 0 || ft_strcmp(str, "unset") == 0)
-			ft_unset(head, ft_split(str, ' ')[1]);
+			ft_unset(head, ft_split(str, ' '));
 		else
 		{
 //			char **tmp2;

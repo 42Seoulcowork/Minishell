@@ -6,7 +6,7 @@ static char	*ft_getenv(char *key, t_env_node *head)
 	while (head)
 	{
 		if (ft_strcmp(key, head->key) == 0)
-			return (ft_strdup(head->key));
+			return (ft_strdup(head->value));
 		head = head->next;
 	}
 	return (NULL);

@@ -13,21 +13,25 @@ t_env_node	*create_node(char *key, char *value)
 	return (new_node);
 }
 
-t_env_node	*copy_list(t_env_node *head)
+void	delete_node(t_env_node *head, char *key)
 {
-	t_env_node	*copy_head;
-	t_env_node	*tmp;
+	t_env_node	*prev;
+	t_env_node	*curr;
 
-	copy_head = create_node(head->key, head->value);
-	tmp = copy_head;
-	head = head->next;
-	while (head != NULL)
+	while (head->next != NULL)
 	{
-		tmp->next = create_node(head->key, head->value);
-		tmp = tmp->next;
+		if (ft_strcmp(head->next->key, key) == 0)
+			break ;
 		head = head->next;
 	}
-	return (copy_head);
+	if (head->next == NULL)
+		return ;
+	prev = head;
+	curr = head->next;
+	prev->next = curr->next;
+	free(curr->key);
+	free(curr->value);
+	free(curr);
 }
 
 size_t	get_node_len(t_env_node *head)

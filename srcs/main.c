@@ -42,16 +42,16 @@ int	main(int ac, char **av, char **envp)
 		else if (ft_strcmp(str, "env") == 0)
 			ft_env(head);
 		else if (ft_strncmp(str, "cd ", 3) == 0 || ft_strcmp(str, "cd") == 0)
-			ft_cd(ft_split(str, ' '), &tenvp);
+			ft_cd(ft_split(str, ' '), head);
 		else if (ft_strncmp(str, "export ", 7) == 0 || ft_strcmp(str, "export") == 0)
 			ft_export(head, ft_split(str, ' '));
 		else if (ft_strncmp(str, "unset ", 6) == 0 || ft_strcmp(str, "unset") == 0)
 			ft_unset(head, ft_split(str, ' ')[1]);
 		else
 		{
-			char **tmp2;
-			tmp2 = convert_array(head);
-			tenvp.envp = tmp2;
+//			char **tmp2;
+//			tmp2 = convert_array(head);
+//			tenvp.envp = tmp2;
 			run_cmd(str, &tenvp);
 		}
 		if (str[0] != '\0')

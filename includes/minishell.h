@@ -55,7 +55,7 @@ void		ft_pwd(void);
 void		ft_exit(char **args);
 void		ft_echo(char **args);
 void		ft_env(t_env_node *head);
-void		ft_cd(char **argv, t_envp *tenvp);
+void		ft_cd(char **argv, t_env_node *head);
 void		ft_export(t_env_node *head, char **cmd);
 void		ft_unset(t_env_node *head, char *key);
 

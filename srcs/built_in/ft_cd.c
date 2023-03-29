@@ -1,57 +1,52 @@
 #include "minishell.h"
 
-static char	*ft_getenv(char *key, t_envp *tenvp)
+static char	*ft_getenv(char *key, t_env_node *head)
 {
-	int	i;
-
-	i = -1;
-	key = ft_strjoin(key, "=");
-	while (tenvp->envp[++i])
+	head = head->next;
+	while (head)
 	{
-		if (ft_strncmp(key, tenvp->envp[i], ft_strlen(key)) == 0)
-			return (ft_strdup(tenvp->envp[i] + ft_strlen(key)));
+		if (ft_strcmp(key, head->key) == 0)
+			return (ft_strdup(head->key));
+		head = head->next;
 	}
 	return (NULL);
 }
 
-static int	ft_setenv(char *key, char *value, t_envp *tenvp)
+static int	ft_setenv(char *key, char *value, t_env_node *head)
 {
-	int	i;
 	int	flag;
 
-	i = -1;
-	flag = 1;
-	key = ft_strjoin(key, "=");
-	while (tenvp->envp[++i])
+	flag = -1;
+	head = head->next;
+	while (head != NULL)
 	{
-		if (ft_strncmp(key, tenvp->envp[i], ft_strlen(key)) == 0)
+		if (ft_strcmp(key, head->key) == 0)
 		{
-			tenvp->envp[i] = ft_strjoin(key, value);
+			head->value = ft_strdup(value);
 			flag = 0;
 			break ;
 		}
+		head = head->next;
 	}
 	free(value);
-	if (flag)
-		return (-1);
-	return (0);
+	return (flag);
 }
 
-void	ft_cd(char **argv, t_envp *tenvp)
+void	ft_cd(char **argv, t_env_node *head)
 {
 	int		flag;
 	char	*path;
 
 	flag = 0;
-	flag += ft_setenv("OLDPWD", getcwd(NULL, 0), tenvp);
+	flag += ft_setenv("OLDPWD", getcwd(NULL, 0), head);
 	if (!argv[1])
-		path = ft_getenv("HOME", tenvp); // TODO error 처리해야 함
+		path = ft_getenv("HOME", head); // TODO error 처리해야 함
 	else if (argv[1][0] == '~')
-		path = ft_strjoin(ft_getenv("HOME", tenvp), argv[1] + 1); // TODO error 처리해야 함
+		path = ft_strjoin(ft_getenv("HOME", head), argv[1] + 1); // TODO error 처리해야 함
 	else
 		path = argv[1];
 	flag += chdir(path);
-	flag += ft_setenv("PWD", getcwd(NULL, 0), tenvp);
+	flag += ft_setenv("PWD", getcwd(NULL, 0), head);
 	if (flag)
 	{
 		path = ft_strjoin(ft_strjoin("minishell: cd: ", path), ": No such file or directory\n");

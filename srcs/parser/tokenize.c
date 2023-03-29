@@ -2,10 +2,6 @@
 
 static int	is_metachar(char c)
 {
-	// - **`metacharacter`**
-    // 따옴표 없이 단어를 구분하는 문자입니다. 메타 문자는 `space`,
-	// `tab`, `newline`또는 다음 문자 중 하나입니다.
-	// '|', '&', ';', '(', ')', '<', 또는 '>'.
 	return (c == '|' || c == '<' || c == '>' || c == ';' || c == '\n');
 }
 
@@ -49,7 +45,7 @@ t_token	*create_new_token(char *cmd, t_redir *rdirs)
 t_p_data	tokenize(char *input)
 {
 	t_token			*token;
-	t_p_data	data;
+	t_p_data		data;
 	t_redir			*rdirs;
 
 	init_tokenizer(&data, &token);
@@ -58,7 +54,9 @@ t_p_data	tokenize(char *input)
 	rdirs = NULL;
 	while (*input)
 	{
-		if (ft_isspace(*input))
+		if (*input == '\n')
+			break ;
+		else if (ft_isspace(*input))
 			input++;
 		else if (*input == '|')
 		{

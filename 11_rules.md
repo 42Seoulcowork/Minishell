@@ -7,7 +7,7 @@
 <br>
 <br>
 
-2. **새로운 단어(word)** 이면서 숫자와 리다이렉션의 조합일때
+2. **새로운 단어(word)** 의 첫번째 character가 지정되지 않았으면서 숫자와 리다이렉션의 조합일때
 	```
 		2<  1< etc.. 
 		asd2< 는 앞의 'asd2'가 단어로 인식됨
@@ -16,8 +16,8 @@
 <br>
 <br>
 
-3. 현재 문자(***input**)가 \ 이거나  ' 이거나 " 일때
-	- back-slash state, quote state, double-qoute state 등으로 상태 체크를 위한 state 변수들이 필요합니다.
+3. 현재 문자(***input**)가 ' 이거나 " 일때
+	- quote state, double-qoute state 등으로 상태 체크를 위한 state 변수들이 필요합니다.
 	- 의미 : 이 경우 다음 문자까지가 하나의 문자열(string)으로 인식되어야 합니다. 예를 들어, 'Hello, world!'나 "Hello, world!"와 같은 문자열이 여기에 해당됩니다. 이 규칙은 따옴표로 묶인 문자열과 escape character를 구분하는 역할을 합니다.
 <br>
 <br>
@@ -48,11 +48,11 @@
 <br>
 <br>
 
-8. 현재 문자(***input**)가 첫번째 캐릭터이면서 # 일때
+8. (new)word의 첫번째 character가 결정되지 않았고, 현재 문자(***input**)가 # 일때
 	-  주석처리
 <br>
 <br>
 
-9. 그 외에는 새로운 단어의 첫번째 캐릭터로 간주합니다.
+9. 그 외에는 새로운 단어(new word)의 첫번째 캐릭터로 간주합니다.
 <br>
 <br>

@@ -5,7 +5,7 @@ int	main(int ac, char **av, char **envp)
 	char		*str;
 	t_envp		tenvp;
 	t_p_data	*parsed_data;
-	t_env_node  *head;
+	t_env_node	*head;
 
 	head = init_node(envp);
 	if (ac != 1)

@@ -44,9 +44,11 @@ t_token	*create_new_token(char *cmd, t_redir *rdirs)
 
 t_p_data	tokenize(char *input)
 {
-	t_token			*token;
-	t_p_data		data;
-	t_redir			*rdirs;
+	t_p_data	data;
+	t_token		*token;
+	t_redir		*rdirs;
+	char		*word;
+	int			state;
 
 	init_tokenizer(&data, &token);
 	if (!input)

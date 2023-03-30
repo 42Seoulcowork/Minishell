@@ -1,10 +1,5 @@
 #include "minishell.h"
 
-static int	is_metachar(char c)
-{
-	return (c == '|' || c == '<' || c == '>' || c == ';' || c == '\n');
-}
-
 static char	*get_word(char **line)
 {
 	char	*start;

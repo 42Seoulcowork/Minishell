@@ -58,10 +58,11 @@ void		ft_env(t_env_node *head);
 void		ft_cd(char **argv, t_env_node *head);
 void		ft_export(t_env_node *head, char **cmd);
 void		ft_unset(t_env_node *head, char **keys);
+char		*ft_getenv(char *key, t_env_node *head);
 
 /* execute */
 void		envp_init(t_envp *tenvp, char **envp);
-void		run_cmd(char *str, t_envp *tenvp);
+void		run_cmd(t_token *token, t_env_node *head);
 void		pipex(char *str, t_envp *tenvp);
 char		**exception2(int i, t_envp *tenvp);
 char		**exception(int i, t_envp *tenvp, char *cmd);

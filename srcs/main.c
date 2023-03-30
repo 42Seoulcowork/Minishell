@@ -44,8 +44,10 @@ int	main(int ac, char **av, char **envp)
 			ft_export(head, ft_split(str, ' '));
 		else if (ft_strncmp(str, "unset ", 6) == 0 || ft_strcmp(str, "unset") == 0)
 			ft_unset(head, ft_split(str, ' '));
+		else if (parsed_data.size == 1)
+			run_cmd(parsed_data.front, head);
 		else
-			run_cmd(str, &tenvp);
+			printf("아직 구현 안 함\n");
 		if (str[0] != '\0')
 			add_history(str);
 		free(str);

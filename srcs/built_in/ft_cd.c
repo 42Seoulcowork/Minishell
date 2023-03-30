@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static char	*ft_getenv(char *key, t_env_node *head)
+char	*ft_getenv(char *key, t_env_node *head)
 {
 	head = head->next;
 	while (head)

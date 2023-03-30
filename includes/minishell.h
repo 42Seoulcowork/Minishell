@@ -14,8 +14,8 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <term.h>
-# include "../lib/libft.h"
 
+# include "../lib/libft.h"
 # include "parser.h"
 
 # define READ_END 0

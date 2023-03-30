@@ -12,6 +12,7 @@
 		"unordered_map": "c",
 		"utility": "c",
 		"sstream": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"libft.h": "c"
 	}
 }

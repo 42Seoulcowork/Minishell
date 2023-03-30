@@ -55,8 +55,9 @@ void		ft_pwd(void);
 void		ft_exit(char **args);
 void		ft_echo(char **args);
 void		ft_env(t_env_node *head);
-void		ft_cd(char **argv, t_envp *tenvp);
+void		ft_cd(char **argv, t_env_node *head);
 void		ft_export(t_env_node *head, char **cmd);
+void		ft_unset(t_env_node *head, char **keys);
 
 /* execute */
 void		envp_init(t_envp *tenvp, char **envp);
@@ -74,8 +75,8 @@ char		**ft_split_set(char *str, char *charset);
 t_env_node	*create_node(char *key, char *value);
 t_env_node	*init_node(char **envp);
 void		add_node(t_env_node *head, t_env_node *node);
-t_env_node	*copy_list(t_env_node *head);
+void		delete_node(t_env_node *head, char *key);
 char		**convert_array(t_env_node *head);
-void		quick_sort(char **arr, size_t left, size_t right);
+void		quick_sort(char **arr, int left, int right);
 
 #endif

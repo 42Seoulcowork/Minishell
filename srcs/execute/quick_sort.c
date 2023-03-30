@@ -9,11 +9,11 @@ static void	swap(char **a, char **b)
 	*b = temp;
 }
 
-static size_t	partition(char **arr, size_t left, size_t right)
+static int	partition(char **arr, int left, int right)
 {
 	char	*pivot;
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	pivot = arr[right];
 	i = left - 1;
@@ -32,9 +32,9 @@ static size_t	partition(char **arr, size_t left, size_t right)
 	return (i + 1);
 }
 
-void quick_sort(char **arr, size_t left, size_t right)
+void quick_sort(char **arr, int left, int right)
 {
-	size_t	p;
+	int	p;
 
 	if (left < right)
 	{

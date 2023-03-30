@@ -24,16 +24,31 @@ static t_env_node	*get_old_key_address(t_env_node *head, char *key)
 
 static char	**ft_simple_split(char *tmp, char *equal_address)
 {
-	char 	**str;
-	int 	i;
+	char	**str;
+	int		i;
+	int		j;
 
 	i = 0;
-	str = malloc(sizeof(char*) * 3);
+	str = malloc(sizeof(char *) * 3);
+	str[0] = malloc(sizeof(char) * (equal_address - tmp + 1));
+	str[1] = malloc(sizeof(char) * (ft_strlen(tmp) - (equal_address - tmp) + 1));
+	str[2] = NULL;
 	while (tmp + i < equal_address)
 	{
-
+		str[0][i] = tmp[i];
 		++i;
 	}
+	str[0][i] = '\0';
+	j = 0;
+	++i;
+	while (*(tmp + i) != '\0')
+	{
+		str[1][j] = tmp[i];
+		++i;
+		++j;
+	}
+	str[1][j] = '\0';
+	return (str);
 }
 
 void	ft_export(t_env_node *head, char **cmd)
@@ -64,18 +79,17 @@ void	ft_export(t_env_node *head, char **cmd)
 			old_key = get_old_key_address(head, cmd[i]);
 			if (old_key == NULL)
 				add_node(head, create_node(cmd[i], NULL));
-			else
-				old_key->value = "";
 		}
 		else
 		{
 			if (*(tmp + 1) != '\0')
 			{
-				old_key = get_old_key_address(head, cmd[i]);
+				arr = ft_simple_split(cmd[i], tmp);
+				old_key = get_old_key_address(head, arr[0]);
 				if (old_key == NULL)
-					add_node(head, create_node(cmd[i], ""));
+					add_node(head, create_node(arr[0], arr[1]));
 				else
-					old_key->value = "";
+					old_key->value = arr[1];
 			}
 			else
 			{
@@ -89,13 +103,4 @@ void	ft_export(t_env_node *head, char **cmd)
 		}
 		++i;
 	}
-	/*
-	tmp = ft_split(cmd[i], '=');
-	old_key = get_old_key_address(head, tmp[0]);
-	if (old_key == NULL)
-		add_node(head, create_node(tmp[0], tmp[1]));
-	else
-		old_key->value = tmp[1];
-	i++;
-	*/
 }

@@ -1,60 +1,81 @@
 #include "minishell.h"
 
-static char	*ft_getenv(char *key, t_envp *tenvp)
+static char	*ft_getenv(char *key, t_env_node *head)
 {
-	int	i;
-
-	i = -1;
-	key = ft_strjoin(key, "=");
-	while (tenvp->envp[++i])
+	head = head->next;
+	while (head)
 	{
-		if (ft_strncmp(key, tenvp->envp[i], ft_strlen(key)) == 0)
-			return (ft_strdup(tenvp->envp[i] + ft_strlen(key)));
+		if (ft_strcmp(key, head->key) == 0)
+		{
+			if (head->value)
+				return (ft_strdup(head->value));
+			else
+				return (NULL);
+		}
+		head = head->next;
 	}
 	return (NULL);
 }
 
-static int	ft_setenv(char *key, char *value, t_envp *tenvp)
+static void	ft_setenv(char *key, char *value, t_env_node *head)
 {
-	int	i;
-	int	flag;
-
-	i = -1;
-	flag = 1;
-	key = ft_strjoin(key, "=");
-	while (tenvp->envp[++i])
+	head = head->next;
+	while (head != NULL)
 	{
-		if (ft_strncmp(key, tenvp->envp[i], ft_strlen(key)) == 0)
+		if (ft_strcmp(key, head->key) == 0)
 		{
-			tenvp->envp[i] = ft_strjoin(key, value);
-			flag = 0;
+			head->value = ft_strdup(value);
 			break ;
 		}
+		head = head->next;
 	}
-	free(value);
-	if (flag)
-		return (-1);
-	return (0);
 }
 
-void	ft_cd(char **argv, t_envp *tenvp)
+void	ft_cd(char **argv, t_env_node *head)
 {
-	int		flag;
+	char	*old_path;
 	char	*path;
+	char	*tmp;
 
-	flag = 0;
-	flag += ft_setenv("OLDPWD", getcwd(NULL, 0), tenvp);
+	old_path = getcwd(NULL, 0);
 	if (!argv[1])
-		path = ft_getenv("HOME", tenvp); // TODO error 처리해야 함
+		path = ft_getenv("HOME", head); // TODO error 처리해야 함
 	else if (argv[1][0] == '~')
-		path = ft_strjoin(ft_getenv("HOME", tenvp), argv[1] + 1); // TODO error 처리해야 함
+	{
+		tmp = ft_getenv("HOME", head);
+		path = ft_strjoin(tmp, argv[1] + 1); // TODO error 처리해야 함
+		free(tmp);
+	}
+	else if (ft_strcmp(argv[1], "-") == 0)
+	{
+		path = ft_getenv("OLDPWD", head);
+		if (!path)
+		{
+			ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
+			free(old_path);
+			return ;
+		}
+		ft_putstr_fd(path, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+	}
 	else
 		path = argv[1];
-	flag += chdir(path);
-	flag += ft_setenv("PWD", getcwd(NULL, 0), tenvp);
-	if (flag)
+	if (chdir(path)) // 경로 없을 때
 	{
-		path = ft_strjoin(ft_strjoin("minishell: cd: ", path), ": No such file or directory\n");
+		free(old_path);
+		free(path);
+		old_path = ft_strjoin("minishell: cd: ", argv[1]);
+		if (access(argv[1], F_OK))
+			path = ft_strjoin(old_path, ": No such file or directory\n");
+		else
+			path = ft_strjoin(old_path, ": Not a directory\n");
 		ft_putstr_fd(path, STDERR_FILENO);
 	}
+	else // 이동했을 때만 갱신
+	{
+		ft_setenv("OLDPWD", old_path, head);
+		ft_setenv("PWD", getcwd(NULL, 0), head);
+	}
+	free(old_path);
+	free(path);
 }

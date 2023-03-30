@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <assert.h> // TODO 지워야 함
 
 t_env_node	*create_node(char *key, char *value)
 {
@@ -13,21 +14,26 @@ t_env_node	*create_node(char *key, char *value)
 	return (new_node);
 }
 
-t_env_node	*copy_list(t_env_node *head)
+void	delete_node(t_env_node *head, char *key)
 {
-	t_env_node	*copy_head;
-	t_env_node	*tmp;
+	t_env_node	*prev;
+	t_env_node	*curr;
 
-	copy_head = create_node(head->key, head->value);
-	tmp = copy_head;
-	head = head->next;
-	while (head != NULL)
+	assert(key != NULL); // TODO 지워야 함
+	while (head->next != NULL)
 	{
-		tmp->next = create_node(head->key, head->value);
-		tmp = tmp->next;
+		if (ft_strcmp(head->next->key, key) == 0)
+			break ;
 		head = head->next;
 	}
-	return (copy_head);
+	if (head->next == NULL)
+		return ;
+	prev = head;
+	curr = head->next;
+	prev->next = curr->next;
+	free(curr->key);
+	free(curr->value);
+	free(curr);
 }
 
 size_t	get_node_len(t_env_node *head)
@@ -48,6 +54,8 @@ char	**convert_array(t_env_node *head)
 {
 	int		i;
 	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 	char	**arr;
 
 	i = 0;
@@ -58,8 +66,12 @@ char	**convert_array(t_env_node *head)
 		if (head->value)
 		{
 			tmp = ft_strjoin(head->key, "=");
-			arr[i] = ft_strjoin(tmp, head->value);
+			tmp2 = ft_strjoin(tmp, "\"");
+			tmp3 = ft_strjoin(tmp2, head->value);
+			arr[i] = ft_strjoin(tmp3, "\"");
 			free(tmp);
+			free(tmp2);
+			free(tmp3);
 		}
 		else
 			arr[i] = ft_strdup(head->key);

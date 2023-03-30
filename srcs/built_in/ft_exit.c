@@ -53,17 +53,17 @@ void	ft_exit(char **args)
 	char 	*msg;
 
 	ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (!args[1])
+	{
+		// 직전 종료상태
+		exit(0);
+	}
 	exit_status = ft_atouc(args[1]);
 	if (exit_status == -1)
 	{
 		msg = ft_strjoin(ft_strjoin("minishell: exit: ", args[1]), ": numeric argument required\n");
 		ft_putstr_fd(msg, STDERR_FILENO);
 		exit_status = 255;
-	}
-	else if (!args[1])
-	{
-		// 직전 종료상태로
-		exit(0);
 	}
 	else if (args[2]) // args[1]을 먼저 확인
 	{

@@ -50,7 +50,33 @@ size_t	get_node_len(t_env_node *head)
 	return (i);
 }
 
-char	**convert_array(t_env_node *head)
+char	**convert_array_for_execve(t_env_node *head)
+{
+	int		i;
+	char	*tmp;
+	char	**arr;
+
+	i = 0;
+	arr = malloc(sizeof(char *) * (get_node_len(head) + 1));
+	head = head->next;
+	while (head != NULL)
+	{
+		if (head->value)
+		{
+			tmp = ft_strjoin(head->key, "=");
+			arr[i] = ft_strjoin(tmp, head->value);
+			free(tmp);
+		}
+		else
+			arr[i] = ft_strdup(head->key);
+		head = head->next;
+		i++;
+	}
+	arr[i] = NULL;
+	return (arr);
+}
+
+char	**convert_array_for_export(t_env_node *head)
 {
 	int		i;
 	char	*tmp;

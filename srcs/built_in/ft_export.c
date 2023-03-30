@@ -97,7 +97,7 @@ void	ft_export(t_env_node *head, char **cmd)
     is_addition_assignment = 0;
 	if (cmd[1] == NULL)
 	{
-		arr = convert_array(head);
+		arr = convert_array_for_export(head);
 		quick_sort(arr, 0, arr_len(arr) - 1);
 		while (arr[i])
 		{

@@ -62,7 +62,8 @@ char		*ft_getenv(char *key, t_env_node *head);
 
 /* execute */
 void		envp_init(t_envp *tenvp, char **envp);
-void		run_cmd(t_token *token, t_env_node *head);
+void		run_cmd(char **cmd, t_env_node *head);
+//void		run_cmd(t_token *token, t_env_node *head); // 파싱부 될 때
 void		pipex(char *str, t_envp *tenvp);
 char		**exception2(int i, t_envp *tenvp);
 char		**exception(int i, t_envp *tenvp, char *cmd);
@@ -77,7 +78,8 @@ t_env_node	*create_node(char *key, char *value);
 t_env_node	*init_node(char **envp);
 void		add_node(t_env_node *head, t_env_node *node);
 void		delete_node(t_env_node *head, char *key);
-char		**convert_array(t_env_node *head);
+char		**convert_array_for_export(t_env_node *head);
+char		**convert_array_for_execve(t_env_node *head);
 void		quick_sort(char **arr, int left, int right);
 
 #endif

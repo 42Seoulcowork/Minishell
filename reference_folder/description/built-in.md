@@ -151,7 +151,7 @@ exit
 exit
 bash: exit: a: numeric argument required
 > echo $?
-2
+255
 ``` 
 
 ```shell
@@ -160,7 +160,7 @@ bash: exit: a: numeric argument required
 exit
 bash: exit: 55555555555555555555555: numeric argument required
 > echo $?
-2
+255
 ```
 
 ### 두 개 이상의 인자가 들어올 경우
@@ -172,6 +172,20 @@ exit
 bash: exit: too many arguments
 > delphinus@Delphinus-Laptop:~$ echo $?
 1
+```
+
+### 두 개 이상의 인자가 들어왔는데 첫 인자가 long long을 벗어나거나 문자일 때
+
+```shell
+> bash-3.2$ exit adf 332
+exit
+bash: exit: adf: numeric argument required
+```
+
+```shell
+> bash-3.2$ exit 44444444444444444444444444444444444 32
+exit
+bash: exit: 44444444444444444444444444444444444: numeric argument required
 ```
 
 ## 7. pwd

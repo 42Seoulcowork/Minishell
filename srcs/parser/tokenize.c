@@ -42,8 +42,8 @@ t_p_data	tokenize(char *input)
 	t_p_data	data;
 	t_token		*token;
 	t_redir		*rdirs;
-	char		*word;
-	int			state;
+	// char		*word;
+	// int			state;
 
 	init_tokenizer(&data, &token);
 	if (!input)

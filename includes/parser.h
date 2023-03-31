@@ -12,7 +12,8 @@ typedef enum e_type
 	RE_HERE,
 	RE_OUTPUT,
 	RE_APPEND,
-	COMMAND
+	COMMAND,
+	NONE
 }	t_type;
 
 typedef enum e_c_type
@@ -44,7 +45,7 @@ typedef struct s_token
 
 typedef struct s_p_data
 {
-	int				size;
+	int				pipe_cnt;
 	struct s_token	*front;
 	struct s_token	*rear;
 }	t_p_data;
@@ -54,6 +55,7 @@ typedef struct s_word
 	int			sq_state;
 	int			dq_state;
 	t_type		type;
+	int			break_flag;
 	char		word[ARG_MAX];
 }	t_word;
 

@@ -19,10 +19,11 @@ int	main(int ac, char **av, char **envp)
 		str = readline("minishell$ ");
 		if (!str)
 		{
+			printf("여기 왜 들어와\n");
 			printf("exit\n");
 			break ;
 		}
-		parsing(str, &parsed_data);
+//		parsing(str, &parsed_data);
 		if (ft_strcmp(str, "echo $?") == 0)
 		{
 			printf("%d\n", tenvp.exit_status);
@@ -44,14 +45,13 @@ int	main(int ac, char **av, char **envp)
 			ft_export(head, ft_split(str, ' '));
 		else if (ft_strncmp(str, "unset ", 6) == 0 || ft_strcmp(str, "unset") == 0)
 			ft_unset(head, ft_split(str, ' '));
+		else if (parsed_data.pipe_cnt == 0)
+			run_cmd(parsed_data.front, head);
 		else
-			run_cmd(ft_split(str, ' '), head);
-//		else if (parsed_data.size == 1)
-//			run_cmd(parsed_data.front, head);
-//		else
-//			printf("아직 구현 안 함\n");
+			printf("아직 구현 안 함\n");
 		if (str[0] != '\0')
 			add_history(str);
+		//TODO 표준 출력, 에러, 입력 정상화 by myko
 		free(str);
 	}
 	return (0);

@@ -14,6 +14,7 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <term.h>
+# include <fcntl.h>
 
 # include "../lib/libft.h"
 # include "parser.h"
@@ -62,8 +63,7 @@ char		*ft_getenv(char *key, t_env_node *head);
 
 /* execute */
 void		envp_init(t_envp *tenvp, char **envp);
-void		run_cmd(char **cmd, t_env_node *head);
-//void		run_cmd(t_token *token, t_env_node *head); // 파싱부 될 때
+void		run_cmd(t_token *token, t_env_node *head);
 void		pipex(char *str, t_envp *tenvp);
 char		**exception2(int i, t_envp *tenvp);
 char		**exception(int i, t_envp *tenvp, char *cmd);

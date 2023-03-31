@@ -33,10 +33,10 @@ SRC =	main.c \
 		built_in/ft_env.c \
 		built_in/ft_export.c \
 		built_in/ft_unset.c \
-		parser/tokenize.c \
-		parser/token_utils.c \
-		parser/parsing.c \
-		parser/queue.c \
+#		parser/tokenize.c \
+#		parser/token_utils.c \
+#		parser/parsing.c \
+#		parser/queue.c \
 
 SRC_DIR = ./srcs/
 

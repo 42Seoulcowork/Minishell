@@ -8,6 +8,7 @@ int	main(int ac, char **av, char **envp)
 	t_env_node	*head;
 
 	head = init_node(envp);
+	// 시그널처리 (부모, 자식 구분)
 	if (ac != 1)
 		return (0);
 	if (!ft_strcmp(av[0], "minishell"))
@@ -18,11 +19,12 @@ int	main(int ac, char **av, char **envp)
 		str = readline("minishell$ ");
 		if (!str)
 		{
+			// ctrl + D (EOF처리)
 			printf("exit\n");
 			break ;
 		}
 		parsing(str, &parsed_data);
-		print_queue(&parsed_data);
+		// print_queue(&parsed_data);
 		if (ft_strcmp(str, "echo $?") == 0)
 		{
 			printf("%d\n", tenvp.exit_status);

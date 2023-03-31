@@ -13,8 +13,6 @@ RM = rm -f
 #R_INC = -I${HOME}/.brew/opt/readline/include
 
 LIB_FLAG = -Llib -lft
-# > ${HOME} 환경변수를 이용해서 경로 부분이 자동으로 치환되게끔 하자.
-# > brew로 readline을 설치한 맥이라면 어디서든 경로를 잘 찾을 수 있을 것이다.
 
 SRC =	main.c \
 		execute/envp_init.c \

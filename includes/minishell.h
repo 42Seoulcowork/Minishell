@@ -45,10 +45,10 @@ typedef struct s_envp{
 
 typedef struct s_env_node
 {
-    char				*key;
-    char				*value;
-    struct s_env_node	*next;
-}   t_env_node;
+	char				*key;
+	char				*value;
+	struct s_env_node	*next;
+}	t_env_node;
 
 /* built_in */
 void		ft_pwd(void);

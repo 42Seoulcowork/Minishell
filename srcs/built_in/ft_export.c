@@ -54,8 +54,8 @@ static char	**ft_simple_split(char *tmp, char *equal_address)
 void	ft_export(t_env_node *head, char **cmd)
 {
 	int			i;
-	char 		**arr;
-	char 		*tmp;
+	char		**arr;
+	char		*tmp;
 	t_env_node	*old_key;
 
 	i = 0;

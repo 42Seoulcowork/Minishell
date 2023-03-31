@@ -12,7 +12,8 @@ typedef enum e_type
 	RE_HERE,
 	RE_OUTPUT,
 	RE_APPEND,
-	COMMAND
+	COMMAND,
+	NONE
 }	t_type;
 
 typedef enum e_c_type
@@ -51,9 +52,10 @@ typedef struct s_p_data
 
 typedef struct s_word
 {
-	int			sq_state;
-	int			dq_state;
+	int			sq_stt;
+	int			dq_stt;
 	t_type		type;
+	int			break_flag;
 	char		word[ARG_MAX];
 }	t_word;
 

@@ -1,17 +1,6 @@
 #include "minishell.h"
 
-t_token	*create_token(char **cmd, t_redir *rdirs)
-{
-	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->cmd = cmd;
-	token->rdirs = rdirs;
-	token->next = NULL;
-	return (token);
-}
 
 void	enqueue(t_p_data *data, t_token *token)
 {

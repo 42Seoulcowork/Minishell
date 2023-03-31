@@ -1,5 +1,36 @@
 #include "minishell.h"
 
+void	ft_tokenize(char *input, t_p_data *pdata, t_word *word)
+{
+	while (word->break_flag == OFF)
+	{
+		if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '\n')
+			ft_end_line_finish_hpwtt(pdata, word);
+		else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '|')
+			ft_add_new_token_hpwtt(pdata, word);
+		else if ((word->sq_stt == ON && *input == '\'') || \
+			(word->dq_stt == ON && *input == '\"'))
+			ft_end_quoted_stt(*input, word);
+		else if ((word->sq_stt == OFF && *input == '\'') || \
+			(word->dq_stt == OFF && *input == '\"'))
+			ft_start_quoted_stt(*input, word);
+		else if (word->sq_stt == OFF && *input == '$')
+			ft_expension_process(&input, word);
+		else if (word->dq_stt == OFF && word->sq_stt == OFF && \
+			(*input == '<' || *input == '>'))
+			ft_redirect_hpwtt(&input, pdata);
+		else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == ' ')
+			ft_clean_new_word_hpwtt(pdata, word);
+		else if (*input == '#' && word->word[0] == '\0' && \
+			word->dq_stt == OFF && word->sq_stt == OFF)
+			ft_handle_comment(word);
+		else
+			ft_add_or_create_new_char_in_word(word);
+	}
+}
+
+
+
 t_redir	*create_new_redir(int target_fd, t_r_type redir_type)
 {
 	t_redir	*redir;
@@ -84,20 +115,7 @@ t_token	*create_new_token(char *cmd, t_redir *rdirs)
 
 t_p_data	tokenize(char *input)
 {
-	t_p_data	data;
-	t_token		*token;
-	t_redir		*rdirs;
-	char		*word;
-	char		*tmp;
-	char		*str;
-	int			state;
 
-	str = input;
-	init_tokenizer(&data, &token);
-	if (!input)
-		return (data);
-	rdirs = NULL;
-	word = ft_strdup("");
 	state = 0;
 	while (*input)
 	{

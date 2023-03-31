@@ -68,13 +68,6 @@ static char	*get_word(char **line)
 	return (word);
 }
 
-void	init_tokenizer(t_p_data *data, t_token **token)
-{
-	data->size = 0;
-	data->front = NULL;
-	data->rear = NULL;
-	*token = NULL;
-}
 
 t_token	*create_new_token(char *cmd, t_redir *rdirs)
 {

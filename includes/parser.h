@@ -52,8 +52,8 @@ typedef struct s_p_data
 
 typedef struct s_word
 {
-	int			sq_state;
-	int			dq_state;
+	int			sq_stt;
+	int			dq_stt;
 	t_type		type;
 	int			break_flag;
 	char		word[ARG_MAX];

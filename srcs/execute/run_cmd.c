@@ -44,7 +44,7 @@ static void	free_env_path(char **env_path)
 	free(env_path);
 }
 
-void	handle_redir(t_redir *redir)
+int		handle_redir(t_redir *redir)
 {
 	int fd;
 
@@ -58,28 +58,29 @@ void	handle_redir(t_redir *redir)
 				ft_putstr_fd("minishell: ", STDERR_FILENO);
 				ft_putstr_fd(redir->file_name, STDERR_FILENO);
 				ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-				return ;
+				return (FALSE);
 			}
 			dup2(fd, STDIN_FILENO);
 			close(fd);
 		}
 		else if (redir->type == RE_OUTPUT)
 		{
-			fd = open(redir->file_name, O_CREAT, 0644);
+			fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC , 0644);
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
 		else if (redir->type == RE_APPEND)
 		{
-			fd = open(redir->file_name, O_APPEND, 0644);
+			fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
 		redir = redir->next;
 	}
+	return (TRUE);
 }
 
-void	run_cmd(t_token *token, t_env_node *head)
+void	run_cmd(t_env_node *head, t_token *token)
 {
 	int 	status;
 	char	*tmp;
@@ -87,34 +88,47 @@ void	run_cmd(t_token *token, t_env_node *head)
 	char 	**env_path;
 	pid_t	pid;
 
-	token = malloc(sizeof(t_token));
-	token->cmd = ft_split("cat", ' ');
-	token->redir = malloc(sizeof(t_redir));
-	token->redir->type = RE_INPUT;
-	token->redir->file_name[0] = 'z';
-	token->redir->file_name[1] = '\0';
-	token->redir->next = NULL;
+//	token = malloc(sizeof(t_token));
+//	token->cmd = ft_split("cat", ' ');
+//	token->redir = malloc(sizeof(t_redir));
+//	token->redir->type = RE_INPUT;
+//	token->redir->file_name[0] = 'a';
+//	token->redir->next = malloc(sizeof(t_redir));
+//	token->redir->next->type = RE_INPUT;
+//	token->redir->next->file_name[0] = 'b';
+//	token->redir->next->next = malloc(sizeof(t_redir));
+//	token->redir->next->next->type = RE_OUTPUT;
+//	token->redir->next->next->file_name[0] = 'f';
+//	token->redir->next->next->next = malloc(sizeof(t_redir));
+//	token->redir->next->next->next->type = RE_APPEND;
+//	token->redir->next->next->next->file_name[0] = 'e';
+//	token->redir->next->next->next->next = malloc(sizeof(t_redir));
+//	token->redir->next->next->next->next->type = RE_INPUT;
+//	token->redir->next->next->next->next->file_name[0] = 'j';
+//	token->redir->next->next->next->next->next = NULL;
 
-	if (token->redir != NULL)
-	{
-		handle_redir(token->redir);
-	}
 	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
 	{
 		path = token->cmd[0];
 	}
 	else
 	{
-		tmp = ft_getenv("PATH", head);
+		tmp = ft_getenv(head, "PATH");
 		env_path = ft_split(tmp, ':');
 		free(tmp);
 		path = find_path(token->cmd[0], env_path);
 		free_env_path(env_path);
 		if (!path)
-			return;
+		{
+			head->value = "127";
+			return ;
+		}
 	}
 	if (access(path, X_OK) != 0)
+	{
+		head->value = "126";
 		return (print_permission_denied(path, token->cmd[0]));
+	}
 	pid = fork();
 	if (pid == 0)
 	{
@@ -127,7 +141,6 @@ void	run_cmd(t_token *token, t_env_node *head)
 	else if (pid > 0)
 	{
 		wait(&status);
-		printf("status = %d\n", status);
 		// 종료상태 반환, 저장만
 	}
 	else
@@ -137,9 +150,10 @@ void	run_cmd(t_token *token, t_env_node *head)
 		// fork error
 	}
 	if (WIFEXITED(status))
-		printf("status = %d\n", WEXITSTATUS(status));
+		head->value = ft_itoa(WEXITSTATUS(status));
 	else // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
 	{
+		head->value = "255";
 		if (WIFSIGNALED(status))
 		{
 			ft_putnbr_fd(WTERMSIG(status), 2);

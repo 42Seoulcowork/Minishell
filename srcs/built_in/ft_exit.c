@@ -47,7 +47,7 @@ static int	ft_atouc(const char *str)
 	return ((unsigned char)result);
 }
 
-void	ft_exit(char **args)
+void	ft_exit(t_env_node *head, char **args)
 {
 	int		exit_status;
 	char 	*msg;
@@ -55,8 +55,7 @@ void	ft_exit(char **args)
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!args[1])
 	{
-		// 직전 종료상태
-		exit(0);
+		exit(ft_atoi(head->value));
 	}
 	exit_status = ft_atouc(args[1]);
 	if (exit_status == -1)
@@ -68,7 +67,7 @@ void	ft_exit(char **args)
 	else if (args[2]) // args[1]을 먼저 확인
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-		exit_status = 1;
+		head->value = "1";
 		return ;
 	}
 	exit(exit_status);

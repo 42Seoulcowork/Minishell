@@ -116,7 +116,7 @@ t_env_node	*init_node(char **envp)
 	t_env_node	*head_node;
 
 	i = -1;
-	head_node = create_node(NULL, NULL);
+	head_node = create_node("?", "0");
 	tmp_node = head_node;
 	while (envp[++i])
 	{

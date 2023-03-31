@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-static size_t	arr_len(char **arr)
+static int	arr_len(char **arr)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (arr[i])
@@ -95,6 +95,7 @@ void	ft_export(t_env_node *head, char **cmd)
 
 	i = 0;
     is_addition_assignment = 0;
+	head->value = "0";
 	if (cmd[1] == NULL)
 	{
 		arr = convert_array_for_export(head);
@@ -112,9 +113,9 @@ void	ft_export(t_env_node *head, char **cmd)
 		tmp = ft_strchr(cmd[i], '=');
 		if (!is_valid_name(cmd[i], &is_addition_assignment))
 		{
-			// TODO exit_status 1로 변경
 			++i;
-			continue;
+			head->value = "1";
+			continue ;
 		}
 		if (tmp == NULL)
 		{

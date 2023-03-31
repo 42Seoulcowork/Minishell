@@ -44,7 +44,7 @@ typedef struct s_token
 
 typedef struct s_p_data
 {
-	int				size;
+	int				pipe_cnt;
 	struct s_token	*front;
 	struct s_token	*rear;
 }	t_p_data;

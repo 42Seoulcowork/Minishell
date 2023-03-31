@@ -4,6 +4,7 @@
 
 void	ft_env(t_env_node *head)
 {
+	head->value = "0";
 	head = head->next;
 	while (head)
 	{

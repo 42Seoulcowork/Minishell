@@ -123,7 +123,7 @@ hello world
 
 `exit` 은 exit이란 문자열을 출력하고 주어진 값을 unsigned char 형식으로 exit한다.
 이때, 주어진 값은 종료 상태에 저장된다.
-만약 인자가 없다면 0으로 간주한다.
+만약 인자가 없다면 직전 종료상태로 간주한다.
 
 ```shell
 > bash
@@ -151,7 +151,7 @@ exit
 exit
 bash: exit: a: numeric argument required
 > echo $?
-2
+255
 ``` 
 
 ```shell
@@ -160,7 +160,7 @@ bash: exit: a: numeric argument required
 exit
 bash: exit: 55555555555555555555555: numeric argument required
 > echo $?
-2
+255
 ```
 
 ### 두 개 이상의 인자가 들어올 경우
@@ -172,6 +172,20 @@ exit
 bash: exit: too many arguments
 > delphinus@Delphinus-Laptop:~$ echo $?
 1
+```
+
+### 두 개 이상의 인자가 들어왔는데 첫 인자가 long long을 벗어나거나 문자일 때
+
+```shell
+> bash-3.2$ exit adf 332
+exit
+bash: exit: adf: numeric argument required
+```
+
+```shell
+> bash-3.2$ exit 44444444444444444444444444444444444 32
+exit
+bash: exit: 44444444444444444444444444444444444: numeric argument required
 ```
 
 ## 7. pwd

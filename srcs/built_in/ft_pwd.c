@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_env_node *head)
 {
 	char *path;
 
@@ -9,11 +9,11 @@ void	ft_pwd(void)
 	{
 		path = ft_strjoin(path, "\n");
 		ft_putstr_fd(path, STDOUT_FILENO);
-		// 종료 상태 0;
+		head->value = "0";
 	}
 	else
 	{
-		ft_putstr_fd("minishell: pwd: no path\n", STDERR_FILENO); // 에러 메세지는 임의로 작성함??? 임의로 하시면 안돼죠 bash로 하면 돼죠
-		// errno에 맞춘 에러 생성;
+		ft_putstr_fd("minishell: pwd: no path\n", STDERR_FILENO);
+		head->value = "1";
 	}
 }

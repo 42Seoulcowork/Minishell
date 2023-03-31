@@ -16,12 +16,13 @@ static int	check_echo_option(char **args)
 	return (i);
 }
 
-void	ft_echo(char **args)// args는 node.cmdline.cmd
+void	ft_echo(t_env_node *head, char **args)
 {
 	int	i;// int? or size_t?
 	int	j;
 	int	option_flag;
 
+	head->value = "0";
 	if (!args[1])
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -35,10 +36,10 @@ void	ft_echo(char **args)// args는 node.cmdline.cmd
 	{
 		j = -1;
 		while (args[i][++j])
-			write(1, &args[i][j], 1);
+			write(STDOUT_FILENO, &args[i][j], 1);
 		if (args[i + 1])
-			write(1, " ", 1);
+			write(STDOUT_FILENO, " ", 1);
 	}
 	if (!option_flag)
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 }

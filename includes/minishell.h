@@ -14,12 +14,15 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <term.h>
+# include <fcntl.h>
 
 # include "../lib/libft.h"
 # include "parser.h"
 
 # define READ_END 0
 # define WRITE_END 1
+# define TRUE	1
+# define FALSE	0
 
 typedef enum s_erroridx {
 	PIPE_ERROR,
@@ -51,18 +54,18 @@ typedef struct s_env_node
 }	t_env_node;
 
 /* built_in */
-void		ft_pwd(void);
-void		ft_exit(char **args);
-void		ft_echo(char **args);
+void		ft_pwd(t_env_node *head);
+void		ft_exit(t_env_node *head, char **args);
+void		ft_echo(t_env_node *head, char **args);
 void		ft_env(t_env_node *head);
-void		ft_cd(char **argv, t_env_node *head);
+void		ft_cd(t_env_node *head, char **argv);
 void		ft_export(t_env_node *head, char **cmd);
 void		ft_unset(t_env_node *head, char **keys);
+char		*ft_getenv(t_env_node *head, char *key);
 
 /* execute */
-void		envp_init(t_envp *tenvp, char **envp);
-void		run_cmd(char *str, t_envp *tenvp);
-void		pipex(char *str, t_envp *tenvp);
+void		execute(t_env_node *head, t_p_data *p_data);
+void		run_cmd(t_env_node *head, t_token *token);
 char		**exception2(int i, t_envp *tenvp);
 char		**exception(int i, t_envp *tenvp, char *cmd);
 char		**argv_init(int i, t_envp *tenvp);
@@ -76,7 +79,8 @@ t_env_node	*create_node(char *key, char *value);
 t_env_node	*init_node(char **envp);
 void		add_node(t_env_node *head, t_env_node *node);
 void		delete_node(t_env_node *head, char *key);
-char		**convert_array(t_env_node *head);
+char		**convert_array_for_export(t_env_node *head);
+char		**convert_array_for_execve(t_env_node *head);
 void		quick_sort(char **arr, int left, int right);
 
 #endif

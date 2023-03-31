@@ -1,49 +1,170 @@
 #include "minishell.h"
 
-void	run_cmd(char *cmd, t_envp *tenvp) {
-	pid_t pid;
-	char *path;
-	char **new_argv;
-	int status;
+static char	*find_path(char *cmd, char **path)
+{
+	char	*tmp;
+	int		i;
 
-	tenvp->argc = 1;
-	tenvp->argv = malloc(sizeof(char *) * 2);
-	if (!tenvp->argv)
-		error(MALLOC_ERROR, "malloc", tenvp); // TODO 나중에 에러 처리 잘 해주세요
-	tenvp->argv[0] = cmd;
-	tenvp->argv[1] = NULL;
-	new_argv = argv_init(0, tenvp);
-	if (!new_argv) {
-		error(MALLOC_ERROR, "malloc", tenvp);
-		return;
+	i = 0;
+	while (path[i] != NULL)
+	{
+		tmp = ft_strjoin(path[i], "/");
+		free(path[i]);
+		path[i] = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(path[i], F_OK) == 0)
+			return (ft_strdup(path[i]));
+		++i;
 	}
-	path = ft_path(new_argv[0], tenvp->paths);
-	if (!path) {
-		error(COMMAND_ERROR, new_argv[0], tenvp);
-		return;
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	// exit status 127
+	return (NULL);
+}
+
+static void	print_permission_denied(char *path, char *cmd)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+	free(path);
+}
+
+static void	free_env_path(char **env_path)
+{
+	int	i;
+
+	i = 0;
+	while (env_path[i] != NULL)
+	{
+		free(env_path[i]);
+		++i;
+	}
+	free(env_path);
+}
+
+int		handle_redir(t_redir *redir)
+{
+	int fd;
+
+	while (redir != NULL)
+	{
+		if (redir->type == RE_INPUT)
+		{
+			fd = open(redir->file_name, O_RDONLY);
+			if (fd == -1)
+			{
+				ft_putstr_fd("minishell: ", STDERR_FILENO);
+				ft_putstr_fd(redir->file_name, STDERR_FILENO);
+				ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+				return (FALSE);
+			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
+		else if (redir->type == RE_OUTPUT)
+		{
+			fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC , 0644);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
+		else if (redir->type == RE_APPEND)
+		{
+			fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
+		redir = redir->next;
+	}
+	return (TRUE);
+}
+
+void	run_cmd(t_env_node *head, t_token *token)
+{
+	int 	status;
+	char	*tmp;
+	char	*path;
+	char 	**env_path;
+	pid_t	pid;
+
+//	token = malloc(sizeof(t_token));
+//	token->cmd = ft_split("cat", ' ');
+//	token->redir = malloc(sizeof(t_redir));
+//	token->redir->type = RE_INPUT;
+//	token->redir->file_name[0] = 'a';
+//	token->redir->next = malloc(sizeof(t_redir));
+//	token->redir->next->type = RE_INPUT;
+//	token->redir->next->file_name[0] = 'b';
+//	token->redir->next->next = malloc(sizeof(t_redir));
+//	token->redir->next->next->type = RE_OUTPUT;
+//	token->redir->next->next->file_name[0] = 'f';
+//	token->redir->next->next->next = malloc(sizeof(t_redir));
+//	token->redir->next->next->next->type = RE_APPEND;
+//	token->redir->next->next->next->file_name[0] = 'e';
+//	token->redir->next->next->next->next = malloc(sizeof(t_redir));
+//	token->redir->next->next->next->next->type = RE_INPUT;
+//	token->redir->next->next->next->next->file_name[0] = 'j';
+//	token->redir->next->next->next->next->next = NULL;
+
+	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
+	{
+		path = token->cmd[0];
+	}
+	else
+	{
+		tmp = ft_getenv(head, "PATH");
+		env_path = ft_split(tmp, ':');
+		free(tmp);
+		path = find_path(token->cmd[0], env_path);
+		free_env_path(env_path);
+		if (!path)
+		{
+			head->value = "127";
+			return ;
+		}
+	}
+	if (access(path, X_OK) != 0)
+	{
+		head->value = "126";
+		return (print_permission_denied(path, token->cmd[0]));
 	}
 	pid = fork();
-	if (pid == 0) {
-		if (execve(path, new_argv, tenvp->envp) == -1)
-			error(RUN_ERROR, new_argv[0], tenvp);
-	} else if (pid > 0)
-		waitpid(pid, &status, 0);
+	if (pid == 0)
+	{
+		if (execve(path, token->cmd, convert_array_for_execve(head)) == -1)
+		{
+			perror("minishell: ");
+			ft_putstr_fd("\n", STDERR_FILENO);
+		}
+	}
+	else if (pid > 0)
+	{
+		wait(&status);
+		// 종료상태 반환, 저장만
+	}
 	else
-		error(FORK_ERROR, "fork", tenvp);
+	{
+		perror("minishell: ");
+		ft_putstr_fd("\n", STDERR_FILENO);
+		// fork error
+	}
 	if (WIFEXITED(status))
-		tenvp->exit_status = WEXITSTATUS(status);
+		head->value = ft_itoa(WEXITSTATUS(status));
 	else // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
 	{
-		if (WIFSIGNALED(status)) {
+		head->value = "255";
+		if (WIFSIGNALED(status))
+		{
 			ft_putnbr_fd(WTERMSIG(status), 2);
 			ft_putstr_fd("  시그널에 의한 비정상 종료\n", 2);
-		} else if (WIFSTOPPED(status)) {
+		}
+		else if (WIFSTOPPED(status))
+		{
 			ft_putnbr_fd(WSTOPSIG(status), 2);
 			ft_putstr_fd("  강제 종료에 의한 비정상 종료\n", 2);
-		} else
+		}
+		else
 			ft_putstr_fd("하하하 왜 에러일까요, 알아맞춰주세요\n", 2);
 	}
 }
-	/* else
-	  exit(1); // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함1
-}*/

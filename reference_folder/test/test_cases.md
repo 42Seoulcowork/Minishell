@@ -364,7 +364,7 @@ ls invalid | grep d | more
 ls -l | grep d > tmp5  
 Cat | cat | ls  
 
-`20. Go Crazy`
+`20. Go Crazy`  
 askdfjasdkhakdjfhadfhadjkadhfjkahdfjksdfuiyweuifhweuifhwuihfiwudhfiuwhdfuiwd  
 echo a s k d f j a s d k h a k d j f h a d f h a d j k a d h f j k a h d f j k s d f u i y  
 echo ' " $HOME " '  

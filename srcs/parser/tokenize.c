@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	ft_tokenize(char *input, t_p_data *pdata, t_word *word)
+void	ft_tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 {
 	if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '\n')
 		ft_end_line_finish_hpwtt(pdata, word);

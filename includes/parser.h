@@ -12,8 +12,7 @@ typedef enum e_type
 	RE_HERE,
 	RE_OUTPUT,
 	RE_APPEND,
-	COMMAND,
-	NONE
+	COMMAND
 }	t_type;
 
 typedef enum e_c_type
@@ -47,7 +46,7 @@ typedef struct s_p_data
 {
 	int				pipe_cnt;
 	struct s_token	*front;
-	struct s_token	*rear;
+	struct s_token	*now;
 }	t_p_data;
 
 typedef struct s_word
@@ -59,15 +58,10 @@ typedef struct s_word
 	char		word[ARG_MAX];
 }	t_word;
 
+void	parsing(char *input, t_p_data *pdata);
 
-t_p_data	tokenize(char *input);
-void		parsing(char *str, t_p_data *pdata);
-t_token		*create_token(char **cmd, t_redir *rdirs);
-t_token		*create_new_token(char *cmd, t_redir *rdirs);
-
-void		enqueue(t_p_data *data, t_token *token);
-t_token		*dequeue(t_p_data *data);
-
-void		print_queue(t_p_data *queue);
+void	ft_tokenize(char *input, t_p_data *pdata, t_word *word);
+void	ft_clear_word_struct(t_word *word);
+void	ft_handle_present_word_to_token(t_p_data *pdata, t_word *word);
 
 #endif

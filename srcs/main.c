@@ -20,7 +20,7 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-//		parsing(str, &parsed_data);
+//		parsing(str, &parsed_data, head);
 		parsed_data.front = malloc(sizeof(t_token));
 		parsed_data.front->cmd = ft_split(str, ' ');
 		if (ft_strncmp("cd", str, 2) == 0)

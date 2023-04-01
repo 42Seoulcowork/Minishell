@@ -94,16 +94,3 @@ char	*ft_strndup(const char *s, size_t n)
 // 	return (word);
 // }
 
-
-// t_token	*create_new_token(char *cmd, t_redir *rdirs)
-// {
-// 	char	**tokens;
-// 	t_token	*new_token;
-
-// 	if (!cmd || !*cmd)
-// 		return (NULL);
-// 	tokens = ft_split(cmd, ' ');
-// 	new_token = create_token(tokens, rdirs);
-// 	free(cmd);
-// 	return (new_token);
-// }

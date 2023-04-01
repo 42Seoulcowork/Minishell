@@ -6,7 +6,8 @@ void	ft_clear_word_struct(t_word *word)
 {
 	word->dq_stt = OFF;
 	word->sq_stt = OFF;
-	word->type = COMMAND;
+	word->type = NONE;
+	word->word_idx = -1;
 	word->break_flag = OFF;
 	ft_memset(word, '\0', ARG_MAX);
 }
@@ -18,7 +19,7 @@ void	ft_handle_present_word_to_token(t_p_data *pdata, t_word *word)
 
 	if (word->type == COMMAND)
 		ft_append_cmd_to_token(pdata, word);
-	else
+	else if (word->type != NONE)
 	{
 		present_redir = (t_redir *)malloc(sizeof(t_redir));
 		if (!present_redir)

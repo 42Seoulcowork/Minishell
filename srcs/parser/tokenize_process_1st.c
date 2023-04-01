@@ -43,24 +43,23 @@ void	ft_start_quoted_stt(char input, t_word *word)
 		word->dq_stt = ON;
 }
 
-
 char	*ft_strlen_for_exp(char **input)
 {
-    char	*temp;
+	char	*temp;
 	int		i;
-    int		j;
+	int		j;
 
-    i = 0;
- 	while ((*input)[i] != ' ' && (*input)[i] != '|' && \
-           (*input)[i] != '\n' && (*input)[i] != '\0')
-        i++;
-    temp = (char *)malloc(sizeof(char) * (i + 1));
-    if (!temp)
-        ft_allocation_error();
-    j = -1;
-    while (++j < i)
-        temp[j] = (*input)[j];
-    temp[j] = '\0';
-    (*input) += i - 1;
- 	return (temp);
- }
+	i = 0;
+	while ((*input)[i] != ' ' && (*input)[i] != '|' && \
+			(*input)[i] != '\n' && (*input)[i] != '\0')
+		i++;
+	temp = (char *)malloc(sizeof(char) * (i + 1));
+	if (!temp)
+		ft_allocation_error();
+	j = -1;
+	while (++j < i)
+		temp[j] = (*input)[j];
+	temp[j] = '\0';
+	(*input) += i - 1;
+	return (temp);
+}

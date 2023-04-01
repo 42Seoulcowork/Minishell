@@ -21,7 +21,7 @@ void	parsing(char *input, t_p_data *pdata, t_env_node *head)
 	ft_init_token_word(pdata, &word);
 	while (word.break_flag == OFF && *input)
 	{
-		ft_tokenize(input, pdata, &word);
+		ft_tokenize(input, pdata, &word, head);
 		++input;
 	}
 }

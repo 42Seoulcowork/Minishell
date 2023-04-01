@@ -44,15 +44,15 @@ void	ft_start_quoted_stt(char input, t_word *word)
 }
 
 
- char	*ft_strlen_for_exp(char **input)
+char	*ft_strlen_for_exp(char **input)
 {
-    char    *temp;
-	int     i;
-    int     j;
+    char	*temp;
+	int		i;
+    int		j;
 
     i = 0;
  	while ((*input)[i] != ' ' && (*input)[i] != '|' && \
-           (*input)[i] != '\n' && (*input)[i] != '\0'))
+           (*input)[i] != '\n' && (*input)[i] != '\0')
         i++;
     temp = (char *)malloc(sizeof(char) * (i + 1));
     if (!temp)
@@ -64,35 +64,3 @@ void	ft_start_quoted_stt(char input, t_word *word)
     (*input) += i - 1;
  	return (temp);
  }
-
-void	ft_expension_process(char **input, t_word *word, t_env_node *head)
-{
-	char	    *tmp;
-    int         i;
-
-    i = -1;
-	if (*(*input + 1) == ' ' || *(*input + 1) == '|' || *(*input + 1) == '\n')
-		word->word[++(word->word_idx)] = '$';
-	else
-    {
-        (*input) += 1;
-        tmp = ft_strlen_for_exp(input);
-        while (head) {
-            if (ft_strcmp(tmp, head->key) == 0) {
-                while ((head->value)[++i])
-                    (word->word)[++(word->word_idx)] = head->value[i];
-                break;
-            }
-            head = head->next;
-        }
-        free(tmp);
-        if (head == NULL)
-        {
-            i = 1;
-            while ((*input)[i] == ' ')
-                ++i;
-            if ((*input)[i] == '|')
-                (*input) += i;
-        }
-    }
-}

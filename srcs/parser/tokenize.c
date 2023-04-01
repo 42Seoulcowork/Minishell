@@ -26,71 +26,26 @@ void	ft_tokenize(char *input, t_p_data *pdata, t_word *word)
 		ft_add_or_create_new_char_in_word(word);
 }
 
-// t_redir	*create_new_redir(int target_fd, t_r_type redir_type)
-// {
-// 	t_redir	*redir;
 
-// 	redir = (t_redir *)malloc(sizeof(t_redir));
-// 	if (!redir)
+// size_t	ft_strnlen(const char *s, size_t maxlen)
+// {
+// 	size_t	len;
+
+// 	len = 0;
+// 	while (len < maxlen && s[len] != '\0')
+// 		len++;
+// 	return (len);
+// }
+
+// char	*ft_strndup(const char *s, size_t n)
+// {
+// 	size_t	len;
+// 	char	*dup;
+
+// 	len = ft_strnlen(s, n);
+// 	dup = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (!dup)
 // 		return (NULL);
-// 	redir->target_fd = target_fd;
-// 	redir->file_name = NULL;
-// 	redir->redir_type = redir_type;
-// 	redir->next = NULL;
-// 	return (redir);
+// 	dup[len] = '\0';
+// 	return (ft_memcpy(dup, s, len));
 // }
-
-// int	get_digit_count(const char *str)
-// {
-// 	int	count;
-
-// 	count = 0;
-// 	while (ft_isdigit(*str))
-// 	{
-// 		count++;
-// 		str++;
-// 	}
-// 	return (count);
-// }
-
-size_t	ft_strnlen(const char *s, size_t maxlen)
-{
-	size_t	len;
-
-	len = 0;
-	while (len < maxlen && s[len] != '\0')
-		len++;
-	return (len);
-}
-
-char	*ft_strndup(const char *s, size_t n)
-{
-	size_t	len;
-	char	*dup;
-
-	len = ft_strnlen(s, n);
-	dup = (char *)malloc(sizeof(char) * (len + 1));
-	if (!dup)
-		return (NULL);
-	dup[len] = '\0';
-	return (ft_memcpy(dup, s, len));
-}
-
-
-
-// static char	*get_word(char **line)
-// {
-// 	char	*start;
-// 	char	*word;
-
-// 	start = *line;
-// 	while (**line && !ft_isspace(**line) && !is_metachar(**line))
-// 	{
-// 		if (**line == '\\' && ft_strchr("$\"\\", *(*line + 1)))
-// 			++(*line);
-// 		++(*line);
-// 	}
-// 	word = ft_substr(start, 0, *line - start);
-// 	return (word);
-// }
-

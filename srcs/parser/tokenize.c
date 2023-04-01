@@ -13,7 +13,7 @@ void	ft_tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 		(word->dq_stt == OFF && *input == '\"'))
 		ft_start_quoted_stt(*input, word);
 	else if (word->sq_stt == OFF && *input == '$')
-		ft_expension_process(&input, word);
+		ft_expension_process(&input, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && \
 		(*input == '<' || *input == '>'))
 		ft_redirect_hpwtt(&input, pdata);

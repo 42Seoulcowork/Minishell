@@ -44,17 +44,24 @@ void	ft_start_quoted_stt(char input, t_word *word)
 }
 
 
-// int	ft_strlen_for_exp(const char *s, )
-// {
-// 	const char	*copy;
+ char	*ft_strlen_for_exp(char **input)
+{
+    char    *temp;
+	int     i;
+    int     j;
 
-// 	if (!s)
-// 		return (0);
-// 	copy = s;
-// 	while (!(*s == ' ' || *s == '|' || *s == '\n' || *s == 0))
-// 		s++;
-// 	return ();
-// }
+    i = 0;
+ 	while ((*input)[i] != ' ' && (*input)[i] != '|' && \
+           (*input)[i] != '\n' && (*input)[i] != '\0'))
+        i++;
+    temp = (char *)malloc(sizeof(char) * (i + 1));
+    j = -1;
+    while (++j < i)
+        temp[j] = (*input)[j];
+    temp[j] = '\0';
+    (*input) += i - 1;
+ 	return (temp);
+ }
 
 void	ft_expension_process(char **input, t_word *word)
 {
@@ -62,6 +69,10 @@ void	ft_expension_process(char **input, t_word *word)
 
 	if (*(*input + 1) == ' ' || *(*input + 1) == '|' || *(*input + 1) == '\n')
 		word->word[++(word->word_idx)] = '$';
-	// else
-	// 	tmp = ft_make_st()
+	else
+    {
+        (*input) += 1;
+        tmp = ft_strlen_for_exp(input);
+
+    }
 }

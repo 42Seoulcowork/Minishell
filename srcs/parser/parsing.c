@@ -11,7 +11,7 @@ static void	ft_init_token_word(t_p_data *pdata, t_word *word)
 	ft_clear_word_struct(word);
 }
 
-void	parsing(char *input, t_p_data *pdata)
+void	parsing(char *input, t_p_data *pdata, t_env_node *head)
 {
 	t_word	word;
 

@@ -6,3 +6,8 @@ void	ft_end_line_finish_hpwtt(t_p_data *pdata, t_word *word)
 	ft_clear_word_struct(word);
 	word->break_flag = ON;
 }
+
+void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word)
+{
+
+}

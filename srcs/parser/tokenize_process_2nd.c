@@ -1,10 +1,25 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	ft_start_expansion_stt(t_word *word)
+void	ft_start_expansion_stt(char **input, t_word *word)
 {
-	word->ex_stt = ON;
-	(word->word)[++(word->word_idx)] = '$';
-	word->ex_idx = word->word_idx;
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	if (*(*input + 1) == '?')
+	{
+		(*input) += 1;
+		tmp = ft_itoa(g_exit_status);
+		while (tmp[++i])
+			word->word[++(word->word_idx)] = tmp[i];
+		free(tmp);
+	}
+	else
+	{
+		(word->word)[++(word->word_idx)] = '$';
+		word->ex_stt = ON;
+		word->ex_idx = word->word_idx;
+	}
 }
 
 static int	ft_check_dic_input_value(t_word *word, t_env_node *node, char *tmp)
@@ -46,6 +61,4 @@ void	ft_expension_process(t_word *word, t_env_node *node)
 		while (word->word_idx < end_idx)
 			word->word[++(word->word_idx)] = '\0';
 	}
-	word->ex_stt == OFF;
 }
-

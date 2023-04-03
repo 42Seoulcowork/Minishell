@@ -63,14 +63,16 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 	}
 }
 
-static void	ft_redirect_here_doc(t_redir *new, t_word *word, int tmp_idx)
+static int	ft_is_right_redirection(t_word *word)
 {
-	++(word->re_idx);
-	while (word->word[word->re_idx] == ' ')
-		word->re_idx += 1;
-	if (word->word[word->re_idx] == '>' || word->word[word->re_idx] == '<' \
-	|| word->word[word->re_idx] == '|' || word->word[word->re_idx] == '\n')
-	
+	char	c;
+
+	c = word->word[word->re_idx];
+	if (c == '`' || c == '&' || c == '\n' || c == '(' || \
+	c == ')')
+		ft_stx_near_unexp_tk_error(c);
+	else if (c == '*' && word->word[word->re_idx + 1] == '\0')
+		ft_ambiguous_redirect_error();
 }
 
 static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
@@ -82,9 +84,7 @@ static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
 		word->re_idx += 1;
 	while (word->word[word->re_idx] == ' ')
 		word->re_idx += 1;
-	if (word->word[word->re_idx] == '>' || word->word[word->re_idx] == '<' \
-	|| word->word[word->re_idx] == '|' || word->word[word->re_idx] == '\n')
-		ft_redirect_syntax_error();
+	ft_is_right_redirection(word);
 	while (word->re_idx <= word->word_idx)
 	{
 		new->file_name[++i] = word->word[word->re_idx];

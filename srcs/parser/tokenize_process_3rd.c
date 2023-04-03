@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata);
+static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx);
 
 void	ft_start_redirect_stt(char input, t_word *word)
 {
@@ -22,7 +23,7 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 	if (word->word[word->re_idx] == '<')
 	{
 		if (word->word[++(word->re_idx)] == '<')
-			ft_redirect_here_doc();
+			ft_redirect_here_doc(new, word, tmp_idx);
 		else
 			new->type = RE_INPUT;
 	}
@@ -34,7 +35,7 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 			new->type = RE_OUTPUT;
 	}
 	if (new->type != RE_HERE)
-		ft_put_redir_file_name_erase_word(new, word);
+		ft_put_re_put_del_word(new, word, tmp_idx);
 }
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata)
@@ -62,7 +63,36 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 	}
 }
 
-static void ft_put_redir_file_name_erase_word(t_redir *new, t_word *word)
+static void	ft_redirect_here_doc(t_redir *new, t_word *word, int tmp_idx)
 {
+	++(word->re_idx);
+	while (word->word[word->re_idx] == ' ')
+		word->re_idx += 1;
+	if (word->word[word->re_idx] == '>' || word->word[word->re_idx] == '<' \
+	|| word->word[word->re_idx] == '|' || word->word[word->re_idx] == '\n')
+	
+}
 
+static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
+{
+	int	i;
+
+	i = -1;
+	if (new->type == RE_APPEND)
+		word->re_idx += 1;
+	while (word->word[word->re_idx] == ' ')
+		word->re_idx += 1;
+	if (word->word[word->re_idx] == '>' || word->word[word->re_idx] == '<' \
+	|| word->word[word->re_idx] == '|' || word->word[word->re_idx] == '\n')
+		ft_redirect_syntax_error();
+	while (word->re_idx <= word->word_idx)
+	{
+		new->file_name[++i] = word->word[word->re_idx];
+		word->re_idx += 1;
+	}
+	while (tmp_idx <= word->word_idx)
+	{
+		word->word[tmp_idx] = '\0';
+		tmp_idx += 1;
+	}
 }

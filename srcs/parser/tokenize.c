@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:39:08 by jaekkang          #+#    #+#             */
-/*   Updated: 2023/04/03 21:50:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/04/03 23:10:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 		(word->dq_stt == OFF && *input == '\"'))
 		ft_start_quoted_stt(*input, word);
 	else if (word->sq_stt == OFF && *input == '$')
-		ft_start_expansion_stt(word);
+		ft_start_expansion_stt(&input, word);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && word->re_stt == OFF \
 		&& (*input == '<' || *input == '>'))
 		ft_start_redirect_stt(*input, word);

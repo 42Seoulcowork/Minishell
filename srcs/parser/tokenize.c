@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 {

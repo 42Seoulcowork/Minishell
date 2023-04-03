@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	ft_handle_empty_word_and_expension_variable(char **input)
 {

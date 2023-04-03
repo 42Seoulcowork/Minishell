@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_end_line_finish_hpwtt(t_p_data *pdata, t_word *word)
 {

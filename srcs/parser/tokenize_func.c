@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	ft_find_cmd_type(t_p_data *pdata, char *new_word);
 

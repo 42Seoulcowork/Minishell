@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 // void	enqueue(t_p_data *data, t_token *token)
 // {

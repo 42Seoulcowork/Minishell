@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	ft_init_token_word(t_p_data *pdata, t_word *word)
 {

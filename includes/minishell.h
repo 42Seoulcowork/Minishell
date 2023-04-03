@@ -46,13 +46,6 @@ typedef struct s_envp{
 	pid_t	main_pid;
 }			t_envp;
 
-typedef struct s_env_node
-{
-	char				*key;
-	char				*value;
-	struct s_env_node	*next;
-}	t_env_node;
-
 /* built_in */
 void		ft_pwd(t_env_node *head);
 void		ft_exit(t_env_node *head, char **args);

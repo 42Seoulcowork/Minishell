@@ -6,6 +6,14 @@
 # define ON 1
 # define OFF 0
 
+typedef struct s_env_node
+{
+	char				*key;
+	char				*value;
+	struct s_env_node	*next;
+}	t_env_node;
+
+
 typedef enum e_type
 {
 	RE_INPUT,

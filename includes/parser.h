@@ -20,8 +20,7 @@ typedef enum e_type
 	RE_HERE,
 	RE_OUTPUT,
 	RE_APPEND,
-	COMMAND,
-	NONE
+	COMMAND
 }	t_type;
 
 typedef enum e_c_type
@@ -62,6 +61,8 @@ typedef struct s_word
 {
 	int			sq_stt;
 	int			dq_stt;
+	int			ex_stt;
+	int			ex_idx;
 	t_type		type;
 	int			break_flag;
 	char		word[ARG_MAX];
@@ -75,12 +76,12 @@ void	ft_clear_word_struct(t_word *word);
 void	ft_handle_present_word_to_token(t_p_data *pdata, t_word *word);
 void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word);
 
-void	ft_end_line_finish_hpwtt(t_p_data *pdata, t_word *word);
-void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word);
+void	ft_el_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
+void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
 void	ft_end_quoted_stt(char input, t_word *word);
 void	ft_start_quoted_stt(char input, t_word *word);
 char	*ft_strlen_for_exp(char **input);
 
-void	ft_expension_process(char **input, t_word *word, t_env_node *node);
+void	ft_expension_process(t_word *word, t_env_node *node);
 
 #endif

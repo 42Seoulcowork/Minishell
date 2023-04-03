@@ -61,7 +61,7 @@ int	main(int ac, char **av, char **envp)
 		execute(head, &parsed_data);
 		if (str[0] != '\0')
 			add_history(str);
-		printf("exit_status: %s\n", head->value);
+		// printf("exit_status: %s\n", head->value);
 		free(str);
 	}
 	return (0);

@@ -1,23 +1,31 @@
 #include "minishell.h"
 
-void	ft_end_line_finish_hpwtt(t_p_data *pdata, t_word *word)
+void	ft_el_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 {
+	if (word->ex_stt == ON)
+		ft_expension_process(word, node);
 	ft_handle_present_word_to_token(pdata, word);
+	if (pdata->now->cmd == NULL && pdata->now->redir == NULL \
+		&& word->ex_idx == -1)
+		ft_pipe_syntax_error();
 	ft_clear_word_struct(word);
 	word->break_flag = ON;
 }
 
-void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word)
+void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 {
 	t_token	*new_token;	
 
+	if (word->ex_stt == ON)
+		ft_expension_process(word, node);
 	ft_handle_present_word_to_token(pdata, word);
-	ft_clear_word_struct(word);
-	if (pdata->now->cmd == NULL && pdata->now->redir == NULL)
+	if (pdata->now->cmd == NULL && pdata->now->redir == NULL \
+		&& word->ex_idx == -1)
 		ft_pipe_syntax_error();
 	new_token = (t_token *)malloc(sizeof(t_token));
 	if (!new_token)
 		ft_allocation_error();
+	ft_clear_word_struct(word);
 	new_token->cmd = NULL;
 	new_token->cmd_type = EXTERN_FUNC;
 	new_token->redir = NULL;

@@ -6,7 +6,7 @@
 /*   By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:39:08 by jaekkang          #+#    #+#             */
-/*   Updated: 2023/04/03 11:00:44 by jaekkang         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:30:54 by jaekkang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 {
 	if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '\n')
-		ft_end_line_finish_hpwtt(pdata, word);
+		ft_el_fin_hpwtt(pdata, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '|')
-		ft_add_new_token_hpwtt(pdata, word);
+		ft_add_new_token_hpwtt(pdata, word, head);
 	else if ((word->sq_stt == ON && *input == '\'') || \
 		(word->dq_stt == ON && *input == '\"'))
 		ft_end_quoted_stt(*input, word);
@@ -25,12 +25,12 @@ void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 		(word->dq_stt == OFF && *input == '\"'))
 		ft_start_quoted_stt(*input, word);
 	else if (word->sq_stt == OFF && *input == '$')
-		ft_expension_process(&input, word, head);
+		ft_start_expansion_stt(word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && \
 		(*input == '<' || *input == '>'))
 		ft_redirect_hpwtt(&input, pdata);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == ' ')
-		ft_clean_new_word_hpwtt(pdata, word);
+		ft_clean_new_word_hpwtt(pdata, word, head);
 	else if (*input == '#' && word->word[0] == '\0' && \
 		word->dq_stt == OFF && word->sq_stt == OFF)
 		ft_handle_comment(word);

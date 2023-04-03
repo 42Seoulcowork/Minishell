@@ -24,6 +24,8 @@
 # define TRUE	1
 # define FALSE	0
 
+int	g_exit_status;
+
 typedef enum s_erroridx {
 	PIPE_ERROR,
 	FORK_ERROR,
@@ -44,7 +46,7 @@ typedef struct s_envp{
 	char	**paths;
 	char	**envp;
 	pid_t	main_pid;
-}			t_envp;
+}	t_envp;
 
 /* built_in */
 void		ft_pwd(t_env_node *head);

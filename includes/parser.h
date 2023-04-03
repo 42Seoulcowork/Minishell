@@ -84,9 +84,7 @@ void	ft_end_quoted_stt(char input, t_word *word);
 void	ft_start_quoted_stt(char input, t_word *word);
 char	*ft_strlen_for_exp(char **input);
 
-void	ft_start_expansion_stt(t_word *word);
-void	ft_expension_process(t_word *word, t_env_node *node);
-
+void	ft_start_expansion_stt(char **input, t_word *word);
 void	ft_expension_process(t_word *word, t_env_node *node);
 
 #endif

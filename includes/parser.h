@@ -70,7 +70,7 @@ typedef struct s_word
 
 void	parsing(char *input, t_p_data *pdata, t_env_node *head);
 
-void	ft_tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head);
+void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head);
 void	ft_clear_word_struct(t_word *word);
 void	ft_handle_present_word_to_token(t_p_data *pdata, t_word *word);
 void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word);

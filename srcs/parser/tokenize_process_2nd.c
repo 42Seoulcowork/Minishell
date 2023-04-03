@@ -29,7 +29,7 @@ void	ft_expension_process(char **input, t_word *word, t_env_node *node)
 			{
 				while ((node->value)[++i])
 					(word->word)[++(word->word_idx)] = node->value[i];
-				break;
+				break ;
 			}
 			node = node->next;
 		}

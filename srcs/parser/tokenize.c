@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/03 10:39:08 by jaekkang          #+#    #+#             */
+/*   Updated: 2023/04/03 11:00:44 by jaekkang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	ft_tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
+void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 {
 	if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '\n')
 		ft_end_line_finish_hpwtt(pdata, word);

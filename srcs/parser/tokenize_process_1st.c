@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_el_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
+void	ft_end_line_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 {
 	if (word->ex_stt == ON)
 		ft_expension_process(word, node);

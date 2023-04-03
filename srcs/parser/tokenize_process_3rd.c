@@ -1,4 +1,6 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
+
+static void	ft_append_new_redirect_struct(t_p_data *pdata);
 
 void	ft_start_redirect_stt(char input, t_word *word)
 {
@@ -58,4 +60,9 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 		tmp->next->next = NULL;
 		ft_memset(tmp->next, '\0', PATH_MAX);
 	}
+}
+
+static void ft_put_redir_file_name_erase_word(t_redir *new, t_word *word)
+{
+
 }

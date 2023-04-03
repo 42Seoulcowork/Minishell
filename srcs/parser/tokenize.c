@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:39:08 by jaekkang          #+#    #+#             */
-/*   Updated: 2023/04/03 20:55:05 by jaekkang         ###   ########.fr       */
+/*   Updated: 2023/04/03 21:50:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 {
 	if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '\n')
-		ft_el_fin_hpwtt(pdata, word, head);
+		ft_end_line_fin_hpwtt(pdata, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '|')
 		ft_add_new_token_hpwtt(pdata, word, head);
 	else if ((word->sq_stt == ON && *input == '\'') || \

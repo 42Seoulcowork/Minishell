@@ -8,6 +8,8 @@ void	ft_clear_word_struct(t_word *word)
 	word->sq_stt = OFF;
 	word->ex_stt = OFF;
 	word->ex_idx = -1;
+	word->re_stt = OFF;
+	word->re_idx = 0;
 	word->type = COMMAND;
 	word->word_idx = -1;
 	word->break_flag = OFF;

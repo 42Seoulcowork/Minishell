@@ -63,6 +63,8 @@ typedef struct s_word
 	int			dq_stt;
 	int			ex_stt;
 	int			ex_idx;
+	int			re_stt;
+	int			re_idx;
 	t_type		type;
 	int			break_flag;
 	char		word[ARG_MAX];
@@ -81,6 +83,9 @@ void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
 void	ft_end_quoted_stt(char input, t_word *word);
 void	ft_start_quoted_stt(char input, t_word *word);
 char	*ft_strlen_for_exp(char **input);
+
+void	ft_start_expansion_stt(t_word *word);
+void	ft_expension_process(t_word *word, t_env_node *node);
 
 void	ft_expension_process(t_word *word, t_env_node *node);
 

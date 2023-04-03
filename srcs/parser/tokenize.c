@@ -6,7 +6,7 @@
 /*   By: jaekkang <jaekkang@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:39:08 by jaekkang          #+#    #+#             */
-/*   Updated: 2023/04/03 19:30:54 by jaekkang         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:55:05 by jaekkang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 		(word->dq_stt == OFF && *input == '\"'))
 		ft_start_quoted_stt(*input, word);
 	else if (word->sq_stt == OFF && *input == '$')
-		ft_start_expansion_stt(word, head);
-	else if (word->dq_stt == OFF && word->sq_stt == OFF && \
-		(*input == '<' || *input == '>'))
-		ft_redirect_hpwtt(&input, pdata);
+		ft_start_expansion_stt(word);
+	else if (word->dq_stt == OFF && word->sq_stt == OFF && word->re_stt == OFF \
+		&& (*input == '<' || *input == '>'))
+		ft_start_redirect_stt(*input, word);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == ' ')
 		ft_clean_new_word_hpwtt(pdata, word, head);
+//redirection state일때 혹시 전 글자가 '<' '>'면 무시
 	else if (*input == '#' && word->word[0] == '\0' && \
 		word->dq_stt == OFF && word->sq_stt == OFF)
 		ft_handle_comment(word);

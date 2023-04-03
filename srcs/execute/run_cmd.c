@@ -82,30 +82,11 @@ int		handle_redir(t_redir *redir)
 
 void	run_cmd(t_env_node *head, t_token *token)
 {
-	int 	status;
+//	int 	status;
 	char	*tmp;
 	char	*path;
 	char 	**env_path;
-	pid_t	pid;
-
-//	token = malloc(sizeof(t_token));
-//	token->cmd = ft_split("cat", ' ');
-//	token->redir = malloc(sizeof(t_redir));
-//	token->redir->type = RE_INPUT;
-//	token->redir->file_name[0] = 'a';
-//	token->redir->next = malloc(sizeof(t_redir));
-//	token->redir->next->type = RE_INPUT;
-//	token->redir->next->file_name[0] = 'b';
-//	token->redir->next->next = malloc(sizeof(t_redir));
-//	token->redir->next->next->type = RE_OUTPUT;
-//	token->redir->next->next->file_name[0] = 'f';
-//	token->redir->next->next->next = malloc(sizeof(t_redir));
-//	token->redir->next->next->next->type = RE_APPEND;
-//	token->redir->next->next->next->file_name[0] = 'e';
-//	token->redir->next->next->next->next = malloc(sizeof(t_redir));
-//	token->redir->next->next->next->next->type = RE_INPUT;
-//	token->redir->next->next->next->next->file_name[0] = 'j';
-//	token->redir->next->next->next->next->next = NULL;
+//	pid_t	pid;
 
 	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
 	{
@@ -129,42 +110,42 @@ void	run_cmd(t_env_node *head, t_token *token)
 		head->value = "126";
 		return (print_permission_denied(path, token->cmd[0]));
 	}
-	pid = fork();
-	if (pid == 0)
-	{
+//	pid = fork();
+//	if (pid == 0)
+//	{
 		if (execve(path, token->cmd, convert_array_for_execve(head)) == -1)
 		{
 			perror("minishell: ");
 			ft_putstr_fd("\n", STDERR_FILENO);
 		}
-	}
-	else if (pid > 0)
-	{
-		wait(&status);
-		// 종료상태 반환, 저장만
-	}
-	else
-	{
-		perror("minishell: ");
-		ft_putstr_fd("\n", STDERR_FILENO);
-		// fork error
-	}
-	if (WIFEXITED(status))
-		head->value = ft_itoa(WEXITSTATUS(status));
-	else // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
-	{
-		head->value = "255";
-		if (WIFSIGNALED(status))
-		{
-			ft_putnbr_fd(WTERMSIG(status), 2);
-			ft_putstr_fd("  시그널에 의한 비정상 종료\n", 2);
-		}
-		else if (WIFSTOPPED(status))
-		{
-			ft_putnbr_fd(WSTOPSIG(status), 2);
-			ft_putstr_fd("  강제 종료에 의한 비정상 종료\n", 2);
-		}
-		else
-			ft_putstr_fd("하하하 왜 에러일까요, 알아맞춰주세요\n", 2);
-	}
+//	}
+//	else if (pid > 0)
+//	{
+//		wait(&status);
+//		// 종료상태 반환, 저장만
+//	}
+//	else
+//	{
+//		perror("minishell: ");
+//		ft_putstr_fd("\n", STDERR_FILENO);
+//		// fork error
+//	}
+//	if (WIFEXITED(status))
+//		head->value = ft_itoa(WEXITSTATUS(status));
+//	else // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
+//	{
+//		head->value = "255";
+//		if (WIFSIGNALED(status))
+//		{
+//			ft_putnbr_fd(WTERMSIG(status), 2);
+//			ft_putstr_fd("  시그널에 의한 비정상 종료\n", 2);
+//		}
+//		else if (WIFSTOPPED(status))
+//		{
+//			ft_putnbr_fd(WSTOPSIG(status), 2);
+//			ft_putstr_fd("  강제 종료에 의한 비정상 종료\n", 2);
+//		}
+//		else
+//			ft_putstr_fd("하하하 왜 에러일까요, 알아맞춰주세요\n", 2);
+//	}
 }

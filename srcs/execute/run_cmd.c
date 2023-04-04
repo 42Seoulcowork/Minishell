@@ -18,9 +18,10 @@ static char	*find_path(char *cmd, char **path)
 	}
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	// exit status 127
-	return (NULL);
+	exit(1);
+	//return (NULL);
 }
 
 static void	print_permission_denied(char *path, char *cmd)
@@ -117,6 +118,7 @@ void	run_cmd(t_env_node *head, t_token *token)
 		{
 			perror("minishell: ");
 			ft_putstr_fd("\n", STDERR_FILENO);
+			exit(1);
 		}
 //	}
 //	else if (pid > 0)

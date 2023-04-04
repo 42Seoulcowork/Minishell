@@ -93,7 +93,8 @@ void	execute(t_env_node *head, t_p_data *p_data)
 	int	stdout_dup;
 	int *fd;
 	int i;
-	int	status;
+	int	tmp;
+	int status;
 	pid_t pid;
 	pid_t pid2;
 
@@ -131,8 +132,8 @@ void	execute(t_env_node *head, t_p_data *p_data)
 			pid = fork();
 			if (pid == 0) // 자식
 			{
-				close(fd[i * 2]);
 				close(fd[(i - 1) * 2 + 1]);
+				close(fd[i * 2]);
 				dup2(fd[(i - 1) * 2], STDIN_FILENO);
 				dup2(fd[i * 2 + 1], STDOUT_FILENO);
 				close(fd[(i - 1) * 2]);
@@ -162,8 +163,13 @@ void	execute(t_env_node *head, t_p_data *p_data)
 			close(8);
 			close(5);
 			close(6);
-			waitpid(pid, NULL, 0);
-			waitpid(pid2, &status, 0);
+			for (int j = 0; j < 3; ++j)
+			{
+				if (pid2 == wait(&tmp))
+				{
+					status = tmp;
+				}
+			}
 		}
 		else
 		{

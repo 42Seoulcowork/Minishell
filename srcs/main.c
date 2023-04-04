@@ -40,19 +40,20 @@ int	main(int ac, char **av, char **envp)
 			parsed_data.front->cmd_type = PWD_FUNC;
 //		else
 //			parsed_data.front->cmd_type = EXTERN_FUNC;
-		parsed_data.front->cmd_type = EXTERN_FUNC;
-		parsed_data.front->cmd = ft_split("cat", ' ');
-		parsed_data.front->redir = NULL;
-		parsed_data.front->next = malloc(sizeof(t_token));
-		parsed_data.front->next->cmd_type = EXTERN_FUNC;
-		parsed_data.front->next->cmd = ft_split("cat", ' ');
-		parsed_data.front->next->redir = NULL;
-		parsed_data.front->next->next = malloc(sizeof(t_token));
-		parsed_data.front->next->next->cmd_type = EXTERN_FUNC;
-		parsed_data.front->next->next->cmd = ft_split("ls", ' ');
-		parsed_data.front->next->next->redir = NULL;
-		parsed_data.front->next->next->next = NULL;
-		// 테스트를 위한 실행팀의 발버둥
+          parsed_data.front->cmd_type = EXTERN_FUNC;
+          parsed_data.front->cmd = ft_split("ls", ' ');
+          parsed_data.front->redir = NULL;
+          parsed_data.front->next = malloc(sizeof(t_token));
+          parsed_data.front->next->cmd_type = EXTERN_FUNC;
+          parsed_data.front->next->cmd = ft_split("grep srcs", ' ');
+          parsed_data.front->next->redir = NULL;
+          //parsed_data.front->next->next = NULL;
+          parsed_data.front->next->next = malloc(sizeof(t_token));
+          parsed_data.front->next->next->cmd_type = EXTERN_FUNC;
+          parsed_data.front->next->next->cmd = ft_split("wc", ' ');
+          parsed_data.front->next->next->redir = NULL;
+          parsed_data.front->next->next->next = NULL;
+          // 테스트를 위한 실행팀의 발버둥
 //		parsed_data.front->redir = malloc(sizeof(t_redir));
 //		parsed_data.front->redir->type = RE_INPUT;
 //		parsed_data.front->redir->file_name[0] = 'b';

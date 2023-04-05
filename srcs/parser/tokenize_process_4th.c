@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_redirect_here_doc(t_redir *new, t_word *word, int tmp_idx)
 {

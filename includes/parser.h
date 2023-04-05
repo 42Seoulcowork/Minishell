@@ -13,7 +13,6 @@ typedef struct s_env_node
 	struct s_env_node	*next;
 }	t_env_node;
 
-
 typedef enum e_type
 {
 	RE_INPUT,

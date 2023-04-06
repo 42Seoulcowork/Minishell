@@ -15,13 +15,7 @@ RM = rm -f
 LIB_FLAG = -Llib -lft
 
 SRC =	main.c \
-		execute/envp_init.c \
 		execute/run_cmd.c \
-		execute/pipe_run.c \
-		execute/pipe_pid.c \
-		execute/pipe_utils.c \
-		execute/pipe_error.c \
-		execute/pipe_split_set.c \
 		execute/env_node_utils.c \
 		execute/quick_sort.c \
 		execute/execute.c \

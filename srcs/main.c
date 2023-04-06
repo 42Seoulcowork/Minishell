@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **envp)
 		}
 //		parsing(str, &parsed_data, head);
 		parsed_data.front = malloc(sizeof(t_token));
-		parsed_data.pipe_cnt = 2;
+		parsed_data.pipe_cnt = 1;
 		parsed_data.front->cmd = ft_split(str, ' ');
 		if (ft_strncmp("cd", str, 2) == 0)
 			parsed_data.front->cmd_type = CD_FUNC;
@@ -40,20 +40,41 @@ int	main(int ac, char **av, char **envp)
 			parsed_data.front->cmd_type = PWD_FUNC;
 //		else
 //			parsed_data.front->cmd_type = EXTERN_FUNC;
-          parsed_data.front->cmd_type = EXTERN_FUNC;
-          parsed_data.front->cmd = ft_split("yes no", ' ');
-          parsed_data.front->redir = NULL;
-          parsed_data.front->next = malloc(sizeof(t_token));
+		parsed_data.front->cmd_type = ECHO_FUNC;
+		parsed_data.front->cmd = ft_split("echo 1123", ' ');
+		parsed_data.front->redir = NULL;
+
+		/*
+		parsed_data.front->redir->next = malloc(sizeof(t_redir));
+		parsed_data.front->redir->next->file_name[0] = 'b';
+		  parsed_data.front->redir->next->type = RE_OUTPUT;
+		  parsed_data.front->redir->next->next = malloc(sizeof(t_redir));
+		  parsed_data.front->redir->next->next->file_name[0] = 'c';
+		  parsed_data.front->redir->next->next->type = RE_OUTPUT;
+		  parsed_data.front->redir->next->next->next = malloc(sizeof(t_redir));
+		  parsed_data.front->redir->next->next->next->file_name[0] = 'd';
+		  parsed_data.front->redir->next->next->next->type = RE_INPUT;
+		  parsed_data.front->redir->next->next->next->next = NULL;
+		  */
+
+		  parsed_data.front->next = malloc(sizeof(t_token));
           parsed_data.front->next->cmd_type = EXTERN_FUNC;
-          parsed_data.front->next->cmd = ft_split("grep no", ' ');
+          parsed_data.front->next->cmd = ft_split("grep 1", ' ');
           parsed_data.front->next->redir = NULL;
-          //parsed_data.front->next->next = NULL;
-          parsed_data.front->next->next = malloc(sizeof(t_token));
+          parsed_data.front->next->next = NULL;
+
+		  /*parsed_data.front->next->next = malloc(sizeof(t_token));
           parsed_data.front->next->next->cmd_type = EXTERN_FUNC;
-          parsed_data.front->next->next->cmd = ft_split("head -2", ' ');
+          parsed_data.front->next->next->cmd = ft_split("cat", ' ');
           parsed_data.front->next->next->redir = NULL;
-          parsed_data.front->next->next->next = NULL;
-          // 테스트를 위한 실행팀의 발버둥
+		  parsed_data.front->next->next->next = malloc(sizeof(t_token));
+		  parsed_data.front->next->next->next->cmd_type = EXTERN_FUNC;
+		  parsed_data.front->next->next->next->cmd = ft_split("cat", ' ');
+		  parsed_data.front->next->next->next->redir = NULL;
+          parsed_data.front->next->next->next->next = NULL;
+          */
+
+		  // 테스트를 위한 실행팀의 발버둥
 //		parsed_data.front->redir = malloc(sizeof(t_redir));
 //		parsed_data.front->redir->type = RE_INPUT;
 //		parsed_data.front->redir->file_name[0] = 'b';

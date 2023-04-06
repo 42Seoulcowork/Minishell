@@ -16,13 +16,13 @@ static int	check_echo_option(char **args)
 	return (i);
 }
 
-void	ft_echo(t_env_node *head, char **args)
+void	ft_echo(char **args)
 {
-	int	i;// int? or size_t?
+	int	i;
 	int	j;
 	int	option_flag;
 
-	head->value = "0";
+	g_exit_status = 0;
 	if (!args[1])
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);

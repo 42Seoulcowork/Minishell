@@ -21,9 +21,7 @@ static char	*find_path(char *cmd, char **path)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	// exit status 127
-	exit(1);
-	//return (NULL);
+	return (NULL);
 }
 
 static void	print_permission_denied(char *path, char *cmd)
@@ -32,6 +30,7 @@ static void	print_permission_denied(char *path, char *cmd)
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 	free(path);
+	exit(126);
 }
 
 static void	free_env_path(char **env_path)
@@ -65,21 +64,14 @@ void	run_cmd(t_env_node *head, t_token *token)
 		path = find_path(token->cmd[0], env_path);
 		free_env_path(env_path);
 		if (!path)
-		{
-			g_exit_status = 127;
-			return ;
-		}
+			exit(127);
 	}
 	if (access(path, X_OK) != 0)
-	{
-		g_exit_status = 126;
-		return (print_permission_denied(path, token->cmd[0]));
-	}
+		print_permission_denied(path, token->cmd[0]);
 	if (execve(path, token->cmd, convert_array_for_execve(head)) == -1)
 	{
 		perror("minishell: ");
 		ft_putstr_fd("\n", STDERR_FILENO);
-		g_exit_status = 1;
-		exit(g_exit_status);
+		exit(1);
 	}
 }

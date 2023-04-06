@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata);
 static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx);
@@ -23,7 +23,10 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 	if (word->word[word->re_idx] == '<')
 	{
 		if (word->word[++(word->re_idx)] == '<')
-			ft_redirect_here_doc(new, word, tmp_idx);
+		{
+			write(1, "ft_redirect_here_doc\n", 21);
+			//ft_redirect_here_doc(new, word, tmp_idx);
+		}
 		else
 			new->type = RE_INPUT;
 	}
@@ -73,6 +76,7 @@ static int	ft_is_right_redirection(t_word *word)
 		ft_stx_near_unexp_tk_error(c);
 	else if (c == '*' && word->word[word->re_idx + 1] == '\0')
 		ft_ambiguous_redirect_error();
+	return (0);
 }
 
 static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)

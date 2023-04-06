@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_start_expansion_stt(char **input, t_word *word)
 {

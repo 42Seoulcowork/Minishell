@@ -55,9 +55,9 @@ void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word)
 	if (word->word[0] == '\0')
 		return ;
 	new_cmd = (char **)malloc(sizeof(char *) \
-		* (ft_strlen(pdata->now->cmd) + 2));
+		* (ft_strlen(*pdata->now->cmd) + 2));
 	i = -1;
-	while (++i < ft_strlen(pdata->now->cmd))
+	while (++i < (int)ft_strlen(*pdata->now->cmd))
 		new_cmd[i] = (pdata->now->cmd)[i];
 	new_word = ft_strdup(word->word);
 	if (!new_word)

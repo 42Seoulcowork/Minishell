@@ -37,14 +37,15 @@ void		ft_unset(t_env_node *head, char **keys);
 char		*ft_getenv(t_env_node *head, char *key);
 
 /* execute */
-void		execute(t_env_node *head, t_p_data *p_data);
-void		run_cmd(t_env_node *head, t_token *token);
 t_env_node	*create_node(char *key, char *value);
 t_env_node	*init_node(char **envp);
 void		add_node(t_env_node *head, t_env_node *node);
 void		delete_node(t_env_node *head, char *key);
 char		**convert_array_for_export(t_env_node *head);
 char		**convert_array_for_execve(t_env_node *head);
+void		execute(t_env_node *head, t_p_data *p_data);
+void		run_cmd(t_env_node *head, t_token *token);
+int			handle_redir(t_redir *redir);
 void		quick_sort(char **arr, int left, int right);
 
 #endif

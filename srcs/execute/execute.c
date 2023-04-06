@@ -91,12 +91,13 @@ void	execute(t_env_node *head, t_p_data *p_data)
 {
 	int	stdin_dup;
 	int	stdout_dup;
-	int *fd;
+	int **fd;
 	int i;
 	int	tmp;
 	int status;
 	pid_t pid;
 	pid_t pid2;
+	pid_t pid3;
 
 	stdin_dup = dup(STDIN_FILENO);
 	stdout_dup = dup(STDOUT_FILENO);
@@ -107,18 +108,21 @@ void	execute(t_env_node *head, t_p_data *p_data)
 	}
 	else
 	{
-		fd = malloc(sizeof(int) * 2 * p_data->pipe_cnt);
-		pipe(fd);
+		fd = malloc(sizeof(int*) * p_data->pipe_cnt);
+		for (int j = 0; j < p_data->pipe_cnt; ++j)
+			fd[j] = malloc(sizeof(int) * 2);
+		pipe(fd[0]);
 		pid = fork();
 		if (pid == 0)
 		{
-			close(fd[READ_END]);
-			dup2(fd[WRITE_END], STDOUT_FILENO);
-			close(fd[WRITE_END]);
+			close(fd[0][0]);
+			dup2(fd[0][1], STDOUT_FILENO);
+			close(fd[0][1]);
 			execute_token(head, p_data->front);
 		}
 		else if (pid > 0)
 		{
+			close(fd[0][1]);
 			p_data->front = p_data->front->next;
 		}
 		else
@@ -128,20 +132,21 @@ void	execute(t_env_node *head, t_p_data *p_data)
 		while (i < p_data->pipe_cnt - 1)
 		{
 			++i;
-			pipe(fd + i * 2);//todo pipe error
-			pid = fork();
-			if (pid == 0) // 자식
+			pipe(fd[1]);//todo pipe error
+			pid2 = fork();
+			if (pid2 == 0) // 자식
 			{
-				close(fd[(i - 1) * 2 + 1]);
-				close(fd[i * 2]);
-				dup2(fd[(i - 1) * 2], STDIN_FILENO);
-				dup2(fd[i * 2 + 1], STDOUT_FILENO);
-				close(fd[(i - 1) * 2]);
-				close(fd[i * 2 + 1]);
+				close(fd[1][0]);
+				dup2(fd[0][0], STDIN_FILENO);
+				close(fd[0][0]);
+				dup2(fd[1][1], STDOUT_FILENO);
+				close(fd[1][1]);
 				execute_token(head, p_data->front);
 			}
-			else if (pid > 0)
+			else if (pid2 > 0)
 			{
+				close(fd[0][0]);
+				close(fd[1][1]);
 				p_data->front = p_data->front->next;
 			}
 			else
@@ -149,23 +154,19 @@ void	execute(t_env_node *head, t_p_data *p_data)
 				// error
 			}
 		}
-		pid2 = fork();
-		if (pid2 == 0) // 자식
+		pid3 = fork();
+		if (pid3 == 0) // 자식
 		{
-			close(fd[i * 2 + 1]);
-			dup2(fd[i * 2], STDIN_FILENO);
-			close(fd[i * 2]);
+			dup2(fd[1][0], STDIN_FILENO);
+			close(fd[1][0]);
 			execute_token(head, p_data->front);
 		}
-		else if (pid2 > 0)
+		else if (pid3 > 0)
 		{
-			close(7);
-			close(8);
-			close(5);
-			close(6);
+			close(fd[1][0]);
 			for (int j = 0; j < 3; ++j)
 			{
-				if (pid2 == wait(&tmp))
+				if (pid3 == wait(&tmp))
 				{
 					status = tmp;
 				}
@@ -186,6 +187,7 @@ void	execute(t_env_node *head, t_p_data *p_data)
 			}
 			else if (WIFSTOPPED(status))
 			{
+				// 130
 				ft_putnbr_fd(WSTOPSIG(status), 2);
 				ft_putstr_fd("  강제 종료에 의한 비정상 종료\n", 2);
 			}

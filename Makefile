@@ -19,7 +19,9 @@ SRC =	main.c \
 		execute/env_node_utils.c \
 		execute/quick_sort.c \
 		execute/execute.c \
+		execute/execute_pipe.c \
 		execute/handle_redir.c \
+		execute/wrapper_sys_functions.c \
 		built_in/ft_cd.c \
 		built_in/ft_pwd.c \
 		built_in/ft_exit.c \

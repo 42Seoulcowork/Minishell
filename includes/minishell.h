@@ -47,5 +47,16 @@ void		execute(t_env_node *head, t_p_data *p_data);
 void		run_cmd(t_env_node *head, t_token *token);
 int			handle_redir(t_redir *redir);
 void		quick_sort(char **arr, int left, int right);
+void		execute_token(t_env_node *head, t_token *token);
+
+/* execute_pipe */
+
+int			execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status);
+void		execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd);
+int			execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd);
+int			execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i);
+
+int 		ft_pipe(int fd[2]);
+int 		ft_fork(void);
 
 #endif

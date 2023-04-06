@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_pwd(t_env_node *head)
+void	ft_pwd(void)
 {
 	char *path;
 
@@ -9,11 +9,11 @@ void	ft_pwd(t_env_node *head)
 	{
 		path = ft_strjoin(path, "\n");
 		ft_putstr_fd(path, STDOUT_FILENO);
-		head->value = "0";
+		g_exit_status = 0;
 	}
 	else
 	{
 		ft_putstr_fd("minishell: pwd: no path\n", STDERR_FILENO);
-		head->value = "1";
+		g_exit_status = 1;
 	}
 }

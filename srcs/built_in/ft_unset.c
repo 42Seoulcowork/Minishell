@@ -4,7 +4,7 @@ void	ft_unset(t_env_node *head, char **keys)
 {
 	int	i;
 
-	head->value = "0";
+	g_exit_status = 0;
 	i = 1;
 	if (keys[1] == NULL)
 		return ;

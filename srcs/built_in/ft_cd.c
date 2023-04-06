@@ -53,7 +53,7 @@ void	ft_cd(t_env_node *head, char **argv)
 		{
 			ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
 			free(old_path);
-			head->value = "1";
+			g_exit_status = 1;
 			return ;
 		}
 		ft_putstr_fd(path, STDOUT_FILENO);
@@ -71,13 +71,13 @@ void	ft_cd(t_env_node *head, char **argv)
 		else
 			path = ft_strjoin(old_path, ": Not a directory\n");
 		ft_putstr_fd(path, STDERR_FILENO);
-		head->value = "1";
+		g_exit_status = 1;
 	}
 	else // 이동했을 때만 갱신
 	{
 		ft_setenv("OLDPWD", old_path, head);
 		ft_setenv("PWD", getcwd(NULL, 0), head);
-		head->value = "0";
+		g_exit_status = 0;
 	}
 	free(old_path);
 	free(path);

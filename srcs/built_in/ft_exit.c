@@ -47,28 +47,28 @@ static int	ft_atouc(const char *str)
 	return ((unsigned char)result);
 }
 
-void	ft_exit(t_env_node *head, char **args)
+void	ft_exit(char **args)
 {
-	int		exit_status;
+	int		input_status;
 	char 	*msg;
 
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!args[1])
 	{
-		exit(ft_atoi(head->value));
+		exit(g_exit_status);
 	}
-	exit_status = ft_atouc(args[1]);
-	if (exit_status == -1)
+	input_status = ft_atouc(args[1]);
+	if (input_status == -1)
 	{
 		msg = ft_strjoin(ft_strjoin("minishell: exit: ", args[1]), ": numeric argument required\n");
 		ft_putstr_fd(msg, STDERR_FILENO);
-		exit_status = 255;
+		g_exit_status = 255;
 	}
 	else if (args[2]) // args[1]을 먼저 확인
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-		head->value = "1";
+		g_exit_status = 1;
 		return ;
 	}
-	exit(exit_status);
+	exit(g_exit_status);
 }

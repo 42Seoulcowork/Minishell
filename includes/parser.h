@@ -85,5 +85,15 @@ char	*ft_strlen_for_exp(char **input);
 
 void	ft_start_expansion_stt(char **input, t_word *word);
 void	ft_expension_process(t_word *word, t_env_node *node);
+void	ft_start_redirect_stt(char input, t_word *word);
+void	ft_redirection_process(t_p_data *pdata, t_word *word);
+
+void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *head);
+void	ft_handle_comment(t_word *word);
+
+void	ft_allocation_error(void);
+void	ft_pipe_syntax_error(void);
+void	ft_stx_near_unexp_tk_error(char c);
+void	ft_ambiguous_redirect_error(void);
 
 #endif

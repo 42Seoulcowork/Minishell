@@ -132,6 +132,7 @@ void	execute(t_env_node *head, t_p_data *p_data)
 			dup2(fd[0][WRITE_END], STDOUT_FILENO);
 			close(fd[0][WRITE_END]);
 			execute_token(head, p_data->front);
+			exit(g_exit_status);
 		}
 		else if (pid > 0)
 		{
@@ -157,6 +158,7 @@ void	execute(t_env_node *head, t_p_data *p_data)
 				dup2(fd[i][WRITE_END], STDOUT_FILENO);
 				close(fd[i][WRITE_END]);
 				execute_token(head, p_data->front);
+				exit(g_exit_status);
 			}
 			else if (pid > 0)
 			{
@@ -176,6 +178,7 @@ void	execute(t_env_node *head, t_p_data *p_data)
 			dup2(fd[i][READ_END], STDIN_FILENO);
 			close(fd[i][READ_END]);
 			execute_token(head, p_data->front);
+			exit(g_exit_status);
 		}
 		else if (pid > 0)
 		{

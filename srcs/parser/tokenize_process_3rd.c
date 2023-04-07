@@ -1,13 +1,15 @@
 #include "minishell.h"
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata);
-static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx);
+static int	ft_put_re_put_del_word(t_p_data *pdata, t_redir *new, \
+t_word *word, int tmp_idx);
 
 void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 			t_word *word, t_env_node *node)
 {
-	if (word->re_stt == ON && word->re_idx != word->word_idx)
-		ft_redirection_process(pdata, word);
+	if (word->re_stt == ON && word->re_idx != word->word_idx \
+	&& ft_redirection_process(pdata, word) == 1)
+		return ;
 	if (word->ex_stt == ON)
 		ft_expension_process(word, node);
 	word->re_stt = ON;
@@ -15,7 +17,7 @@ void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 	word->re_idx = word->word_idx;
 }
 
-void	ft_redirection_process(t_p_data *pdata, t_word *word)
+int	ft_redirection_process(t_p_data *pdata, t_word *word)
 {
 	t_redir	*new;
 	int		tmp_idx;
@@ -28,19 +30,18 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 	if (word->word[word->re_idx] == '<')
 	{
 		if (word->word[++(word->re_idx)] == '<')
-			ft_redirect_here_doc(pdata, new, word);
+			new->type = RE_HERE;
 		else
 			new->type = RE_INPUT;
 	}
-	else if (word->word[word->re_idx] == '>')
-	{
-		if (word->word[++(word->re_idx)] == '>')
-			new->type = RE_APPEND;
-		else
-			new->type = RE_OUTPUT;
-	}
-	ft_put_re_put_del_word(new, word, tmp_idx);
+	else if (word->word[++(word->re_idx)] == '>')
+		new->type = RE_APPEND;
+	else
+		new->type = RE_OUTPUT;
 	word->re_stt = OFF;
+	if (new->type == RE_HERE)
+		return (ft_redirect_here_doc(pdata, new, word));
+	return (ft_put_re_put_del_word(pdata, new, word, tmp_idx));
 }
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata)
@@ -69,20 +70,23 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 	}
 }
 
-static int	ft_is_right_redirection(t_word *word)
+static int	ft_is_right_redirection(t_p_data *pdata, t_word *word)
 {
 	char	c;
 
 	c = word->word[word->re_idx];
-	if (c == '`' || c == '&' || c == '(' || \
-		c == ')' || c == '<' || c == '>' )
-		ft_stx_near_unexp_tk_error();
+	if (c == '`' || c == '&' || c == '('
+	|| c == ')' || c == '<' || c == '>' || c == '\0')
+		ft_syntax_error(pdata, word);
 	else if (c == '*' && word->word[word->re_idx + 1] == '\0')
-		ft_ambiguous_redirect_error();
-	return (0);
+		ft_syntax_error(pdata, word);
+	else
+		return (0);
+	return (1);
 }
 
-static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
+static int	ft_put_re_put_del_word(t_p_data *pdata, t_redir *new, \
+t_word *word, int tmp_idx)
 {
 	int	i;
 
@@ -91,7 +95,8 @@ static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
 		word->re_idx += 1;
 	if (new->type != RE_HERE)
 	{
-		ft_is_right_redirection(word);
+		if (ft_is_right_redirection(pdata, word) == 1)
+			return (1);
 		ft_strlcpy(new->file_name, word->word + word->re_idx, PATH_MAX);
 	}
 	while (tmp_idx <= word->word_idx)
@@ -99,4 +104,5 @@ static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
 		word->word[tmp_idx] = '\0';
 		tmp_idx += 1;
 	}
+	return (0);
 }

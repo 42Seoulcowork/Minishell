@@ -20,7 +20,7 @@ void	parsing(char *input, t_p_data *pdata, t_env_node *head)
 	if (!pdata->front)
 		ft_allocation_error();
 	ft_init_token_word(pdata, &word);
-	while (word.break_flag == OFF && *input)
+	while (word.break_flag == OFF)
 	{
 		tokenize(input, pdata, &word, head);
 		++input;
@@ -29,7 +29,7 @@ void	parsing(char *input, t_p_data *pdata, t_env_node *head)
 
 void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 {
-	if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '\n')
+	if (*input == '\0')
 		ft_end_line_fin_hpwtt(pdata, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == '|')
 		ft_add_new_token_hpwtt(pdata, word, head);
@@ -40,10 +40,10 @@ void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 		|| (word->dq_stt == OFF && *input == '\"'))
 		ft_start_quoted_stt(*input, word);
 	else if (word->sq_stt == OFF && *input == '$')
-		ft_start_expansion_stt(&input, word);
+		ft_start_expansion_stt(&input, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && word->re_stt == OFF
 		&& (*input == '<' || *input == '>'))
-		ft_start_redirect_stt(*input, word);
+		ft_start_redirect_stt(*input, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == ' ')
 		ft_clean_new_word_hpwtt(pdata, word, head);
 //redirection state일때 혹시 전 글자가 '<' '>'면 무시

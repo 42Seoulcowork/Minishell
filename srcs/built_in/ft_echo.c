@@ -2,7 +2,7 @@
 
 static int	check_echo_option(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (args[1][0] == '-' && args[1][1] == 'n')

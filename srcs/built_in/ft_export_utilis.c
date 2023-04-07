@@ -8,17 +8,12 @@ int	print_error_for_invalid_name(char *cmd)
 	return (0);
 }
 
-char	**ft_simple_split(char *tmp, char *equal_address)
+void	ft_simple_split_append(char *tmp, char *equal_address, char **str)
 {
-	char	**str;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
-	str = malloc(sizeof(char *) * 3);
-	str[0] = malloc(sizeof(char) * (equal_address - tmp + 1));
-	str[1] = malloc(sizeof(char) * (ft_strlen(tmp) - (equal_address - tmp) + 1));
-	str[2] = NULL;
 	while (tmp + i < equal_address)
 	{
 		str[0][i] = tmp[i];
@@ -36,27 +31,32 @@ char	**ft_simple_split(char *tmp, char *equal_address)
 		++j;
 	}
 	str[1][j] = '\0';
-	return (str);
 }
 
-int	arr_len(char **arr)
+char	**ft_simple_split(char *tmp, char *equal_address)
 {
-	int	i;
+	char	**str;
 
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
+	str = malloc(sizeof(char *) * 3);
+	str[0] = malloc(sizeof(char) * (equal_address - tmp + 1));
+	str[1] = malloc(sizeof(char) * \
+					(ft_strlen(tmp) - (equal_address - tmp) + 1));
+	str[2] = NULL;
+	ft_simple_split_append(tmp, equal_address, str);
+	return (str);
 }
 
 void	print_export(t_env_node *head)
 {
+	int		i;
 	char	**arr;
-	int 	i;
 
 	i = 0;
 	arr = convert_array_for_export(head);
-	quick_sort(arr, 0, arr_len(arr) - 1);
+	while (arr[i])
+		i++;
+	quick_sort(arr, 0, i - 1);
+	i = 0;
 	while (arr[i])
 	{
 		printf("declare -x %s\n", arr[i]);

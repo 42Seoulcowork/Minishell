@@ -31,24 +31,24 @@ static void	ft_setenv(char *key, char *value, t_env_node *head)
 	}
 }
 
-static void	cd_with_path(t_env_node *head, char *path, \
-							char *old_path, char **argv)
+static void	cd_with_path(t_env_node *head, char **path, \
+							char **old_path, char **argv)
 {
-	if (chdir(path) == -1)
+	if (chdir(*path) == -1)
 	{
-		free(old_path);
-		free(path);
-		old_path = ft_strjoin_s("minishell: cd: ", argv[1]);
+		free(*old_path);
+		free(*path);
+		*old_path = ft_strjoin_s("minishell: cd: ", argv[1]);
 		if (access(argv[1], F_OK))
-			path = ft_strjoin_s(old_path, ": No such file or directory\n");
+			*path = ft_strjoin_s(*old_path, ": No such file or directory\n");
 		else
-			path = ft_strjoin_s(old_path, ": Not a directory\n");
-		ft_putstr_fd(path, STDERR_FILENO);
+			*path = ft_strjoin_s(*old_path, ": Not a directory\n");
+		ft_putstr_fd(*path, STDERR_FILENO);
 		g_exit_status = 1;
 	}
 	else
 	{
-		ft_setenv("OLDPWD", old_path, head);
+		ft_setenv("OLDPWD", *old_path, head);
 		ft_setenv("PWD", getcwd(NULL, 0), head);
 		g_exit_status = 0;
 	}
@@ -93,8 +93,8 @@ void	ft_cd(t_env_node *head, char **argv)
 			return ;
 	}
 	else
-		path = argv[1];
-	cd_with_path(head, path, old_path, argv);
+		path = ft_strdup_s(argv[1]);
+	cd_with_path(head, &path, &old_path, argv);
 	free(old_path);
 	free(path);
 }

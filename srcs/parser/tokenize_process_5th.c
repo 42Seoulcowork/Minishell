@@ -16,12 +16,16 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 			|| !ft_strcmp(word->word + word->re_idx, ">>")
 			|| !ft_strcmp(word->word + word->re_idx, "<<"))
 			return ;
-		ft_redirection_process(pdata, word);
+		if (ft_redirection_process(pdata, word) == 1)
+			return ;
 	}
 	ft_handle_present_w_cmd_to_token(pdata, word);
-	if (pdata->now->cmd == NULL && pdata->now->redir == NULL \
-		&& word->ex_idx == -1)
-		ft_syntax_error();
+	if (pdata->now->cmd == NULL && pdata->now->redir == NULL
+	&& word->ex_idx == -1)
+	{
+		ft_syntax_error(pdata, word);
+		return ;
+	}
 	ft_clear_word_struct(word);
 }
 

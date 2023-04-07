@@ -58,8 +58,10 @@ void	ft_end_quoted_stt(char input, t_word *word)
 		word->dq_stt = OFF;
 }
 
-void	ft_start_quoted_stt(char input, t_word *word)
+void	ft_start_quoted_stt(char input, t_word *word, t_env_node *node)
 {
+	if (word->ex_stt == ON)
+		ft_expension_process(word, node);
 	if (input == '\'')
 		word->sq_stt = ON;
 	else if (input == '\"')

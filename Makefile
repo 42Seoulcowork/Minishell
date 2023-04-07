@@ -28,6 +28,7 @@ SRC =	main.c \
 		built_in/ft_echo.c \
 		built_in/ft_env.c \
 		built_in/ft_export.c \
+		built_in/ft_export_utilis.c \
 		built_in/ft_unset.c \
 		parser/tokenize.c \
 		parser/tokenize_func.c \

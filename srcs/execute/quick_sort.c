@@ -2,7 +2,7 @@
 
 static void	swap(char **a, char **b)
 {
-	char *temp;
+	char	*temp;
 
 	temp = *a;
 	*a = *b;
@@ -12,8 +12,8 @@ static void	swap(char **a, char **b)
 static int	partition(char **arr, int left, int right)
 {
 	char	*pivot;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	pivot = arr[right];
 	i = left - 1;
@@ -27,12 +27,11 @@ static int	partition(char **arr, int left, int right)
 		}
 		++j;
 	}
-
 	swap(&arr[i + 1], &arr[right]);
 	return (i + 1);
 }
 
-void quick_sort(char **arr, int left, int right)
+void	quick_sort(char **arr, int left, int right)
 {
 	int	p;
 

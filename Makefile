@@ -17,17 +17,21 @@ LIB_FLAG = -Llib -lft
 SRC =	main.c \
 		execute/run_cmd.c \
 		execute/env_node_utils.c \
+		execute/env_node_utils2.c \
 		execute/quick_sort.c \
 		execute/execute.c \
 		execute/execute_pipe.c \
 		execute/handle_redir.c \
 		execute/wrapper_sys_functions.c \
+		execute/wrapper_lib_functions.c \
+		execute/ft_split_s.c \
 		built_in/ft_cd.c \
 		built_in/ft_pwd.c \
 		built_in/ft_exit.c \
 		built_in/ft_echo.c \
 		built_in/ft_env.c \
 		built_in/ft_export.c \
+		built_in/ft_export_utilis.c \
 		built_in/ft_unset.c \
 		parser/tokenize_func.c \
 		parser/parsing.c \

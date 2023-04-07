@@ -1,19 +1,24 @@
 #include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_env_node *head)
 {
 	char	*path;
+	char 	*tmp;
 
-	path = getcwd(NULL, 0);
-	if (path)
+	tmp = getcwd(NULL, 0);
+	if (tmp)
 	{
-		path = ft_strjoin_s(path, "\n");
+		path = ft_strjoin_s(tmp, "\n");
+		free(tmp);
 		ft_putstr_fd(path, STDOUT_FILENO);
 		g_exit_status = 0;
 	}
 	else
 	{
-		ft_putstr_fd("minishell: pwd: no path\n", STDERR_FILENO);
-		g_exit_status = 1;
+		tmp = ft_getenv(head, "PWD");
+		path = ft_strjoin_s(tmp, "\n");
+		free(tmp);
+		ft_putstr_fd(path, STDERR_FILENO);
+		g_exit_status = 0;
 	}
 }

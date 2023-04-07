@@ -17,6 +17,7 @@ LIB_FLAG = -Llib -lft
 SRC =	main.c \
 		execute/run_cmd.c \
 		execute/env_node_utils.c \
+		execute/env_node_utils2.c \
 		execute/quick_sort.c \
 		execute/execute.c \
 		execute/execute_pipe.c \

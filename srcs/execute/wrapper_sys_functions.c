@@ -27,4 +27,3 @@ int	ft_fork(void)
 	}
 	return (error_check);
 }
-

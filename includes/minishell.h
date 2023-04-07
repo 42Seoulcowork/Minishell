@@ -27,6 +27,7 @@
 int	g_exit_status;
 
 /* built_in */
+
 void		ft_pwd(void);
 void		ft_exit(char **args);
 void		ft_echo(char **args);
@@ -37,15 +38,15 @@ void		ft_unset(t_env_node *head, char **keys);
 char		*ft_getenv(t_env_node *head, char *key);
 char		**ft_simple_split(char *tmp, char *equal_address);
 int			print_error_for_invalid_name(char *cmd);
-int			arr_len(char **arr);
 void		print_export(t_env_node *head);
 t_env_node	*get_old_key_address(t_env_node *head, char *key);
 
 /* execute */
+
 t_env_node	*create_node(char *key, char *value);
 t_env_node	*init_node(char **envp);
-void		add_node(t_env_node *head, t_env_node *node);
 void		delete_node(t_env_node *head, char *key);
+void		add_node(t_env_node *head, t_env_node *node);
 char		**convert_array_for_export(t_env_node *head);
 char		**convert_array_for_execve(t_env_node *head);
 void		execute(t_env_node *head, t_p_data *p_data);

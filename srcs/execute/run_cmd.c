@@ -50,12 +50,10 @@ void	run_cmd(t_env_node *head, t_token *token)
 {
 	char	*tmp;
 	char	*path;
-	char 	**env_path;
+	char	**env_path;
 
 	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
-	{
 		path = token->cmd[0];
-	}
 	else
 	{
 		tmp = ft_getenv(head, "PATH");

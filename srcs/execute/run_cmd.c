@@ -24,14 +24,14 @@ static char	*find_path(char *cmd, char **path)
 	return (NULL);
 }
 
-static void	is_directory(char *path, char *cmd)
+static void	is_directory(char *cmd)
 {
 	DIR	*dir;
 
 	dir = opendir(cmd);
 	if (dir == NULL)
 		return ;
-	print_is_directory(path, cmd);
+	print_is_directory(cmd);
 	closedir(dir);
 }
 
@@ -41,15 +41,9 @@ char	*check_path(t_env_node *head, t_token *token)
 	char	*path;
 	char	**env_path;
 
-	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
+	if (token->cmd[0][0] == '.' || token->cmd[0][0] == '/')
 	{
-		is_directory(NULL, token->cmd[0]);
-		if (access(*(token->cmd) + 2, F_OK) == -1)
-			handle_null_path(token->cmd[0]);
-		path = token->cmd[0];
-	}
-	else if (token->cmd[0][0] == '/')
-	{
+		is_directory(token->cmd[0]);
 		if (access(*(token->cmd), F_OK) == -1)
 			handle_null_path(token->cmd[0]);
 		path = token->cmd[0];
@@ -76,7 +70,6 @@ void	run_cmd(t_env_node *head, t_token *token)
 	path = check_path(head, token);
 	if (access(path, X_OK) != 0)
 		print_permission_denied(path, token->cmd[0]);
-	is_directory(path, token->cmd[0]);
 	if (execve(path, token->cmd, convert_array_for_execve(head)) == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);

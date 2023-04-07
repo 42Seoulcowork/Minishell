@@ -26,22 +26,31 @@ void	ft_start_expansion_stt(char **input, t_word *word, t_env_node *node)
 
 static int	ft_check_dic_input_value(t_word *word, t_env_node *node, char *tmp)
 {
+	int	temp_idx;
 	int	i;
 
-	i = -1;
-	if (ft_strcmp(tmp, node->key) == 0)
-	{
-		while ((node->value)[++i])
-			(word->word)[++(word->word_idx)] = node->value[i];
-		return (0);
+	while (node)
+	{	
+		if (ft_strcmp(tmp, node->key) == 0)
+		{
+			i = -1;
+			while ((node->value)[++i])
+				(word->word)[++(word->word_idx)] = node->value[i];
+			break ;
+		}
+		node = node->next;
 	}
-	else
-		return (1);
+	free(tmp);
+	temp_idx = word->word_idx;
+	if (node == NULL)
+		word->word[++(word->word_idx)] = '\0';
+	return (temp_idx);
 }
 
 void	ft_expension_process(t_word *word, t_env_node *node)
 {
 	char	*tmp;
+	int		temp_idx;
 	int		end_idx;
 
 	if (word->ex_idx == word->word_idx)
@@ -49,19 +58,14 @@ void	ft_expension_process(t_word *word, t_env_node *node)
 	else
 	{
 		tmp = ft_strdup(word->word + word->ex_idx + 1);
+		if (!tmp)
+			ft_allocation_error();
 		end_idx = word->word_idx;
 		word->word_idx = word->ex_idx - 1;
-		while (node)
-		{
-			if (ft_check_dic_input_value(word, node, tmp) == 0)
-				break ;
-			node = node->next;
-		}
-		free(tmp);
-		if (node == NULL)
-			word->word[++(word->word_idx)] = '\0';
+		temp_idx = ft_check_dic_input_value(word, node, tmp);
 		while (word->word_idx < end_idx)
 			word->word[++(word->word_idx)] = '\0';
+		word->word_idx = temp_idx;
 		word->ex_stt = OFF;
 	}
 }

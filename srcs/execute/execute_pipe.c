@@ -6,10 +6,14 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 	pid_t	pid;
 
 	pid = 0;
+	flag = TRUE;
 	if (p_data->front->cmd_type == EXTERN_FUNC)
 		pid = fork_s();
 	if (pid > 0)
+	{
 		wait(status);
+		handle_execute_errror(*status);
+	}
 	else if (pid == 0)
 		flag = execute_token(head, p_data->front);
 	if (pid < 0 || flag == FALSE)

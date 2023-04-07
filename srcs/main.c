@@ -20,28 +20,7 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-//		parsing(str, &parsed_data, head);
-		parsed_data.front = malloc(sizeof(t_token));
-		parsed_data.pipe_cnt = 0;
-		parsed_data.front->cmd = ft_split(str, ' ');
-		if (ft_strncmp("cd", str, 2) == 0)
-			parsed_data.front->cmd_type = CD_FUNC;
-		else if (ft_strncmp("echo", str, 4) == 0)
-			parsed_data.front->cmd_type = ECHO_FUNC;
-		else if (ft_strncmp("env", str, 3) == 0)
-			parsed_data.front->cmd_type = ENV_FUNC;
-		else if (ft_strncmp("exit", str, 4) == 0)
-			parsed_data.front->cmd_type = EXIT_FUNC;
-		else if (ft_strncmp("export", str, 6) == 0)
-			parsed_data.front->cmd_type = EXPORT_FUNC;
-		else if (ft_strncmp("unset", str, 5) == 0)
-			parsed_data.front->cmd_type = UNSET_FUNC;
-		else if (ft_strncmp("pwd", str, 3) == 0)
-			parsed_data.front->cmd_type = PWD_FUNC;
-		else
-			parsed_data.front->cmd_type = EXTERN_FUNC;
-		parsed_data.front->redir = NULL;
-		parsed_data.front->next = NULL;
+		parsing(str, &parsed_data, head);
 		execute(head, &parsed_data);
 		if (str[0] != '\0')
 			add_history(str);

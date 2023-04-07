@@ -38,6 +38,7 @@ typedef struct s_redir
 {
 	t_type			type;
 	char			file_name[PATH_MAX];
+	int				heredoc_fd;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -64,6 +65,7 @@ typedef struct s_word
 	int			ex_idx;
 	int			re_stt;
 	int			re_idx;
+	int			anonymity_num;
 	t_type		type;
 	int			break_flag;
 	char		word[ARG_MAX];
@@ -96,7 +98,7 @@ void	ft_add_or_start_new_char_in_word(char input, t_word *word);
 
 void	ft_allocation_error(void);
 void	ft_pipe_syntax_error(void);
-void	ft_stx_near_unexp_tk_error(char c);
+void	ft_stx_near_unexp_tk_error(void);
 void	ft_ambiguous_redirect_error(void);
 
 #endif

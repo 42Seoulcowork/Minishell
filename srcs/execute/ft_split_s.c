@@ -42,7 +42,7 @@ static int	ft_free_all_allocation(char **s_spt, size_t w_count)
 }
 
 static int	ft_malloc_strings(const char *str, char **s_spt, char set, \
-							 size_t w_count)
+								size_t w_count)
 {
 	size_t	i;
 	size_t	j;

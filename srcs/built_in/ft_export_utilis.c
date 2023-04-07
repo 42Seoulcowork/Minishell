@@ -1,8 +1,11 @@
 #include "minishell.h"
 
-int	print_error_for_invalid_name(char *cmd)
+int	print_error_for_invalid_name(char *cmd, int flag)
 {
-	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	if (flag == EXPORT_FUNC)
+		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	else if (flag == UNSET_FUNC)
+		ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 	return (0);

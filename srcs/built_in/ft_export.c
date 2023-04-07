@@ -1,22 +1,22 @@
 #include "minishell.h"
 
-static int	is_valid_name(char *cmd, int *is_addition_assignment)
+int	is_valid_name(int flag, char *cmd, int *is_addition_assignment)
 {
 	int	i;
 
 	i = 0;
 	if (!ft_isalpha(cmd[i]) && cmd[i] != '_')
-		return (print_error_for_invalid_name(cmd));
+		return (print_error_for_invalid_name(cmd, flag));
 	++i;
 	while (cmd[i] != '\0' && cmd[i] != '=')
 	{
-		if (cmd[i] == '+' && cmd[i + 1] == '=')
+		if (flag == EXPORT_FUNC && cmd[i] == '+' && cmd[i + 1] == '=')
 		{
 			*is_addition_assignment = 1;
 			return (1);
 		}
 		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
-			return (print_error_for_invalid_name(cmd));
+			return (print_error_for_invalid_name(cmd, flag));
 		++i;
 	}
 	return (1);
@@ -85,7 +85,7 @@ void	ft_export(t_env_node *head, char **cmd)
 	{
 		is_addition_assignment = 0;
 		tmp = ft_strchr(cmd[i], '=');
-		if (!is_valid_name(cmd[i], &is_addition_assignment))
+		if (!is_valid_name(EXPORT_FUNC, cmd[i], &is_addition_assignment))
 		{
 			++i;
 			g_exit_status = 1;

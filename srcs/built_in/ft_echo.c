@@ -8,9 +8,9 @@ static int	check_echo_option(char **args)
 	if (args[1][0] == '-' && args[1][1] == 'n')
 	{
 		i = 1;
-		while (args[1][i] == 'n')// '-nnnnn'과 같은 케이스 처리
+		while (args[1][i] == 'n')
 			i++;
-		if (args[1][i] != '\0')// '-nnnnx'와 같은 케이스 처리
+		if (args[1][i] != '\0')
 			return (0);
 	}
 	return (i);

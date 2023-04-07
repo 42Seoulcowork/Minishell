@@ -102,5 +102,6 @@ void	ft_pipe_syntax_error(void);
 void	ft_stx_near_unexp_tk_error(void);
 void	ft_ambiguous_redirect_error(void);
 void	ft_open_error(void);
+void	ft_clear_all_pdata(t_p_data *pdata);
 
 #endif

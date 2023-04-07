@@ -8,7 +8,7 @@ char	*ft_getenv(t_env_node *head, char *key)
 		if (ft_strcmp(key, head->key) == 0)
 		{
 			if (head->value)
-				return (ft_strdup(head->value));
+				return (ft_strdup_s(head->value));
 			else
 				return (NULL);
 		}
@@ -24,7 +24,7 @@ static void	ft_setenv(char *key, char *value, t_env_node *head)
 	{
 		if (ft_strcmp(key, head->key) == 0)
 		{
-			head->value = ft_strdup(value);
+			head->value = ft_strdup_s(value);
 			break ;
 		}
 		head = head->next;
@@ -38,11 +38,11 @@ static void	cd_with_path(t_env_node *head, char *path, \
 	{
 		free(old_path);
 		free(path);
-		old_path = ft_strjoin("minishell: cd: ", argv[1]);
+		old_path = ft_strjoin_s("minishell: cd: ", argv[1]);
 		if (access(argv[1], F_OK))
-			path = ft_strjoin(old_path, ": No such file or directory\n");
+			path = ft_strjoin_s(old_path, ": No such file or directory\n");
 		else
-			path = ft_strjoin(old_path, ": Not a directory\n");
+			path = ft_strjoin_s(old_path, ": Not a directory\n");
 		ft_putstr_fd(path, STDERR_FILENO);
 		g_exit_status = 1;
 	}
@@ -83,7 +83,7 @@ void	ft_cd(t_env_node *head, char **argv)
 	else if (argv[1][0] == '~')
 	{
 		tmp = ft_getenv(head, "HOME");
-		path = ft_strjoin(tmp, argv[1] + 1); // TODO malloc 터지면 exit?
+		path = ft_strjoin_s(tmp, argv[1] + 1); // TODO malloc 터지면 exit?
 		free(tmp);
 	}
 	else if (ft_strcmp(argv[1], "-") == 0)

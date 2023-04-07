@@ -61,8 +61,8 @@ void	ft_exit(char **args)
 	input_status = ft_atouc(args[1]);
 	if (input_status == -1)
 	{
-		tmp = ft_strjoin("minishell: exit: ", args[1]);
-		msg = ft_strjoin(tmp, ": numeric argument required\n");
+		tmp = ft_strjoin_s("minishell: exit: ", args[1]);
+		msg = ft_strjoin_s(tmp, ": numeric argument required\n");
 		free(tmp);
 		ft_putstr_fd(msg, STDERR_FILENO);
 		g_exit_status = 255;

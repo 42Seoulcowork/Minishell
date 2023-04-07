@@ -4,9 +4,7 @@ t_env_node	*create_node(char *key, char *value)
 {
 	t_env_node	*new_node;
 
-	new_node = malloc(sizeof(t_env_node));
-	if (!new_node)
-		return (NULL);
+	new_node = malloc_s(sizeof(t_env_node));
 	new_node->key = key;
 	new_node->value = value;
 	new_node->next = NULL;

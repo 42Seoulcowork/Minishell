@@ -7,7 +7,7 @@ void	ft_pwd(void)
 	path = getcwd(NULL, 0);
 	if (path)
 	{
-		path = ft_strjoin(path, "\n");
+		path = ft_strjoin_s(path, "\n");
 		ft_putstr_fd(path, STDOUT_FILENO);
 		g_exit_status = 0;
 	}

@@ -37,9 +37,9 @@ char	**ft_simple_split(char *tmp, char *equal_address)
 {
 	char	**str;
 
-	str = malloc(sizeof(char *) * 3);
-	str[0] = malloc(sizeof(char) * (equal_address - tmp + 1));
-	str[1] = malloc(sizeof(char) * \
+	str = malloc_s(sizeof(char *) * 3);
+	str[0] = malloc_s(sizeof(char) * (equal_address - tmp + 1));
+	str[1] = malloc_s(sizeof(char) * \
 					(ft_strlen(tmp) - (equal_address - tmp) + 1));
 	str[2] = NULL;
 	ft_simple_split_append(tmp, equal_address, str);

@@ -72,10 +72,10 @@ void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 	}
 	else
 	{
-		fd = malloc(sizeof(int *) * p_data->pipe_cnt);
+		fd = malloc_s(sizeof(int *) * p_data->pipe_cnt);
 		while (i < p_data->pipe_cnt)
 		{
-			fd[i] = malloc(sizeof(int) * 2);
+			fd[i] = malloc_s(sizeof(int) * 2);
 			++i;
 		}
 		execute_first_pipe(head, p_data, fd);

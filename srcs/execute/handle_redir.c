@@ -20,6 +20,16 @@ static int	handle_redir_input(t_redir *redir)
 	return (TRUE);
 }
 
+static int	handle_redir_here(t_redir *redir)
+{
+	int	fd;
+
+	fd = redir->heredoc_fd;
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+	return (TRUE);
+}
+
 static int	handle_redir_output(t_redir *redir)
 {
 	int	fd;
@@ -66,6 +76,8 @@ int	handle_redir(t_redir *redir)
 			flag = handle_redir_output(redir);
 		else if (redir->type == RE_APPEND)
 			flag = handle_redir_append(redir);
+		else if (redir->type == RE_HERE)
+			flag = handle_redir_here(redir);
 		if (flag == FALSE)
 			return (FALSE);
 		redir = redir->next;

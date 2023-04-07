@@ -58,7 +58,7 @@ static void	handle_execute_errror(int status)
 	}
 }
 
-int	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
+void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 {
 	int	**fd;
 	int	status;
@@ -66,9 +66,9 @@ int	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 	if (p_data->pipe_cnt == 0)
 	{
 		if (execute_no_pipe(head, p_data, &status) == FALSE)
-			return (FALSE);
+			return ;
 		if (p_data->front->cmd_type != EXTERN_FUNC)
-			return (FALSE);
+			return ;
 	}
 	else
 	{
@@ -83,7 +83,6 @@ int	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 		status = execute_end_pipe(head, p_data, fd, i);
 	}
 	handle_execute_errror(status);
-	return (TRUE);
 }
 
 void	execute(t_env_node *head, t_p_data *p_data)
@@ -93,8 +92,7 @@ void	execute(t_env_node *head, t_p_data *p_data)
 
 	stdin_dup = dup(STDIN_FILENO);
 	stdout_dup = dup(STDOUT_FILENO);
-	if (execute_p_data(head, p_data, 0) == FALSE)
-		return ;
+	execute_p_data(head, p_data, 0);
 	dup2(stdin_dup, STDIN_FILENO);
 	dup2(stdout_dup, STDOUT_FILENO);
 	close(stdin_dup);

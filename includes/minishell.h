@@ -62,7 +62,12 @@ void		execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i);
 
-int			ft_pipe(int fd[2]);
-int			ft_fork(void);
+int			pipe_s(int fd[2]);
+int			fork_s(void);
+void		*malloc_s(size_t size);
+char		*ft_strjoin_s(char const *s1, char const *s2);
+char		*ft_strdup_s(const char *s1);
+char		**ft_split_s(char const *s, char c);
+
 
 #endif

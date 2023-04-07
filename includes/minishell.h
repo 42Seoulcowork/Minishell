@@ -54,6 +54,9 @@ void		run_cmd(t_env_node *head, t_token *token);
 int			handle_redir(t_redir *redir);
 void		quick_sort(char **arr, int left, int right);
 void		execute_token(t_env_node *head, t_token *token);
+void		handle_null_path(char *cmd);
+void		print_permission_denied(char *path, char *cmd);
+void		free_env_path(char **env_path);
 
 /* execute_pipe */
 
@@ -68,6 +71,5 @@ void		*malloc_s(size_t size);
 char		*ft_strjoin_s(char const *s1, char const *s2);
 char		*ft_strdup_s(const char *s1);
 char		**ft_split_s(char const *s, char c);
-
 
 #endif

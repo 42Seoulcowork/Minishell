@@ -48,7 +48,8 @@ static void	cd_with_path(t_env_node *head, char **path, \
 	}
 	else
 	{
-		ft_setenv("OLDPWD", *old_path, head);
+		if (*old_path != NULL)
+			ft_setenv("OLDPWD", *old_path, head);
 		ft_setenv("PWD", getcwd(NULL, 0), head);
 		g_exit_status = 0;
 	}
@@ -77,7 +78,7 @@ void	ft_cd(t_env_node *head, char **argv)
 	char	*path;
 	char	*tmp;
 
-	old_path = getcwd(NULL, 0);
+	old_path = getcwd(NULL, 0); //getcwd가 에러일때 처리 필요 (있는 폴더 삭제시 에러 나옴)
 	if (!argv[1])
 		path = ft_getenv(head, "HOME");
 	else if (argv[1][0] == '~')

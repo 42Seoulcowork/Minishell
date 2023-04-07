@@ -36,6 +36,12 @@ char	*check_path(t_env_node *head, t_token *token)
 			handle_null_path(token->cmd[0]);
 		path = token->cmd[0];
 	}
+	else if (token->cmd[0][0] == '/')
+	{
+		if (access(*(token->cmd), F_OK) == -1)
+			handle_null_path(token->cmd[0]);
+		path = token->cmd[0];
+	}
 	else
 	{
 		tmp = ft_getenv(head, "PATH");

@@ -57,7 +57,7 @@ void		quick_sort(char **arr, int left, int right);
 int 		execute_token(t_env_node *head, t_token *token);
 void		handle_null_path(char *cmd);
 void		print_permission_denied(char *path, char *cmd);
-void		print_is_directory(char *path, char *cmd);
+void		print_is_directory(char *cmd);
 void		free_env_path(char **env_path);
 void		handle_execute_errror(int status);
 

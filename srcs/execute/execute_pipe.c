@@ -2,6 +2,7 @@
 
 int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 {
+	int		flag;
 	pid_t	pid;
 
 	pid = 0;
@@ -10,8 +11,8 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 	if (pid > 0)
 		wait(status);
 	else if (pid == 0)
-		execute_token(head, p_data->front);
-	else
+		flag = execute_token(head, p_data->front);
+	if (pid < 0 || flag == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

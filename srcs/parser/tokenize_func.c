@@ -50,15 +50,18 @@ void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word)
 	char	**new_cmd;
 	char	**temp;
 	char	*new_word;
-	int		i;
+	size_t	i;
 
 	if (word->word[0] == '\0')
 		return ;
 	new_cmd = (char **)malloc(sizeof(char *) \
-		* (ft_strlen(*pdata->now->cmd) + 2));
-	i = -1;
-	while (++i < (int)ft_strlen(*pdata->now->cmd))
+		* ft_strlen(*(pdata->now->cmd) + 2));
+	i = 0;
+	while (i < ft_strlen(*(pdata->now->cmd)))
+	{
 		new_cmd[i] = (pdata->now->cmd)[i];
+		++i;
+	}
 	new_word = ft_strdup(word->word);
 	if (!new_word)
 		ft_allocation_error();
@@ -73,6 +76,11 @@ void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word)
 
 static void	ft_find_cmd_type(t_p_data *pdata, char *new_word)
 {
+	int	i;
+
+	i = -1;
+	while (new_word[++i])
+		new_word[i] = ft_tolower(new_word[i]);
 	if (!ft_strcmp(new_word, "echo"))
 		pdata->now->cmd_type = ECHO_FUNC;
 	else if (!ft_strcmp(new_word, "cd"))

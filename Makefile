@@ -23,6 +23,8 @@ SRC =	main.c \
 		execute/execute_pipe.c \
 		execute/handle_redir.c \
 		execute/wrapper_sys_functions.c \
+		execute/wrapper_lib_functions.c \
+		execute/ft_split_s.c \
 		built_in/ft_cd.c \
 		built_in/ft_pwd.c \
 		built_in/ft_exit.c \
@@ -31,15 +33,15 @@ SRC =	main.c \
 		built_in/ft_export.c \
 		built_in/ft_export_utilis.c \
 		built_in/ft_unset.c \
-		parser/tokenize.c \
-		parser/tokenize_func.c \
-		parser/parsing.c \
-		parser/tokenize_process_1st.c \
-		parser/tokenize_process_2nd.c \
-		parser/tokenize_process_3rd.c \
-		parser/tokenize_process_4th.c \
-		parser/tokenize_process_5th.c \
-		parser/error.c \
+		parser/system_error.c \
+#		parser/tokenize_func.c \
+#		parser/parsing.c \
+#		parser/tokenize_process_1st.c \
+#		parser/tokenize_process_2nd.c \
+#		parser/tokenize_process_3rd.c \
+#		parser/tokenize_process_4th.c \
+#		parser/tokenize_process_5th.c \
+#		parser/error.c \
 		# parser/queue.c \
 
 SRC_DIR = ./srcs/

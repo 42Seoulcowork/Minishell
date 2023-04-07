@@ -42,6 +42,13 @@ static int	handle_redir_output(t_redir *redir)
 		return (FALSE);
 	}
 	fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(redir->file_name, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		return (FALSE);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (TRUE);
@@ -59,6 +66,13 @@ static int	handle_redir_append(t_redir *redir)
 		return (FALSE);
 	}
 	fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(redir->file_name, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		return (FALSE);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (TRUE);

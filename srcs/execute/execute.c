@@ -35,7 +35,7 @@ int	execute_token(t_env_node *head, t_token *token)
 	return (TRUE);
 }
 
-static void	handle_execute_errror(int status)
+void	handle_execute_errror(int status)
 {
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
@@ -44,9 +44,9 @@ static void	handle_execute_errror(int status)
 		g_exit_status = 130;
 		// TODO 주영이한테 물어봐요 규선, 명준, 수빈
 		if (WIFSIGNALED(status))
-			ft_putnbr_fd(WTERMSIG(status), 2);
+			ft_putnbr_fd(WTERMSIG(status), STDERR_FILENO);
 		else if (WIFSTOPPED(status))
-			ft_putnbr_fd(WSTOPSIG(status), 2);
+			ft_putnbr_fd(WSTOPSIG(status), STDERR_FILENO);
 	}
 }
 

@@ -22,7 +22,8 @@ void	print_is_directory(char *path, char *cmd)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": is a directory\n", STDERR_FILENO);
-	free(path);
+	if (path != NULL)
+		free(path);
 	exit(126);
 }
 

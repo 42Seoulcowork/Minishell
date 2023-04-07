@@ -58,7 +58,7 @@ static void	export_with_equal(t_env_node *head, char *tmp, char *cmd, \
 		if (old_key == NULL)
 			add_node(head, create_node(cmd, ft_strdup("")));
 		else if (!is_addition_assignment)
-			old_key->value = "";
+			old_key->value = ft_strdup_s("");
 	}
 }
 
@@ -77,13 +77,13 @@ void	ft_export(t_env_node *head, char **cmd)
 	int			is_addition_assignment;
 	char		*tmp;
 
-	is_addition_assignment = 0;
 	g_exit_status = 0;
 	if (cmd[1] == NULL)
 		return (print_export(head));
 	i = 1;
 	while (cmd[i])
 	{
+		is_addition_assignment = 0;
 		tmp = ft_strchr(cmd[i], '=');
 		if (!is_valid_name(cmd[i], &is_addition_assignment))
 		{

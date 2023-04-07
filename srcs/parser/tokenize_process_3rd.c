@@ -23,10 +23,7 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 	if (word->word[word->re_idx] == '<')
 	{
 		if (word->word[++(word->re_idx)] == '<')
-		{
-			write(1, "ft_redirect_here_doc\n", 21);
-			//ft_redirect_here_doc(new, word, tmp_idx);
-		}
+			ft_redirect_here_doc(pdata, new, word);
 		else
 			new->type = RE_INPUT;
 	}
@@ -37,8 +34,7 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 		else
 			new->type = RE_OUTPUT;
 	}
-	if (new->type != RE_HERE)
-		ft_put_re_put_del_word(new, word, tmp_idx);
+	ft_put_re_put_del_word(new, word, tmp_idx);
 }
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata)
@@ -51,6 +47,7 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 		if (!pdata->now->redir)
 			ft_allocation_error();
 		pdata->now->redir->next = NULL;
+		pdata->now->redir->heredoc_fd = -1;
 		ft_memset(pdata->now->redir, '\0', PATH_MAX);
 	}
 	else
@@ -86,13 +83,16 @@ static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
 	i = -1;
 	if (new->type == RE_APPEND)
 		word->re_idx += 1;
-	while (word->word[word->re_idx] == ' ')
-		word->re_idx += 1;
-	ft_is_right_redirection(word);
-	while (word->re_idx <= word->word_idx)
+	// while (word->word[word->re_idx] == ' ')
+	// 	word->re_idx += 1;
+	if (new->type != RE_HERE)
 	{
-		new->file_name[++i] = word->word[word->re_idx];
-		word->re_idx += 1;
+		ft_is_right_redirection(word);
+		while (word->re_idx <= word->word_idx)
+		{
+			new->file_name[++i] = word->word[word->re_idx];
+			word->re_idx += 1;
+		}
 	}
 	while (tmp_idx <= word->word_idx)
 	{

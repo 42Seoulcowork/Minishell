@@ -35,7 +35,7 @@ void	ft_echo(char **args)
 	while (args[++i])
 	{
 		j = -1;
-		while (args[i][++j])
+		while (args[i][0] != '-' && args[i][++j])
 			write(STDOUT_FILENO, &args[i][j], 1);
 		if (args[i + 1])
 			write(STDOUT_FILENO, " ", 1);

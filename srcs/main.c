@@ -20,7 +20,7 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-		parsing(str, &parsed_data, head);
+		parsing(str, &parsed_data, head->next);
 		if (parsed_data.front->cmd != NULL)
 		{
 			execute(head, &parsed_data);

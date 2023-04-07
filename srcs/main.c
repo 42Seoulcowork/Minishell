@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **envp)
 		}
 //		parsing(str, &parsed_data, head);
 		parsed_data.front = malloc(sizeof(t_token));
+		parsed_data.pipe_cnt = 0;
 		parsed_data.front->cmd = ft_split(str, ' ');
 		if (ft_strncmp("cd", str, 2) == 0)
 			parsed_data.front->cmd_type = CD_FUNC;
@@ -37,11 +38,13 @@ int	main(int ac, char **av, char **envp)
 			parsed_data.front->cmd_type = UNSET_FUNC;
 		else if (ft_strncmp("pwd", str, 3) == 0)
 			parsed_data.front->cmd_type = PWD_FUNC;
+		parsed_data.front->redir = NULL;
+		parsed_data.front->next = NULL;
 //		else
 //			parsed_data.front->cmd_type = EXTERN_FUNC;
-		parsed_data.front->cmd_type = EXTERN_FUNC;
-		parsed_data.front->cmd = ft_split("ls", ' ');
-		parsed_data.front->redir = NULL;
+//		parsed_data.front->cmd_type = EXTERN_FUNC;
+//		parsed_data.front->cmd = ft_split("ls", ' ');
+//		parsed_data.front->redir = NULL;
 
 //		parsed_data.front->redir->next = malloc(sizeof(t_redir));
 //		parsed_data.front->redir->next->file_name[0] = 'b';
@@ -54,11 +57,11 @@ int	main(int ac, char **av, char **envp)
 //		parsed_data.front->redir->next->next->next->type = RE_INPUT;
 //		parsed_data.front->redir->next->next->next->next = NULL;
 
-		parsed_data.front->next = malloc(sizeof(t_token));
-		parsed_data.front->next->cmd_type = EXTERN_FUNC;
-		parsed_data.front->next->cmd = ft_split("grep srcs", ' ');
-		parsed_data.front->next->redir = NULL;
-		parsed_data.front->next->next = NULL;
+//		parsed_data.front->next = malloc(sizeof(t_token));
+//		parsed_data.front->next->cmd_type = EXTERN_FUNC;
+//		parsed_data.front->next->cmd = ft_split("grep srcs", ' ');
+//		parsed_data.front->next->redir = NULL;
+//		parsed_data.front->next->next = NULL;
 
 //		parsed_data.front->next->next = malloc(sizeof(t_token));
 //		parsed_data.front->next->next->cmd_type = EXTERN_FUNC;
@@ -90,7 +93,7 @@ int	main(int ac, char **av, char **envp)
 		execute(head, &parsed_data);
 		if (str[0] != '\0')
 			add_history(str);
-		printf("exit_status: %s\n", head->value);
+		printf("exit_status: %d\n", g_exit_status);
 		free(str);
 	}
 	return (0);

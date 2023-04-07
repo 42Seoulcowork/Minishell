@@ -1,10 +1,5 @@
 #include "minishell.h"
 
-void	ft_allocation_error(void)
-{
-	write(2, "Allocation Error!\n", 18);
-}
-
 void	ft_pipe_syntax_error(void)
 {
 	write(2, "pipe_syntax Error!\n", 19);

@@ -24,6 +24,6 @@ void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 	else if (*input == '#' && word->word[0] == '\0'
 		&& word->dq_stt == OFF && word->sq_stt == OFF)
 		ft_handle_comment(word);
-	// else
-	// 	ft_add_or_create_new_char_in_word(word);
+	else
+		ft_add_or_start_new_char_in_word(*input, word);
 }

@@ -30,12 +30,12 @@ void	ft_add_new_word(t_p_data *pdata, t_word *word, t_env_node *head)
 		ft_handle_present_word_to_token(pdata, word);
 }
 
-void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *head)
+void	ft_clean_new_word_hpwtt(t_p_data *data, t_word *word, t_env_node *head)
 {
 	if (word->word_idx > 0)
 	{
 		word->word[word->word_idx] = '\0';
-		ft_add_new_word(pdata, word, head);
+		ft_add_new_word(data, word, head);
 	}
 	word->dq_stt = OFF;
 	word->sq_stt = OFF;
@@ -44,7 +44,7 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *head)
 	word->word_idx = 0;
 }
 
-// void	ft_add_or_create_new_char_in_word(t_word *word)
-// {
-
-// }
+void	ft_add_or_start_new_char_in_word(char input, t_word *word)
+{
+	word->word[++(word->word_idx)] = input;
+}

@@ -50,7 +50,8 @@ static int	ft_atouc(const char *str)
 void	ft_exit(char **args)
 {
 	int		input_status;
-	char 	*msg;
+	char	*msg;
+	char	*tmp;
 
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!args[1])
@@ -60,11 +61,13 @@ void	ft_exit(char **args)
 	input_status = ft_atouc(args[1]);
 	if (input_status == -1)
 	{
-		msg = ft_strjoin(ft_strjoin("minishell: exit: ", args[1]), ": numeric argument required\n");
+		tmp = ft_strjoin("minishell: exit: ", args[1]);
+		msg = ft_strjoin(tmp, ": numeric argument required\n");
+		free(tmp);
 		ft_putstr_fd(msg, STDERR_FILENO);
 		g_exit_status = 255;
 	}
-	else if (args[2]) // args[1]을 먼저 확인
+	else if (args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
 		g_exit_status = 1;

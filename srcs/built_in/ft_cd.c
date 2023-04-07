@@ -80,13 +80,13 @@ void	ft_cd(t_env_node *head, char **argv)
 	char	*path;
 	char	*tmp;
 
-	old_path = getcwd(NULL, 0); //getcwd가 에러일때 처리 필요 (있는 폴더 삭제시 에러 나옴)
+	old_path = getcwd(NULL, 0);
 	if (!argv[1])
 		path = ft_getenv(head, "HOME");
 	else if (argv[1][0] == '~')
 	{
 		tmp = ft_getenv(head, "HOME");
-		path = ft_strjoin_s(tmp, argv[1] + 1); // TODO malloc 터지면 exit?
+		path = ft_strjoin_s(tmp, argv[1] + 1);
 		free(tmp);
 	}
 	else if (ft_strcmp(argv[1], "-") == 0)

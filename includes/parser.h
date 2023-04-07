@@ -66,7 +66,6 @@ typedef struct s_word
 	int			re_stt;
 	int			re_idx;
 	int			tmp_num;
-	t_type		type;
 	int			break_flag;
 	char		word[ARG_MAX];
 	int			word_idx;
@@ -76,19 +75,18 @@ void	parsing(char *input, t_p_data *pdata, t_env_node *head);
 
 void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head);
 void	ft_clear_word_struct(t_word *word);
-void	ft_handle_present_word_to_token(t_p_data *pdata, t_word *word);
+void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word);
 void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word);
 
 void	ft_end_line_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
 void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
 void	ft_end_quoted_stt(char input, t_word *word);
 void	ft_start_quoted_stt(char input, t_word *word);
-char	*ft_strlen_for_exp(char **input);
 
-void	ft_start_expansion_stt(char **input, t_word *word);
+void	ft_start_expansion_stt(char **input, t_word *word, t_env_node *head);
 void	ft_expension_process(t_word *word, t_env_node *node);
 
-void	ft_start_redirect_stt(char input, t_word *word);
+void	ft_start_redirect_stt(char input, t_word *word, t_env_node *node);
 void	ft_redirection_process(t_p_data *pdata, t_word *word);
 
 void	ft_handle_comment(t_word *word);
@@ -98,7 +96,7 @@ void	ft_add_or_start_new_char_in_word(char input, t_word *word);
 void	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word);
 
 void	ft_allocation_error(void);
-void	ft_pipe_syntax_error(void);
+void	ft_syntax_error(void);
 void	ft_stx_near_unexp_tk_error(void);
 void	ft_ambiguous_redirect_error(void);
 void	ft_open_error(void);

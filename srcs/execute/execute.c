@@ -7,7 +7,7 @@ static void	run_builtin(t_env_node *head, t_token *token)
 	else if (token->cmd_type == CD_FUNC)
 		ft_cd(head, token->cmd);
 	else if (token->cmd_type == PWD_FUNC)
-		ft_pwd();
+		ft_pwd(head);
 	else if (token->cmd_type == EXPORT_FUNC)
 		ft_export(head, token->cmd);
 	else if (token->cmd_type == UNSET_FUNC)

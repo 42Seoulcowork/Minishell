@@ -18,20 +18,21 @@ static void	run_builtin(t_env_node *head, t_token *token)
 		ft_exit(token->cmd);
 }
 
-void	execute_token(t_env_node *head, t_token *token)
+int	execute_token(t_env_node *head, t_token *token)
 {
 	if (token->redir != NULL)
 	{
 		if (handle_redir(token->redir) == FALSE)
 		{
 			g_exit_status = 1;
-			return ;
+			return (FALSE);
 		}
 	}
 	if (token->cmd_type != EXTERN_FUNC)
 		run_builtin(head, token);
 	else
 		run_cmd(head, token);
+	return (TRUE);
 }
 
 static void	handle_execute_errror(int status)
@@ -43,18 +44,9 @@ static void	handle_execute_errror(int status)
 		g_exit_status = 130;
 		// TODO 주영이한테 물어봐요 규선, 명준, 수빈
 		if (WIFSIGNALED(status))
-		{
 			ft_putnbr_fd(WTERMSIG(status), 2);
-			ft_putstr_fd("  시그널에 의한 종료\n", 2);
-		}
 		else if (WIFSTOPPED(status))
-		{
-			// 130
 			ft_putnbr_fd(WSTOPSIG(status), 2);
-			ft_putstr_fd("  강제 종료에 의한 종료\n", 2);
-		}
-		else
-			ft_putstr_fd("하하하 왜 에러일까요, 알아맞춰주세요\n", 2);
 	}
 }
 

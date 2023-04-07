@@ -94,9 +94,12 @@ void	ft_clear_all_pdata(t_p_data *pdata)
 			pdata->front->redir = pdata->front->redir->next;
 			free(tmp);
 		}
-		while (pdata->front->cmd[++i])
-			free(pdata->front->cmd[i]);
-		free(pdata->front->cmd);
+		if (pdata->front->cmd)
+		{
+			while (pdata->front->cmd[++i])
+				free(pdata->front->cmd[i]);
+			free(pdata->front->cmd);
+		}
 		pdata->front = pdata->front->next;
 		free(pdata->now);
 	}

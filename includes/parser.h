@@ -65,7 +65,7 @@ typedef struct s_word
 	int			ex_idx;
 	int			re_stt;
 	int			re_idx;
-	int			anonymity_num;
+	int			tmp_num;
 	t_type		type;
 	int			break_flag;
 	char		word[ARG_MAX];
@@ -95,10 +95,12 @@ void	ft_handle_comment(t_word *word);
 void	ft_add_new_word(t_p_data *pdata, t_word *word, t_env_node *head);
 void	ft_clean_new_word_hpwtt(t_p_data *data, t_word *word, t_env_node *head);
 void	ft_add_or_start_new_char_in_word(char input, t_word *word);
+void	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word);
 
 void	ft_allocation_error(void);
 void	ft_pipe_syntax_error(void);
 void	ft_stx_near_unexp_tk_error(void);
 void	ft_ambiguous_redirect_error(void);
+void	ft_open_error(void);
 
 #endif

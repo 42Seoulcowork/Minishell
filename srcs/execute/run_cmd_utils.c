@@ -17,13 +17,11 @@ void	print_permission_denied(char *path, char *cmd)
 	exit(126);
 }
 
-void	print_is_directory(char *path, char *cmd)
+void	print_is_directory(char *cmd)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": is a directory\n", STDERR_FILENO);
-	if (path != NULL)
-		free(path);
 	exit(126);
 }
 

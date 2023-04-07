@@ -2,6 +2,18 @@
 
 static void	ft_find_cmd_type(t_p_data *pdata, char *new_word);
 
+static int	ft_pointers_len(char **input)
+{
+	int	i;
+
+	i = 0;
+	if (input == NULL)
+		return (0);
+	while (input[i])
+		++i;
+	return (i);
+}
+
 void	ft_clear_word_struct(t_word *word)
 {
 	word->dq_stt = OFF;
@@ -20,18 +32,14 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 	char	**new_cmd;
 	char	**temp;
 	char	*new_word;
-	size_t	i;
+	int		i;
 
 	if (word->word[0] == '\0')
 		return ;
-	new_cmd = (char **)malloc(sizeof(char *) * \
-		(ft_strlen((char *)pdata->now->cmd) + 2));
-	i = 0;
-	while (i < ft_strlen((char *)pdata->now->cmd))
-	{
+	new_cmd = (char **)malloc(sizeof(char *) * (ft_pointers_len(pdata->now->cmd) + 2));
+	i = -1;
+	while (++i < ft_pointers_len(pdata->now->cmd))
 		new_cmd[i] = (pdata->now->cmd)[i];
-		++i;
-	}
 	new_word = ft_strdup(word->word);
 	if (!new_word)
 		ft_allocation_error();

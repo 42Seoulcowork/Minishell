@@ -57,7 +57,7 @@ void	run_cmd(t_env_node *head, t_token *token)
 	else
 	{
 		tmp = ft_getenv(head, "PATH");
-		env_path = ft_split_s(tmp, ':');
+		env_path = ft_split_s(tmp, ':'); // PATH가 unset이면 null인지 확인 필요
 		free(tmp);
 		path = find_path(token->cmd[0], env_path);
 		free_env_path(env_path);

@@ -21,10 +21,13 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		}
 		parsing(str, &parsed_data, head);
-		execute(head, &parsed_data);
-		if (str[0] != '\0')
-			add_history(str);
-		printf("exit_status: %d\n", g_exit_status);
+		if (parsed_data.front->cmd != NULL)
+		{
+			execute(head, &parsed_data);
+			if (str[0] != '\0')
+				add_history(str);
+			printf("exit_status: %d\n", g_exit_status);
+		}
 		free(str);
 	}
 	return (0);

@@ -19,7 +19,6 @@ void	delete_node(t_env_node *head, char *key)
 	t_env_node	*prev;
 	t_env_node	*curr;
 
-	assert(key != NULL); // TODO 지워야 함
 	while (head->next != NULL)
 	{
 		if (ft_strcmp(head->next->key, key) == 0)

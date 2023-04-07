@@ -3,8 +3,11 @@
 static void	ft_append_new_redirect_struct(t_p_data *pdata);
 static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx);
 
-void	ft_start_redirect_stt(char input, t_word *word, t_env_node *node)
+void	ft_start_redirect_stt(t_p_data *pdata, char input, \
+			t_word *word, t_env_node *node)
 {
+	if (word->re_stt == ON && word->re_idx != word->word_idx)
+		ft_redirection_process(pdata, word);
 	if (word->ex_stt == ON)
 		ft_expension_process(word, node);
 	word->re_stt = ON;

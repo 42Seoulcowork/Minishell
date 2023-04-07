@@ -36,7 +36,8 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 
 	if (word->word[0] == '\0')
 		return ;
-	new_cmd = (char **)malloc(sizeof(char *) * (ft_pointers_len(pdata->now->cmd) + 2));
+	new_cmd = (char **)malloc(sizeof(char *) * \
+		(ft_pointers_len(pdata->now->cmd) + 2));
 	i = -1;
 	while (++i < ft_pointers_len(pdata->now->cmd))
 		new_cmd[i] = (pdata->now->cmd)[i];

@@ -86,7 +86,8 @@ void	ft_start_quoted_stt(char input, t_word *word);
 void	ft_start_expansion_stt(char **input, t_word *word, t_env_node *head);
 void	ft_expension_process(t_word *word, t_env_node *node);
 
-void	ft_start_redirect_stt(char input, t_word *word, t_env_node *node);
+void	ft_start_redirect_stt(t_p_data *pdata, char input, \
+			t_word *word, t_env_node *node);
 void	ft_redirection_process(t_p_data *pdata, t_word *word);
 
 void	ft_handle_comment(t_word *word);

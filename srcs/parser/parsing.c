@@ -41,12 +41,11 @@ void	tokenize(char *input, t_p_data *pdata, t_word *word, t_env_node *head)
 		ft_start_quoted_stt(*input, word);
 	else if (word->sq_stt == OFF && *input == '$')
 		ft_start_expansion_stt(&input, word, head);
-	else if (word->dq_stt == OFF && word->sq_stt == OFF && word->re_stt == OFF
+	else if (word->dq_stt == OFF && word->sq_stt == OFF
 		&& (*input == '<' || *input == '>'))
-		ft_start_redirect_stt(*input, word, head);
+		ft_start_redirect_stt(pdata, *input, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF && *input == ' ')
 		ft_clean_new_word_hpwtt(pdata, word, head);
-//redirection state일때 혹시 전 글자가 '<' '>'면 무시
 	else if (*input == '#' && word->word[0] == '\0'
 		&& word->dq_stt == OFF && word->sq_stt == OFF)
 		ft_handle_comment(word);

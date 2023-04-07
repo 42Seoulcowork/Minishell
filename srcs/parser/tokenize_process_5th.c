@@ -11,10 +11,10 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 		ft_expension_process(word, node);
 	if (word->re_stt == ON)
 	{
-		if (ft_strcmp(word->word + word->re_idx, ">")
-			|| ft_strcmp(word->word + word->re_idx, "<")
-			|| ft_strcmp(word->word + word->re_idx, ">>")
-			|| ft_strcmp(word->word + word->re_idx, "<<"))
+		if (!ft_strcmp(word->word + word->re_idx, ">")
+			|| !ft_strcmp(word->word + word->re_idx, "<")
+			|| !ft_strcmp(word->word + word->re_idx, ">>")
+			|| !ft_strcmp(word->word + word->re_idx, "<<"))
 			return ;
 		ft_redirection_process(pdata, word);
 	}

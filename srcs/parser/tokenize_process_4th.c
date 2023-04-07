@@ -13,7 +13,7 @@ void	ft_redirect_here_doc(t_redir *new, t_word *word, int tmp_idx)
 	if (word->word[word->re_idx] == '>' || word->word[word->re_idx] == '<' \
 	|| word->word[word->re_idx] == '(' || word->word[word->re_idx] == ')' \
 	|| word->word[word->re_idx] == '`' || word->word[word->re_idx] == '&')
-		ft_stx_near_unexp_tk_error(word->word[word->re_idx]);
+		ft_stx_near_unexp_tk_error();
 	// fd = open(unnamed file);
 	// new->filename = unnamed file
 	tmp = ft_strdup(word->word + word->re_idx);

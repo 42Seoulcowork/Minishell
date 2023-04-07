@@ -99,4 +99,5 @@ void	execute(t_env_node *head, t_p_data *p_data)
 	dup2(stdout_dup, STDOUT_FILENO);
 	close(stdin_dup);
 	close(stdout_dup);
+	
 }

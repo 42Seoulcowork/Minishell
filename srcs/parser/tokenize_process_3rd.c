@@ -73,7 +73,7 @@ static int	ft_is_right_redirection(t_word *word)
 	c = word->word[word->re_idx];
 	if (c == '`' || c == '&' || c == '(' || \
 		c == ')' || c == '<' || c == '>' )
-		ft_stx_near_unexp_tk_error(c);
+		ft_stx_near_unexp_tk_error();
 	else if (c == '*' && word->word[word->re_idx + 1] == '\0')
 		ft_ambiguous_redirect_error();
 	return (0);

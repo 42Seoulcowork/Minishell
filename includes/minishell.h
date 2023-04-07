@@ -56,7 +56,7 @@ void		execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i);
 
-int 		ft_pipe(int fd[2]);
-int 		ft_fork(void);
+int			ft_pipe(int fd[2]);
+int			ft_fork(void);
 
 #endif

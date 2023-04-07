@@ -44,8 +44,6 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *head)
 	word->word_idx = 0;
 }
 
-
-
 // void	ft_add_or_create_new_char_in_word(t_word *word)
 // {
 

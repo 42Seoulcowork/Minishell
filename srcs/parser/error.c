@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-void	ft_pipe_syntax_error(void)
+void	ft_syntax_error(void)
 {
-	write(2, "pipe_syntax Error!\n", 19);
+	write(2, "syntax Error!\n", 14);
 }
 
 void	ft_stx_near_unexp_tk_error(void)

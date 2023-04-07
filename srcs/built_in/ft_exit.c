@@ -73,5 +73,6 @@ void	ft_exit(char **args)
 		g_exit_status = 1;
 		return ;
 	}
+	g_exit_status = input_status; // TODO 바꿈 이래도 자식에서 실행되면 안 바뀌는데 모르겟다
 	exit(g_exit_status);
 }

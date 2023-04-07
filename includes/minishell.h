@@ -35,6 +35,11 @@ void		ft_cd(t_env_node *head, char **argv);
 void		ft_export(t_env_node *head, char **cmd);
 void		ft_unset(t_env_node *head, char **keys);
 char		*ft_getenv(t_env_node *head, char *key);
+char		**ft_simple_split(char *tmp, char *equal_address);
+int			print_error_for_invalid_name(char *cmd);
+int			arr_len(char **arr);
+void		print_export(t_env_node *head);
+t_env_node	*get_old_key_address(t_env_node *head, char *key);
 
 /* execute */
 t_env_node	*create_node(char *key, char *value);

@@ -7,8 +7,6 @@ static void	ft_here_doc_pretreatment(t_redir *new, t_word *word)
 
 	new->type = RE_HERE;
 	word->re_idx += 1;
-	// while (word->word[word->re_idx] == ' ')
-	// 	word->re_idx += 1;
 	if (word->word[word->re_idx] == '>' || word->word[word->re_idx] == '<' \
 	|| word->word[word->re_idx] == '(' || word->word[word->re_idx] == ')' \
 	|| word->word[word->re_idx] == '`' || word->word[word->re_idx] == '&')

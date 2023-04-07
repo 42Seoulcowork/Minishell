@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_start_expansion_stt(char **input, t_word *word)
+void	ft_start_expansion_stt(char **input, t_word *word, t_env_node *node)
 {
 	int		i;
 	char	*tmp;
@@ -16,6 +16,8 @@ void	ft_start_expansion_stt(char **input, t_word *word)
 	}
 	else
 	{
+		if (word->ex_stt == ON)
+			ft_expension_process(word, node);
 		(word->word)[++(word->word_idx)] = '$';
 		word->ex_stt = ON;
 		word->ex_idx = word->word_idx;
@@ -43,12 +45,12 @@ void	ft_expension_process(t_word *word, t_env_node *node)
 	int		end_idx;
 
 	if (word->ex_idx == word->word_idx)
-		return ;
+		word->ex_stt = OFF;
 	else
 	{
 		tmp = ft_strdup(word->word + word->ex_idx + 1);
 		end_idx = word->word_idx;
-		word->word_idx = word->ex_idx;
+		word->word_idx = word->ex_idx - 1;
 		while (node)
 		{
 			if (ft_check_dic_input_value(word, node, tmp) == 0)
@@ -60,5 +62,6 @@ void	ft_expension_process(t_word *word, t_env_node *node)
 			word->word[++(word->word_idx)] = '\0';
 		while (word->word_idx < end_idx)
 			word->word[++(word->word_idx)] = '\0';
+		word->ex_stt = OFF;
 	}
 }

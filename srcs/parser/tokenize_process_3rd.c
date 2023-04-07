@@ -3,8 +3,10 @@
 static void	ft_append_new_redirect_struct(t_p_data *pdata);
 static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx);
 
-void	ft_start_redirect_stt(char input, t_word *word)
+void	ft_start_redirect_stt(char input, t_word *word, t_env_node *node)
 {
+	if (word->ex_stt == ON)
+		ft_expension_process(word, node);
 	word->re_stt = ON;
 	(word->word)[++(word->word_idx)] = input;
 	word->re_idx = word->word_idx;
@@ -35,6 +37,7 @@ void	ft_redirection_process(t_p_data *pdata, t_word *word)
 			new->type = RE_OUTPUT;
 	}
 	ft_put_re_put_del_word(new, word, tmp_idx);
+	word->re_stt = OFF;
 }
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata)
@@ -83,16 +86,10 @@ static void	ft_put_re_put_del_word(t_redir *new, t_word *word, int tmp_idx)
 	i = -1;
 	if (new->type == RE_APPEND)
 		word->re_idx += 1;
-	// while (word->word[word->re_idx] == ' ')
-	// 	word->re_idx += 1;
 	if (new->type != RE_HERE)
 	{
 		ft_is_right_redirection(word);
-		while (word->re_idx <= word->word_idx)
-		{
-			new->file_name[++i] = word->word[word->re_idx];
-			word->re_idx += 1;
-		}
+		ft_strlcpy(new->file_name, word->word + word->re_idx, PATH_MAX);
 	}
 	while (tmp_idx <= word->word_idx)
 	{

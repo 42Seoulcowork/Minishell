@@ -9,7 +9,6 @@ static void	ft_init_token_word(t_p_data *pdata, t_word *word)
 	pdata->front->redir = NULL;
 	pdata->front->next = NULL;
 	ft_clear_word_struct(word);
-	word->tmp_num = 0;
 }
 
 void	parsing(char *input, t_p_data *pdata, t_env_node *head)

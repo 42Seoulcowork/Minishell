@@ -24,6 +24,17 @@ static char	*find_path(char *cmd, char **path)
 	return (NULL);
 }
 
+static void	is_directory(char *path, char *cmd)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd);
+	if (dir == NULL)
+		return ;
+	print_is_directory(path, cmd);
+	closedir(dir);
+}
+
 char	*check_path(t_env_node *head, t_token *token)
 {
 	char	*tmp;
@@ -32,6 +43,7 @@ char	*check_path(t_env_node *head, t_token *token)
 
 	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
 	{
+		is_directory(NULL, token->cmd[0]);
 		if (access(*(token->cmd) + 2, F_OK) == -1)
 			handle_null_path(token->cmd[0]);
 		path = token->cmd[0];
@@ -55,17 +67,6 @@ char	*check_path(t_env_node *head, t_token *token)
 			exit(127);
 	}
 	return (path);
-}
-
-static void	is_directory(char *path, char *cmd)
-{
-	DIR	*dir;
-
-	dir = opendir(cmd);
-	if (dir == NULL)
-		return ;
-	print_is_directory(path, cmd);
-	closedir(dir);
 }
 
 void	run_cmd(t_env_node *head, t_token *token)

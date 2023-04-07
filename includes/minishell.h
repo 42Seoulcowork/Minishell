@@ -53,7 +53,7 @@ void		execute(t_env_node *head, t_p_data *p_data);
 void		run_cmd(t_env_node *head, t_token *token);
 int			handle_redir(t_redir *redir);
 void		quick_sort(char **arr, int left, int right);
-void		execute_token(t_env_node *head, t_token *token);
+int 		execute_token(t_env_node *head, t_token *token);
 void		handle_null_path(char *cmd);
 void		print_permission_denied(char *path, char *cmd);
 void		free_env_path(char **env_path);

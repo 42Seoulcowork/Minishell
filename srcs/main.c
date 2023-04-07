@@ -1,16 +1,21 @@
 #include "minishell.h"
 
+static t_env_node	*initialize(int ac, char **av, char **envp)
+{
+	if (ac != 1)
+		exit(1);
+	if (!ft_strcmp(av[0], "minishell"))
+		exit(1);
+	return (init_node(envp));
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
 	t_p_data	parsed_data;
 	t_env_node	*head;
 
-	head = init_node(envp);
-	if (ac != 1)
-		return (0);
-	if (!ft_strcmp(av[0], "minishell"))
-		return (0);
+	head = initialize(ac, av, envp);
 	//signal_setting();
 	while (1)
 	{

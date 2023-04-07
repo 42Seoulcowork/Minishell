@@ -54,7 +54,7 @@ void		execute(t_env_node *head, t_p_data *p_data);
 void		run_cmd(t_env_node *head, t_token *token);
 int			handle_redir(t_redir *redir);
 void		quick_sort(char **arr, int left, int right);
-int 		execute_token(t_env_node *head, t_token *token);
+int			execute_token(t_env_node *head, t_token *token);
 void		handle_null_path(char *cmd);
 void		print_permission_denied(char *path, char *cmd);
 void		print_is_directory(char *cmd);
@@ -66,7 +66,8 @@ void		handle_execute_errror(int status);
 int			execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status);
 void		execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd);
-int			execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i);
+int			execute_end_pipe(t_env_node *head, t_p_data *p_data, \
+							int **fd, int i);
 
 int			pipe_s(int fd[2]);
 int			fork_s(void);

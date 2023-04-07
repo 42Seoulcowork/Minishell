@@ -50,6 +50,8 @@ static void	cd_with_path(t_env_node *head, char **path, \
 	{
 		if (*old_path != NULL)
 			ft_setenv("OLDPWD", *old_path, head);
+		else
+			ft_setenv("OLDPWD", ft_getenv(head, "PWD"), head);
 		ft_setenv("PWD", getcwd(NULL, 0), head);
 		g_exit_status = 0;
 	}

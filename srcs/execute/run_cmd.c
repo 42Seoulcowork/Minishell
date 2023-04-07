@@ -24,46 +24,38 @@ static char	*find_path(char *cmd, char **path)
 	return (NULL);
 }
 
-static void	print_permission_denied(char *path, char *cmd)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-	free(path);
-	exit(126);
-}
-
-static void	free_env_path(char **env_path)
-{
-	int	i;
-
-	i = 0;
-	while (env_path[i] != NULL)
-	{
-		free(env_path[i]);
-		++i;
-	}
-	free(env_path);
-}
-
-void	run_cmd(t_env_node *head, t_token *token)
+char	*check_path(t_env_node *head, t_token *token)
 {
 	char	*tmp;
 	char	*path;
 	char	**env_path;
 
 	if (token->cmd[0][0] == '.' && token->cmd[0][1] == '/')
+	{
+		if (access(*(token->cmd) + 2, F_OK) == -1)
+			handle_null_path(token->cmd[0]);
 		path = token->cmd[0];
+	}
 	else
 	{
 		tmp = ft_getenv(head, "PATH");
-		env_path = ft_split_s(tmp, ':'); // PATH가 unset이면 null인지 확인 필요
+		if (tmp == NULL)
+			handle_null_path(token->cmd[0]);
+		env_path = ft_split_s(tmp, ':');
 		free(tmp);
 		path = find_path(token->cmd[0], env_path);
 		free_env_path(env_path);
 		if (!path)
 			exit(127);
 	}
+	return (path);
+}
+
+void	run_cmd(t_env_node *head, t_token *token)
+{
+	char	*path;
+
+	path = check_path(head, token);
 	if (access(path, X_OK) != 0)
 		print_permission_denied(path, token->cmd[0]);
 	if (execve(path, token->cmd, convert_array_for_execve(head)) == -1)

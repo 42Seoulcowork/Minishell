@@ -6,7 +6,7 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 
 	pid = 0;
 	if (p_data->front->cmd_type == EXTERN_FUNC)
-		pid = ft_fork();
+		pid = fork_s();
 	if (pid > 0)
 		wait(status);
 	else if (pid == 0)
@@ -20,9 +20,9 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 {
 	pid_t	pid;
 
-	if (ft_pipe(fd[0]) == FALSE)
+	if (pipe_s(fd[0]) == FALSE)
 		return ;
-	pid = ft_fork();
+	pid = fork_s();
 	if (pid == 0)
 	{
 		close(fd[0][READ_END]);
@@ -58,9 +58,9 @@ int	execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 	while (i < p_data->pipe_cnt - 1)
 	{
 		++i;
-		if (ft_pipe(fd[i]) == FALSE)
+		if (pipe_s(fd[i]) == FALSE)
 			return (-1);
-		pid = ft_fork();
+		pid = fork_s();
 		if (pid == 0) // 자식
 			do_child(head, p_data, fd, i);
 		else if (pid > 0)
@@ -81,7 +81,7 @@ int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	int		status;
 	pid_t	pid;
 
-	pid = ft_fork();
+	pid = fork_s();
 	status = 0;
 	if (pid == 0) // 자식
 	{

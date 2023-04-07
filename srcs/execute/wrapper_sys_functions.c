@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	ft_pipe(int fd[2])
+int	pipe_s(int fd[2])
 {
 	int	error_check;
 
@@ -14,7 +14,7 @@ int	ft_pipe(int fd[2])
 	return (TRUE);
 }
 
-int	ft_fork(void)
+int	fork_s(void)
 {
 	int	error_check;
 
@@ -28,3 +28,14 @@ int	ft_fork(void)
 	return (error_check);
 }
 
+void	*malloc_s(size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (ptr == NULL)
+	{
+		ft_allocation_error();
+	}
+	return (ptr);
+}

@@ -27,6 +27,7 @@
 int	g_exit_status;
 
 /* built_in */
+
 void		ft_pwd(void);
 void		ft_exit(char **args);
 void		ft_echo(char **args);
@@ -35,12 +36,17 @@ void		ft_cd(t_env_node *head, char **argv);
 void		ft_export(t_env_node *head, char **cmd);
 void		ft_unset(t_env_node *head, char **keys);
 char		*ft_getenv(t_env_node *head, char *key);
+char		**ft_simple_split(char *tmp, char *equal_address);
+int			print_error_for_invalid_name(char *cmd);
+void		print_export(t_env_node *head);
+t_env_node	*get_old_key_address(t_env_node *head, char *key);
 
 /* execute */
+
 t_env_node	*create_node(char *key, char *value);
 t_env_node	*init_node(char **envp);
-void		add_node(t_env_node *head, t_env_node *node);
 void		delete_node(t_env_node *head, char *key);
+void		add_node(t_env_node *head, t_env_node *node);
 char		**convert_array_for_export(t_env_node *head);
 char		**convert_array_for_execve(t_env_node *head);
 void		execute(t_env_node *head, t_p_data *p_data);
@@ -56,7 +62,12 @@ void		execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd);
 int			execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i);
 
-int			ft_pipe(int fd[2]);
-int			ft_fork(void);
+int			pipe_s(int fd[2]);
+int			fork_s(void);
+void		*malloc_s(size_t size);
+char		*ft_strjoin_s(char const *s1, char const *s2);
+char		*ft_strdup_s(const char *s1);
+char		**ft_split_s(char const *s, char c);
+
 
 #endif

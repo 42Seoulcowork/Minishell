@@ -28,7 +28,7 @@ int	g_exit_status;
 
 /* built_in */
 
-void		ft_pwd(void);
+void		ft_pwd(t_env_node *head);
 void		ft_exit(char **args);
 void		ft_echo(char **args);
 void		ft_env(t_env_node *head);

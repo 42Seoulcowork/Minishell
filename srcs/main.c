@@ -26,7 +26,7 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		}
 		parsing(str, &parsed_data, head->next);
-		if (parsed_data.front && parsed_data.front->cmd)
+		if (parsed_data.front && (parsed_data.front->cmd || parsed_data.front->redir))
 		{
 			execute(head, &parsed_data);
 			if (str[0] != '\0')

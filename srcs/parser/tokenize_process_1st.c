@@ -50,12 +50,13 @@ void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 	pdata->pipe_cnt += 1;
 }
 
-void	ft_end_quoted_stt(char *input, t_word *word)
+void	ft_end_quoted_stt(t_p_data *pdata, char *input, t_word *word)
 {
 	char	tmp;
 
 	tmp = *(input + 1);
-	// if (word->word_idx == -1 && (tmp == ' ' || tmp == '\0' || tmp == '|'));
+	if (word->word_idx == -1 && (tmp == ' ' || tmp == '\0' || tmp == '|'))
+		ft_handle_present_w_cmd_to_token(pdata, word);
 	if (*input == '\'')
 		word->sq_stt = OFF;
 	else if (*input == '\"')

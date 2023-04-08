@@ -34,7 +34,7 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 	char	*new_word;
 	int		i;
 
-	if (word->word[0] == '\0')
+	if (word->word[0] == '\0' && word->sq_stt == OFF && word->dq_stt == OFF)
 		return ;
 	new_cmd = (char **)malloc(sizeof(char *) * \
 		(ft_pointers_len(pdata->now->cmd) + 2));

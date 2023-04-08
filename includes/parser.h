@@ -80,7 +80,7 @@ void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word);
 
 void	ft_end_line_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
 void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
-void	ft_end_quoted_stt(char *input, t_word *word);
+void	ft_end_quoted_stt(t_p_data *pdata, char *input, t_word *word);
 void	ft_start_quoted_stt(t_p_data *pdata, char input, \
 t_word *word, t_env_node *node);
 

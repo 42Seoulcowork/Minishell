@@ -38,9 +38,9 @@ void	tokenize(char **input, t_p_data *pdata, t_word *word, t_env_node *head)
 		ft_end_quoted_stt(**input, word);
 	else if ((word->sq_stt == OFF && word->dq_stt == OFF)
 		&& (**input == '\'' || **input == '\"'))
-		ft_start_quoted_stt(**input, word, head);
+		ft_start_quoted_stt(pdata, **input, word, head);
 	else if (word->sq_stt == OFF && **input == '$')
-		ft_start_expansion_stt(input, word, head);
+		ft_start_expansion_stt(pdata, input, word, head);
 	else if (word->dq_stt == OFF && word->sq_stt == OFF
 		&& (**input == '<' || **input == '>'))
 		ft_start_redirect_stt(pdata, **input, word, head);
@@ -50,5 +50,5 @@ void	tokenize(char **input, t_p_data *pdata, t_word *word, t_env_node *head)
 		&& word->dq_stt == OFF && word->sq_stt == OFF)
 		ft_handle_comment(word);
 	else
-		ft_add_or_start_new_char_in_word(**input, word, head);
+		ft_add_or_start_new_char_in_word(pdata, **input, word, head);
 }

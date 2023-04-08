@@ -1,6 +1,7 @@
 #include "minishell.h"
 
-void	ft_start_expansion_stt(char **input, t_word *word, t_env_node *node)
+void	ft_start_expansion_stt(t_p_data *pdata, char **input, \
+t_word *word, t_env_node *node)
 {
 	int		i;
 	char	*tmp;
@@ -17,55 +18,45 @@ void	ft_start_expansion_stt(char **input, t_word *word, t_env_node *node)
 	else
 	{
 		if (word->ex_stt == ON)
-			ft_expension_process(word, node);
+			ft_expension_process(pdata, word, node);
 		(word->word)[++(word->word_idx)] = '$';
 		word->ex_stt = ON;
 		word->ex_idx = word->word_idx;
 	}
 }
 
-static int	ft_check_dic_input_value(t_word *word, t_env_node *node, char *tmp)
-{
-	int	temp_idx;
-	int	i;
-
-	while (node)
-	{	
-		if (ft_strcmp(tmp, node->key) == 0)
-		{
-			i = -1;
-			while ((node->value)[++i])
-				(word->word)[++(word->word_idx)] = node->value[i];
-			break ;
-		}
-		node = node->next;
-	}
-	free(tmp);
-	temp_idx = word->word_idx;
-	if (node == NULL)
-		word->word[++(word->word_idx)] = '\0';
-	return (temp_idx);
-}
-
-void	ft_expension_process(t_word *word, t_env_node *node)
+void	ft_expension_process(t_p_data *pdata, t_word *word, t_env_node *node)
 {
 	char	*tmp;
-	int		temp_idx;
-	int		end_idx;
+	int		i;
 
 	if (word->ex_idx == word->word_idx)
 		word->ex_stt = OFF;
 	else
 	{
-		tmp = ft_strdup(word->word + word->ex_idx + 1);
-		if (!tmp)
-			ft_allocation_error();
-		end_idx = word->word_idx;
+		while (node)
+		{	
+			if (ft_strcmp(word->word + word->ex_idx + 1, node->key) == 0)
+			{
+				tmp = node->value;
+				break ;
+			}
+			node = node->next;
+		}
 		word->word_idx = word->ex_idx - 1;
-		temp_idx = ft_check_dic_input_value(word, node, tmp);
-		while (word->word_idx < end_idx)
-			word->word[++(word->word_idx)] = '\0';
-		word->word_idx = temp_idx;
+		while (word->word[++(word->word_idx)])
+			word->word[word->word_idx] = '\0';
+		word->word_idx = word->ex_idx - 1;
 		word->ex_stt = OFF;
+		if (!node)
+			return ;
+		i = -1;
+		while (tmp[++i])
+		{
+			if (tmp[i] == ' ')
+				ft_clean_new_word_hpwtt(pdata, word, node);
+			else
+				ft_add_or_start_new_char_in_word(pdata, tmp[i], word, node);
+		}
 	}
 }

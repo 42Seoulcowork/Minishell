@@ -8,7 +8,7 @@ void	ft_end_line_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 		return ;
 	}
 	if (word->ex_stt == ON)
-		ft_expension_process(word, node);
+		ft_expension_process(pdata, word, node);
 	if (word->re_stt == ON && ft_redirection_process(pdata, word) == 1)
 		return ;
 	ft_handle_present_w_cmd_to_token(pdata, word);
@@ -27,7 +27,7 @@ void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 	t_token	*new_token;	
 
 	if (word->ex_stt == ON)
-		ft_expension_process(word, node);
+		ft_expension_process(pdata, word, node);
 	if (word->re_stt == ON && ft_redirection_process(pdata, word) == 1)
 		return ;
 	ft_handle_present_w_cmd_to_token(pdata, word);
@@ -58,10 +58,11 @@ void	ft_end_quoted_stt(char input, t_word *word)
 		word->dq_stt = OFF;
 }
 
-void	ft_start_quoted_stt(char input, t_word *word, t_env_node *node)
+void	ft_start_quoted_stt(t_p_data *pdata, char input, \
+t_word *word, t_env_node *node)
 {
 	if (word->ex_stt == ON)
-		ft_expension_process(word, node);
+		ft_expension_process(pdata, word, node);
 	if (input == '\'')
 		word->sq_stt = ON;
 	else if (input == '\"')

@@ -15,7 +15,7 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 		handle_execute_errror(*status);
 	}
 	else if (pid == 0)
-		flag = execute_token(head, p_data->front);
+		flag = execute_token(head, p_data->front, FALSE);
 	if (pid < 0 || flag == FALSE)
 		return (FALSE);
 	return (TRUE);
@@ -33,7 +33,7 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 		close(fd[0][READ_END]);
 		dup2(fd[0][WRITE_END], STDOUT_FILENO);
 		close(fd[0][WRITE_END]);
-		execute_token(head, p_data->front);
+		execute_token(head, p_data->front, TRUE);
 		exit(g_exit_status);
 	}
 	else if (pid > 0)
@@ -50,7 +50,7 @@ static void	do_child(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	close(fd[i - 1][READ_END]);
 	dup2(fd[i][WRITE_END], STDOUT_FILENO);
 	close(fd[i][WRITE_END]);
-	execute_token(head, p_data->front);
+	execute_token(head, p_data->front, TRUE);
 	exit(g_exit_status);
 }
 
@@ -92,7 +92,7 @@ int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	{
 		dup2(fd[i][READ_END], STDIN_FILENO);
 		close(fd[i][READ_END]);
-		execute_token(head, p_data->front);
+		execute_token(head, p_data->front, TRUE);
 		exit(g_exit_status);
 	}
 	else if (pid > 0)

@@ -21,7 +21,7 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 	}
 	ft_handle_present_w_cmd_to_token(pdata, word);
 	if (pdata->now->cmd == NULL && pdata->now->redir == NULL
-	&& word->ex_idx == -1)
+		&& word->ex_idx == -1)
 	{
 		ft_syntax_error(pdata, word);
 		return ;

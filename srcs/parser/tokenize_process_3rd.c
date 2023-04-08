@@ -75,8 +75,8 @@ static int	ft_is_right_redirection(t_p_data *pdata, t_word *word)
 	char	c;
 
 	c = word->word[word->re_idx];
-	if (c == '`' || c == '&' || c == '('
-	|| c == ')' || c == '<' || c == '>' || c == '\0')
+	if (c == '`' || c == '&' || c == '(' || c == ')' || c == '<'
+		|| c == '>' || c == '\0')
 		ft_syntax_error(pdata, word);
 	else if (c == '*' && word->word[word->re_idx + 1] == '\0')
 		ft_syntax_error(pdata, word);

@@ -6,6 +6,7 @@ t_redir *new, t_word *word)
 	char	*str;
 	char	*tmp;
 	char	temp;
+	int		i;
 
 	word->re_idx += 1;
 	temp = word->word[word->re_idx];
@@ -25,7 +26,9 @@ t_redir *new, t_word *word)
 	new->heredoc_fd = open(tmp, O_RDWR | O_CREAT, 0644);
 	if (!new->heredoc_fd)
 		ft_open_error();
-	unlink(tmp);
+	i = -1;
+	while (tmp[++i])
+		new->file_name[i] = tmp[i];
 	free(tmp);
 	return (0);
 }
@@ -55,5 +58,6 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word)
 		write(new->heredoc_fd, "\n", 1);
 		free(str);
 	}
+	close(new->heredoc_fd);
 	return (0);
 }

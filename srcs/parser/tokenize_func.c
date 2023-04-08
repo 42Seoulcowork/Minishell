@@ -60,7 +60,8 @@ static void	ft_find_cmd_type(t_p_data *pdata, char *new_word)
 
 	i = -1;
 	tmp = ft_strdup(new_word);
-	ft_strlcpy(tmp, new_word, ft_strlen(new_word) + 1);
+	if (!tmp)
+		ft_allocation_error();
 	while (tmp[++i])
 		tmp[i] = ft_tolower(tmp[i]);
 	if (!ft_strcmp(tmp, "echo"))

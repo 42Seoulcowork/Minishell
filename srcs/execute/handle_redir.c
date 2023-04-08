@@ -24,9 +24,17 @@ static int	handle_redir_here(t_redir *redir)
 {
 	int	fd;
 
-	fd = redir->heredoc_fd;
+	fd = open(redir->file_name, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		perror(redir->file_name);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		return (FALSE);
+	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	unlink(redir->file_name);
 	return (TRUE);
 }
 

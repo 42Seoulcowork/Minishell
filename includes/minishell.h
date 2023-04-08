@@ -30,7 +30,7 @@ int	g_exit_status;
 /* built_in */
 
 void		ft_pwd(t_env_node *head);
-void		ft_exit(char **args);
+void		ft_exit(char **args, int child);
 void		ft_echo(char **args);
 void		ft_env(t_env_node *head);
 void		ft_cd(t_env_node *head, char **argv);
@@ -55,7 +55,7 @@ void		execute(t_env_node *head, t_p_data *p_data);
 void		run_cmd(t_env_node *head, t_token *token);
 int			handle_redir(t_redir *redir);
 void		quick_sort(char **arr, int left, int right);
-int			execute_token(t_env_node *head, t_token *token);
+int			execute_token(t_env_node *head, t_token *token, int child);
 void		handle_null_path(char *cmd);
 void		print_permission_denied(char *path, char *cmd);
 void		print_is_directory(char *cmd);

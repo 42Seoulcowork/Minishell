@@ -47,17 +47,16 @@ static int	ft_atouc(const char *str)
 	return ((unsigned char)result);
 }
 
-void	ft_exit(char **args)
+void	ft_exit(char **args, int child)
 {
 	int		input_status;
 	char	*msg;
 	char	*tmp;
 
-	ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (child == FALSE)
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!args[1])
-	{
 		exit(g_exit_status);
-	}
 	input_status = ft_atouc(args[1]);
 	if (input_status == -1)
 	{

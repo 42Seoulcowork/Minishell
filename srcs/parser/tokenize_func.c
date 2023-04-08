@@ -24,7 +24,7 @@ void	ft_clear_word_struct(t_word *word)
 	word->re_idx = 0;
 	word->word_idx = -1;
 	word->break_flag = OFF;
-	ft_memset(word, '\0', ARG_MAX);
+	ft_memset(word->word, '\0', ARG_MAX);
 }
 
 void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)

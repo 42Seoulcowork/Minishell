@@ -32,7 +32,7 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 void	ft_add_or_start_new_char_in_word(char input, t_word *word, \
 t_env_node *node)
 {
-	if (word->ex_stt == ON && input == '/')
+	if (word->ex_stt == ON && (input == '/' || input == ' '))
 		ft_expension_process(word, node);
 	word->word[++(word->word_idx)] = input;
 }

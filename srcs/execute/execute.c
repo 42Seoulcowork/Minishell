@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	run_builtin(t_env_node *head, t_token *token)
+static void	run_builtin(t_env_node *head, t_token *token, int child)
 {
 	if (token->cmd_type == ECHO_FUNC)
 		ft_echo(token->cmd);
@@ -15,10 +15,10 @@ static void	run_builtin(t_env_node *head, t_token *token)
 	else if (token->cmd_type == ENV_FUNC)
 		ft_env(head);
 	else if (token->cmd_type == EXIT_FUNC)
-		ft_exit(token->cmd);
+		ft_exit(token->cmd, child);
 }
 
-int	execute_token(t_env_node *head, t_token *token)
+int	execute_token(t_env_node *head, t_token *token, int child)
 {
 	if (token->redir != NULL)
 	{
@@ -29,7 +29,7 @@ int	execute_token(t_env_node *head, t_token *token)
 		}
 	}
 	if (token->cmd_type != EXTERN_FUNC)
-		run_builtin(head, token);
+		run_builtin(head, token, child);
 	else
 		run_cmd(head, token);
 	return (TRUE);

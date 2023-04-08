@@ -87,7 +87,6 @@ void	ft_clear_all_pdata(t_p_data *pdata)
 	int		i;
 
 	pdata->pipe_cnt = 0;
-	i = -1;
 	while (pdata->front)
 	{
 		pdata->now = pdata->front;
@@ -99,6 +98,7 @@ void	ft_clear_all_pdata(t_p_data *pdata)
 		}
 		if (pdata->front->cmd)
 		{
+			i = -1;
 			while (pdata->front->cmd[++i])
 				free(pdata->front->cmd[i]);
 			free(pdata->front->cmd);

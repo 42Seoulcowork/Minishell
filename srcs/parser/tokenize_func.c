@@ -55,24 +55,27 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 
 static void	ft_find_cmd_type(t_p_data *pdata, char *new_word)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = -1;
-	while (new_word[++i])
-		new_word[i] = ft_tolower(new_word[i]);
-	if (!ft_strcmp(new_word, "echo"))
+	tmp = ft_strdup(new_word);
+	ft_strlcpy(tmp, new_word, ft_strlen(new_word));
+	while (tmp[++i])
+		tmp[i] = ft_tolower(tmp[i]);
+	if (!ft_strcmp(tmp, "echo"))
 		pdata->now->cmd_type = ECHO_FUNC;
-	else if (!ft_strcmp(new_word, "cd"))
+	else if (!ft_strcmp(tmp, "cd"))
 		pdata->now->cmd_type = CD_FUNC;
-	else if (!ft_strcmp(new_word, "pwd"))
+	else if (!ft_strcmp(tmp, "pwd"))
 		pdata->now->cmd_type = PWD_FUNC;
-	else if (!ft_strcmp(new_word, "export"))
+	else if (!ft_strcmp(tmp, "export"))
 		pdata->now->cmd_type = EXPORT_FUNC;
-	else if (!ft_strcmp(new_word, "unset"))
+	else if (!ft_strcmp(tmp, "unset"))
 		pdata->now->cmd_type = UNSET_FUNC;
-	else if (!ft_strcmp(new_word, "env"))
+	else if (!ft_strcmp(tmp, "env"))
 		pdata->now->cmd_type = ENV_FUNC;
-	else if (!ft_strcmp(new_word, "exit"))
+	else if (!ft_strcmp(tmp, "exit"))
 		pdata->now->cmd_type = EXIT_FUNC;
 	else
 		pdata->now->cmd_type = EXTERN_FUNC;

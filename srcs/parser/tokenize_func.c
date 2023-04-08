@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	ft_find_cmd_type(t_p_data *pdata, char *new_word);
+static void	ft_find_cmd_type(t_p_data *pdata, char *new_word, int i);
 
 static int	ft_pointers_len(char **input)
 {
@@ -45,7 +45,7 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 	if (!new_word)
 		ft_allocation_error();
 	if (i == 0)
-		ft_find_cmd_type(pdata, new_word);
+		ft_find_cmd_type(pdata, new_word, -1);
 	new_cmd[i] = new_word;
 	new_cmd[i + 1] = NULL;
 	temp = pdata->now->cmd;
@@ -53,12 +53,10 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 	free(temp);
 }
 
-static void	ft_find_cmd_type(t_p_data *pdata, char *new_word)
+static void	ft_find_cmd_type(t_p_data *pdata, char *new_word, int i)
 {
-	int		i;
 	char	*tmp;
 
-	i = -1;
 	tmp = ft_strdup(new_word);
 	if (!tmp)
 		ft_allocation_error();
@@ -80,6 +78,7 @@ static void	ft_find_cmd_type(t_p_data *pdata, char *new_word)
 		pdata->now->cmd_type = EXIT_FUNC;
 	else
 		pdata->now->cmd_type = EXTERN_FUNC;
+	free(tmp);
 }
 
 void	ft_clear_all_pdata(t_p_data *pdata)

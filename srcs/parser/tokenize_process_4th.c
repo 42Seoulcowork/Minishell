@@ -9,8 +9,8 @@ t_redir *new, t_word *word)
 
 	word->re_idx += 1;
 	temp = word->word[word->re_idx];
-	if (temp == '>' || temp == '<' || temp == '(' || temp == ')' 
-	|| temp == '`' || temp == '&' || temp == '\0')
+	if (temp == '>' || temp == '<' || temp == '(' || temp == ')'
+		|| temp == '`' || temp == '&' || temp == '\0')
 	{
 		ft_syntax_error(pdata, word);
 		return (1);

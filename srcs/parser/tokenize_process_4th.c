@@ -37,9 +37,10 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word)
 
 	if (ft_here_doc_pretreatment(pdata, new, word) == 1)
 		return (1);
-	tmp = ft_strdup(word->word + word->re_idx);
-	if (!tmp)
-		ft_allocation_error();
+	tmp = ft_strdup_s(word->word + word->re_idx);
+	word->re_idx -= 2;
+	while (word->word[word->re_idx])
+		word->word[(word->re_idx)++] = '\0';
 	while (1)
 	{
 		str = readline("> ");

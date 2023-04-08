@@ -12,9 +12,10 @@ void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 		return ;
 	if (word->ex_stt == ON)
 		ft_expension_process(pdata, word, node);
-	word->re_stt = ON;
 	(word->word)[++(word->word_idx)] = input;
-	word->re_idx = word->word_idx;
+	if (word->re_stt == OFF)
+		word->re_idx = word->word_idx;
+	word->re_stt = ON;
 }
 
 int	ft_redirection_process(t_p_data *pdata, t_word *word)

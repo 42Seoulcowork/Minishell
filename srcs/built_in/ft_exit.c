@@ -57,7 +57,10 @@ void	ft_exit(char **args, int child)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!args[1])
 		exit(g_exit_status);
-	input_status = ft_atouc(args[1]);
+	if (args[1][0] != '\0')
+		input_status = ft_atouc(args[1]);
+	else
+		input_status = -1;
 	if (input_status == -1)
 	{
 		tmp = ft_strjoin_s("minishell: exit: ", args[1]);

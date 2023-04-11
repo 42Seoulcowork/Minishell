@@ -43,7 +43,6 @@ SRC =	main.c \
 		parser/tokenize_process_5th.c \
 		parser/error.c \
 		parser/system_error.c \
-		# parser/queue.c \
 
 SRC_DIR = ./srcs/
 

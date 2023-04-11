@@ -83,6 +83,8 @@ void	ft_cd(t_env_node *head, char **argv)
 	old_path = getcwd(NULL, 0);
 	if (!argv[1])
 		path = ft_getenv(head, "HOME");
+	else if (argv[1][0] == '\0')
+		path = ft_strdup_s(old_path);
 	else if (argv[1][0] == '~')
 	{
 		tmp = ft_getenv(head, "HOME");

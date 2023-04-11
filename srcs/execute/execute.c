@@ -28,6 +28,8 @@ int	execute_token(t_env_node *head, t_token *token, int child)
 			return (FALSE);
 		}
 	}
+    if (token->cmd == NULL)
+        return (FALSE);
 	if (token->cmd_type != EXTERN_FUNC)
 		run_builtin(head, token, child);
 	else

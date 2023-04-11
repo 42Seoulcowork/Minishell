@@ -12,6 +12,7 @@ static t_env_node	*initialize(int ac, char **av, char **envp)
 int	ft_print_exit_free_env_all(t_env_node *head)
 {
 	write(1, "exit\n", 5);
+(void *)head;
 	exit(0);
 	return (0);
 }

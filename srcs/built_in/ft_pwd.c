@@ -6,19 +6,11 @@ void	ft_pwd(t_env_node *head)
 	char 	*tmp;
 
 	tmp = getcwd(NULL, 0);
-	if (tmp)
-	{
-		path = ft_strjoin_s(tmp, "\n");
-		free_s(tmp);
-		ft_putstr_fd(path, STDOUT_FILENO);
-		g_exit_status = 0;
-	}
-	else
-	{
+	if (tmp == NULL)
 		tmp = ft_getenv(head, "PWD");
-		path = ft_strjoin_s(tmp, "\n");
-		free_s(tmp);
-		ft_putstr_fd(path, STDOUT_FILENO);
-		g_exit_status = 0;
-	}
+	path = ft_strjoin_s(tmp, "\n");
+	free_s(tmp);
+	ft_putstr_fd(path, STDOUT_FILENO);
+	free_s(path);
+	g_exit_status = 0;
 }

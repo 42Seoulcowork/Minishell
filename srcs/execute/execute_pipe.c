@@ -7,7 +7,7 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 
 	pid = 0;
 	flag = TRUE;
-	if (p_data->front->cmd_type == EXTERN_FUNC)
+	if (p_data->front->cmd != NULL && p_data->front->cmd_type == EXTERN_FUNC)
 		pid = fork_s();
 	if (pid > 0)
 	{

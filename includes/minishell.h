@@ -76,5 +76,6 @@ void		*malloc_s(size_t size);
 char		*ft_strjoin_s(char const *s1, char const *s2);
 char		*ft_strdup_s(const char *s1);
 char		**ft_split_s(char const *s, char c);
+void		free_s(void *ptr);
 
 #endif

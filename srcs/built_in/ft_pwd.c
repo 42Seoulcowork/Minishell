@@ -9,7 +9,7 @@ void	ft_pwd(t_env_node *head)
 	if (tmp)
 	{
 		path = ft_strjoin_s(tmp, "\n");
-		free(tmp);
+		free_s(tmp);
 		ft_putstr_fd(path, STDOUT_FILENO);
 		g_exit_status = 0;
 	}
@@ -17,7 +17,7 @@ void	ft_pwd(t_env_node *head)
 	{
 		tmp = ft_getenv(head, "PWD");
 		path = ft_strjoin_s(tmp, "\n");
-		free(tmp);
+		free_s(tmp);
 		ft_putstr_fd(path, STDOUT_FILENO);
 		g_exit_status = 0;
 	}

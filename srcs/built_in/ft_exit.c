@@ -65,8 +65,9 @@ void	ft_exit(char **args, int child)
 	{
 		tmp = ft_strjoin_s("minishell: exit: ", args[1]);
 		msg = ft_strjoin_s(tmp, ": numeric argument required\n");
-		free(tmp);
+		free_s(tmp);
 		ft_putstr_fd(msg, STDERR_FILENO);
+		free_s(msg);
 		g_exit_status = 255;
 	}
 	else if (args[2])
@@ -75,6 +76,6 @@ void	ft_exit(char **args, int child)
 		g_exit_status = 1;
 		return ;
 	}
-	g_exit_status = input_status; // TODO 바꿈 이래도 자식에서 실행되면 안 바뀌는데 모르겟다
+	g_exit_status = input_status;
 	exit(g_exit_status);
 }

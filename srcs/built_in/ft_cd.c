@@ -27,6 +27,7 @@ static void	ft_setenv(char *key, char *value, t_env_node *head)
 		if (ft_strcmp(key, head->key) == 0)
 		{
 			head->value = ft_strdup_s(value);
+			free_s(value);
 			break ;
 		}
 		head = head->next;
@@ -38,8 +39,8 @@ static void	cd_with_path(t_env_node *head, char **path, \
 {
 	if (chdir(*path) == -1)
 	{
-		free(*old_path);
-		free(*path);
+		free_s(*old_path);
+		free_s(*path);
 		*old_path = ft_strjoin_s("minishell: cd: ", argv[1]);
 		if (access(argv[1], F_OK))
 			*path = ft_strjoin_s(*old_path, ": No such file or directory\n");
@@ -51,10 +52,10 @@ static void	cd_with_path(t_env_node *head, char **path, \
 	else
 	{
 		if (*old_path != NULL)
-			ft_setenv("OLDPWD", *old_path, head);
+			ft_setenv("OLDPWD", ft_strdup_s(*old_path), head);
 		else
-			ft_setenv("OLDPWD", ft_getenv(head, "PWD"), head); // TODO 이거 릭 날듯?
-		ft_setenv("PWD", getcwd(NULL, 0), head); //TODO 요것도 릭 날듯 ?
+			ft_setenv("OLDPWD", ft_getenv(head, "PWD"), head);
+		ft_setenv("PWD", getcwd(NULL, 0), head);
 		g_exit_status = 0;
 	}
 }
@@ -67,7 +68,7 @@ static char	*cd_with_oldpwd(t_env_node *head, char *old_path)
 	if (!path)
 	{
 		ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
-		free(old_path);
+		free_s(old_path);
 		g_exit_status = 1;
 		return (NULL);
 	}
@@ -91,7 +92,7 @@ void	ft_cd(t_env_node *head, char **argv)
 	{
 		tmp = ft_getenv(head, "HOME");
 		path = ft_strjoin_s(tmp, argv[1] + 1);
-		free(tmp);
+		free_s(tmp);
 	}
 	else if (ft_strcmp(argv[1], "-") == 0)
 	{
@@ -102,6 +103,6 @@ void	ft_cd(t_env_node *head, char **argv)
 	else
 		path = ft_strdup_s(argv[1]);
 	cd_with_path(head, &path, &old_path, argv);
-	free(old_path);
-	free(path);
+	free_s(old_path);
+	free_s(path);
 }

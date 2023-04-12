@@ -29,7 +29,7 @@ char	**convert_array_for_execve(t_env_node *head)
 		{
 			tmp = ft_strjoin_s(head->key, "=");
 			arr[i] = ft_strjoin_s(tmp, head->value);
-			free(tmp);
+			free_s(tmp);
 		}
 		else
 			arr[i] = ft_strdup_s(head->key);
@@ -50,9 +50,9 @@ void	add_quote(t_env_node *head, char **arr, int i)
 	tmp2 = ft_strjoin_s(tmp, "\"");
 	tmp3 = ft_strjoin_s(tmp2, head->value);
 	arr[i] = ft_strjoin_s(tmp3, "\"");
-	free(tmp);
-	free(tmp2);
-	free(tmp3);
+	free_s(tmp);
+	free_s(tmp2);
+	free_s(tmp3);
 }
 
 char	**convert_array_for_export(t_env_node *head)

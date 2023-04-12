@@ -35,9 +35,9 @@ static int	ft_free_all_allocation(char **s_spt, size_t w_count)
 	while (w_count > 0)
 	{
 		w_count--;
-		free(s_spt[w_count]);
+		free_s(s_spt[w_count]);
 	}
-	free(s_spt);
+	free_s(s_spt);
 	return (0);
 }
 

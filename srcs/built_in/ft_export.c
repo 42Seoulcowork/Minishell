@@ -35,7 +35,7 @@ static void	export_with_value(t_env_node *head, char *tmp, char *cmd, \
 	else if (is_addition_assignment)
 	{
 		tmp = ft_strjoin_s(old_key->value, arr[1]);
-		free(old_key->value);
+		free_s(old_key->value);
 		old_key->value = tmp;
 	}
 	else

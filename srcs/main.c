@@ -9,10 +9,38 @@ static t_env_node	*initialize(int ac, char **av, char **envp)
 	return (init_node(envp));
 }
 
+void	free_parsed_data(t_token *front)
+{
+	int	i;
+	t_token *tmp_front;
+	t_redir	*tmp_redir;
+
+	while (front)
+	{
+		i = 0;
+		while (front->cmd[i])
+		{
+			free_s(front->cmd[i]);
+			++i;
+		}
+		free_s(front->cmd);
+		while (front->redir)
+		{
+			tmp_redir = front->redir;
+			front->redir = front->redir->next;
+			free_s(tmp_redir);
+		}
+		tmp_front = front;
+		front = front->next;
+		free_s(tmp_front);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
 	t_p_data	parsed_data;
+	t_p_data	start_data;
 	t_env_node	*head;
 
 	head = initialize(ac, av, envp);
@@ -28,9 +56,12 @@ int	main(int ac, char **av, char **envp)
 		if (str[0] != '\0')
 			add_history(str);
 		parsing(str, &parsed_data, head->next);
+		start_data = parsed_data;
 		if (parsed_data.front && (parsed_data.front->cmd || parsed_data.front->redir))
 			execute(head, &parsed_data);
-		free(str);
+		free_parsed_data(start_data.front);
+		free_s(str);
 	}
+	//free_head();
 	return (0);
 }

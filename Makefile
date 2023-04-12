@@ -2,11 +2,11 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAG = -Wall -Wextra -Werror -g #-fsanitize=address
 
 INC = -I./includes/
 
-R_FLAG =  -lreadline #-L${HOME}/.brew/opt/readline/lib
+R_FLAG =  -lreadline -L${HOME}/.brew/opt/readline/lib
 
 RM = rm -f
 

@@ -48,7 +48,7 @@ void	ft_expension_process(t_p_data *pdata, t_word *word, t_env_node *node)
 			word->word[word->word_idx] = '\0';
 		word->word_idx = word->ex_idx - 1;
 		word->ex_stt = OFF;
-		if (!node)
+		if (!tmp)
 			return ;
 		i = -1;
 		while (tmp[++i])

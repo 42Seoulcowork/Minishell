@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_env_node	*create_node(char *key, char *value)
+t_env_node	*create_node(char *key, char *value) //TODO create_node 이거 껍데기만 할당 했는데... 어떤건 할당한것을 넣고 어떤건 그냥 넣네? 이게 맞나...
 {
 	t_env_node	*new_node;
 

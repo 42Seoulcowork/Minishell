@@ -53,8 +53,8 @@ static void	cd_with_path(t_env_node *head, char **path, \
 		if (*old_path != NULL)
 			ft_setenv("OLDPWD", *old_path, head);
 		else
-			ft_setenv("OLDPWD", ft_getenv(head, "PWD"), head);
-		ft_setenv("PWD", getcwd(NULL, 0), head);
+			ft_setenv("OLDPWD", ft_getenv(head, "PWD"), head); // TODO 이거 릭 날듯?
+		ft_setenv("PWD", getcwd(NULL, 0), head); //TODO 요것도 릭 날듯 ?
 		g_exit_status = 0;
 	}
 }

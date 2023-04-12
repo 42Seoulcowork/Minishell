@@ -65,7 +65,10 @@ static void	export_with_equal(t_env_node *head, char *tmp, char *cmd, \
 		if (old_key == NULL)
 			add_node(head, create_node(ft_strdup_s(cmd), ft_strdup("")));
 		else if (!is_addition_assignment)
+		{
+			free_s(old_key->value);
 			old_key->value = ft_strdup_s("");
+		}
 	}
 }
 

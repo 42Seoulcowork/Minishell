@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata);

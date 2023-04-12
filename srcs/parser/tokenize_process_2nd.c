@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 void	ft_start_expansion_stt(t_p_data *pdata, char **input, \
@@ -7,7 +8,12 @@ t_word *word, t_env_node *node)
 	char	*tmp;
 
 	i = -1;
-	if (*(*input + 1) == '?')
+	if (word->re_stt == ON && !ft_strncmp(word->word + word->re_idx, "<<", 2))
+	{
+		word->ex_stt = OFF;
+		(word->word)[++(word->word_idx)] = '$';
+	}
+	else if (*(*input + 1) == '?')
 	{
 		(*input) += 1;
 		tmp = ft_itoa(g_exit_status);
@@ -31,7 +37,10 @@ void	ft_expension_process(t_p_data *pdata, t_word *word, t_env_node *node)
 	int		i;
 
 	if (word->ex_idx == word->word_idx)
+	{
 		word->ex_stt = OFF;
+		return ;
+	}
 	else
 	{
 		while (node)

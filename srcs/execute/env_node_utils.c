@@ -91,9 +91,11 @@ t_env_node	*init_node(char **envp)
 		tmp = ft_split_s(envp[i], '=');
 		if (!ft_strcmp(tmp[0], "OLDPWD"))
 		{
+			free_s(tmp[1]);
 			tmp[1] = NULL;
 		}
 		tmp_node->next = create_node(tmp[0], tmp[1]);
+		free_s(tmp);
 		tmp_node = tmp_node->next;
 	}
 	return (head_node);

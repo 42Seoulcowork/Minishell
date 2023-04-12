@@ -18,7 +18,7 @@ void	free_parsed_data(t_token *front)
 	while (front)
 	{
 		i = 0;
-		while (front->cmd[i])
+		while (front->cmd && front->cmd[i])
 		{
 			free_s(front->cmd[i]);
 			++i;

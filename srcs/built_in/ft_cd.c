@@ -26,6 +26,7 @@ static void	ft_setenv(char *key, char *value, t_env_node *head)
 	{
 		if (ft_strcmp(key, head->key) == 0)
 		{
+			free_s(head->value);
 			head->value = ft_strdup_s(value);
 			free_s(value);
 			break ;

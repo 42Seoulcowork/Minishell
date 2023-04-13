@@ -38,7 +38,6 @@ void	free_parsed_data(t_token *front)
 
 int	main(int ac, char **av, char **envp)
 {
-	size_t			i;
 	char		*str;
 	t_p_data	parsed_data;
 	t_p_data	start_data;
@@ -54,10 +53,7 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-		i = 0;
-		while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\t'))
-			i++;
-		if (str[i] != '\0')
+		if (str[0] != '\0')
 			add_history(str);
 		parsing(str, &parsed_data, head->next);
 		start_data = parsed_data;

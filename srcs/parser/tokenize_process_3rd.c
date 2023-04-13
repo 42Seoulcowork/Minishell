@@ -89,9 +89,6 @@ static int	ft_is_right_redirection(t_p_data *pdata, t_word *word)
 static int	ft_put_re_put_del_word(t_p_data *pdata, t_redir *new, \
 t_word *word, int tmp_idx)
 {
-	int	i;
-
-	i = -1;
 	if (new->type == RE_APPEND)
 		word->re_idx += 1;
 	if (new->type != RE_HERE)

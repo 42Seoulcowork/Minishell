@@ -30,6 +30,8 @@ int	execute_token(t_env_node *head, t_token *token, int child)
 			return (FALSE);
 		}
 	}
+    if (token->cmd == NULL)
+        return (FALSE);
 	if (token->cmd_type != EXTERN_FUNC)
 		run_builtin(head, token, child);
 	else
@@ -75,6 +77,13 @@ void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 		execute_first_pipe(head, p_data, fd);
 		i = execute_middle_pipe(head, p_data, fd);
 		status = execute_end_pipe(head, p_data, fd, i);
+		i = 0;
+		while (i < p_data->pipe_cnt)
+		{
+			free(fd[i]);
+			++i;
+		}
+		free(fd);
 	}
 	handle_execute_errror(status);
 }

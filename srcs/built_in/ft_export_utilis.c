@@ -68,10 +68,10 @@ void	print_export(t_env_node *head)
 	i = 0;
 	while (arr[i] != NULL)
 	{
-		free(arr[i]);
+		free_s(arr[i]);
 		++i;
 	}
-	free(arr);
+	free_s(arr);
 }
 
 t_env_node	*get_old_key_address(t_env_node *head, char *key)

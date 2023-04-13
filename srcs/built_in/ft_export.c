@@ -35,11 +35,18 @@ static void	export_with_value(t_env_node *head, char *tmp, char *cmd, \
 	else if (is_addition_assignment)
 	{
 		tmp = ft_strjoin_s(old_key->value, arr[1]);
-		free(old_key->value);
+		free_s(old_key->value);
 		old_key->value = tmp;
+		free_s(arr[0]);
+		free_s(arr[1]);
 	}
 	else
+	{
+		free_s(old_key->value);
 		old_key->value = arr[1];
+		free_s(arr[0]);
+	}
+	free_s(arr);
 }
 
 static void	export_with_equal(t_env_node *head, char *tmp, char *cmd, \
@@ -56,9 +63,12 @@ static void	export_with_equal(t_env_node *head, char *tmp, char *cmd, \
 			*(tmp - 1) = '\0';
 		old_key = get_old_key_address(head, cmd);
 		if (old_key == NULL)
-			add_node(head, create_node(cmd, ft_strdup("")));
+			add_node(head, create_node(ft_strdup_s(cmd), ft_strdup("")));
 		else if (!is_addition_assignment)
+		{
+			free_s(old_key->value);
 			old_key->value = ft_strdup_s("");
+		}
 	}
 }
 
@@ -68,7 +78,7 @@ static void	export_without_equal(t_env_node *head, char *cmd)
 
 	old_key = get_old_key_address(head, cmd);
 	if (old_key == NULL)
-		add_node(head, create_node(cmd, NULL));
+		add_node(head, create_node(ft_strdup_s(cmd), NULL));
 }
 
 void	ft_export(t_env_node *head, char **cmd)

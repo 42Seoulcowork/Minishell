@@ -39,3 +39,9 @@ void	*malloc_s(size_t size)
 	}
 	return (ptr);
 }
+
+void	free_s(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+}

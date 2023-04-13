@@ -27,9 +27,9 @@ void	delete_node(t_env_node *head, char *key)
 	prev = head;
 	curr = head->next;
 	prev->next = curr->next;
-	free(curr->key);
-	free(curr->value);
-	free(curr);
+	free_s(curr->key);
+	free_s(curr->value);
+	free_s(curr);
 }
 
 void	add_node(t_env_node *head, t_env_node *node)

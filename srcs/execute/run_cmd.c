@@ -9,9 +9,9 @@ static char	*find_path(char *cmd, char **path)
 	while (path[i] != NULL)
 	{
 		tmp = ft_strjoin_s(path[i], "/");
-		free(path[i]);
+		free_s(path[i]);
 		path[i] = ft_strjoin_s(tmp, cmd);
-		free(tmp);
+		free_s(tmp);
 		if (access(path[i], F_OK) == 0)
 			return (ft_strdup_s(path[i]));
 		++i;
@@ -54,7 +54,7 @@ char	*check_path(t_env_node *head, t_token *token)
 		if (tmp == NULL)
 			handle_null_path(token->cmd[0]);
 		env_path = ft_split_s(tmp, ':');
-		free(tmp);
+		free_s(tmp);
 		path = find_path(token->cmd[0], env_path);
 		free_env_path(env_path);
 		if (!path)

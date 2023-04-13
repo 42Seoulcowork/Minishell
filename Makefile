@@ -2,11 +2,11 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAG = -Wall -Wextra -Werror -g #-fsanitize=address
 
 INC = -I./includes/
 
-R_FLAG =  -lreadline #-L${HOME}/.brew/opt/readline/lib
+R_FLAG =  -lreadline -L${HOME}/.brew/opt/readline/lib
 
 RM = rm -f
 
@@ -43,7 +43,6 @@ SRC =	main.c \
 		parser/tokenize_process_5th.c \
 		parser/error.c \
 		parser/system_error.c \
-		# parser/queue.c \
 
 SRC_DIR = ./srcs/
 

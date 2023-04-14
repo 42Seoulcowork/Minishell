@@ -90,7 +90,7 @@ int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 
 	pid = fork_s();
 	status = 0;
-	if (pid == 0) // 자식
+	if (pid == 0)
 	{
 		dup2(fd[i][READ_END], STDIN_FILENO);
 		close(fd[i][READ_END]);

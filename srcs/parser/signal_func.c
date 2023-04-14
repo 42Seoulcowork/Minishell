@@ -7,7 +7,7 @@ void	signal_handler(int sig)
 	g_exit_status += sig;
 	if (sig == SIGINT)
 	{
-		g_exit_status = 1;
+		g_exit_status = 128 + SIGINT;
 		rl_replace_line("", 0);
 		printf("\n");
 		rl_on_new_line();
@@ -56,4 +56,9 @@ void	ft_signal_default(void)
 {
 	signal(SIGINT, signal_handler_3);
 	signal(SIGQUIT, signal_handler);
+}
+
+void	ft_signal_child(void)
+{
+	signal(SIGINT, SIG_DFL);
 }

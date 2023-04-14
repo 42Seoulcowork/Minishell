@@ -17,9 +17,9 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 		handle_execute_errror(*status);
 	}
 	else if (pid == 0)
-    {
-        if (p_data->front->cmd_type != EXTERN_FUNC)
-            signal(SIGINT, signal_handler_2);
+	{
+		if (p_data->front->cmd_type != EXTERN_FUNC)
+			signal(SIGINT, signal_handler_2);
 		else
 			ft_signal_default();
         flag = execute_token(head, p_data->front, FALSE);

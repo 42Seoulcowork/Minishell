@@ -37,19 +37,12 @@ int	execute_token(t_env_node *head, t_token *token, int child)
 	return (TRUE);
 }
 
-void	handle_execute_errror(int status)
+void	handle_execute_exit_status(int status)
 {
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
-	else // TODO 시그널에 의해 종료되었거나 강제 종료되었을 때 처리가 필요함
-	{
-		g_exit_status = 130;
-		// TODO 주영이한테 물어봐요 규선, 명준, 수빈
-		if (WIFSIGNALED(status))
-			ft_putnbr_fd(WTERMSIG(status), STDERR_FILENO);
-		else if (WIFSTOPPED(status))
-			ft_putnbr_fd(WSTOPSIG(status), STDERR_FILENO);
-	}
+	else if (WIFSIGNALED(status))
+		g_exit_status = WTERMSIG(status) + 128;
 }
 
 void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
@@ -83,7 +76,7 @@ void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 		}
 		free(fd);
 	}
-	handle_execute_errror(status);
+	handle_execute_exit_status(status);
 }
 
 void	execute(t_env_node *head, t_p_data *p_data)

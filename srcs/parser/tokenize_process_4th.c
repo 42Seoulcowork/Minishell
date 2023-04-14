@@ -51,6 +51,7 @@ static void	ft_here_doc_act(t_redir *new, char *tmp)
 {
 	char	*str;
 
+	rl_catch_signals = 1;
 	while (1)
 	{
 		str = readline("> ");

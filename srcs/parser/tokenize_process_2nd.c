@@ -1,16 +1,5 @@
 #include "minishell.h"
 
-void	ft_expansion_scd_func(t_p_data *pdata, t_word *word, t_env_node *node)
-{
-	if (word->ex_idx == word->word_idx)
-		word->ex_stt = OFF;
-	if (word->ex_stt == ON)
-		ft_expension_process(pdata, word, node, -1);
-	(word->word)[++(word->word_idx)] = '$';
-	word->ex_stt = ON;
-	word->ex_idx = word->word_idx;
-}
-
 void	ft_start_expansion_stt(t_p_data *pdata, char **input, \
 t_word *word, t_env_node *node)
 {
@@ -19,10 +8,7 @@ t_word *word, t_env_node *node)
 
 	i = -1;
 	if (word->re_stt == ON && !ft_strncmp(word->word + word->re_idx, "<<", 2))
-	{
-		word->ex_stt = OFF;
 		(word->word)[++(word->word_idx)] = '$';
-	}
 	else if (*(*input + 1) == '?')
 	{
 		(*input) += 1;
@@ -32,7 +18,13 @@ t_word *word, t_env_node *node)
 		free(tmp);
 	}
 	else
-		ft_expansion_scd_func(pdata, word, node);
+	{
+		if (word->ex_stt == ON)
+			ft_expension_process(pdata, word, node, -1);
+		(word->word)[++(word->word_idx)] = '$';
+		word->ex_stt = ON;
+		word->ex_idx = word->word_idx;
+	}
 }
 
 void	ft_expension_process(t_p_data *pdata, t_word *word, \

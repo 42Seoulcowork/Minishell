@@ -20,9 +20,10 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
     {
         if (p_data->front->cmd_type != EXTERN_FUNC)
             signal(SIGINT, signal_handler_2);
+		else
+			signal(SIGINT, SIG_DFL);
         flag = execute_token(head, p_data->front, FALSE);
-        if (p_data->front->cmd_type != EXTERN_FUNC)
-            signal(SIGINT, signal_handler);
+		signal(SIGINT, signal_handler);
     }
 	if (pid < 0 || flag == FALSE)
 		return (FALSE);
@@ -41,11 +42,13 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 		close(fd[0][READ_END]);
 		dup2(fd[0][WRITE_END], STDOUT_FILENO);
 		close(fd[0][WRITE_END]);
+		signal(SIGINT, SIG_DFL);
 		execute_token(head, p_data->front, TRUE);
 		exit(g_exit_status);
 	}
 	else if (pid > 0)
 	{
+		signal(SIGINT, signal_handler_2);
 		close(fd[0][WRITE_END]);
 		p_data->front = p_data->front->next;
 	}
@@ -58,6 +61,7 @@ static void	do_child(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	close(fd[i - 1][READ_END]);
 	dup2(fd[i][WRITE_END], STDOUT_FILENO);
 	close(fd[i][WRITE_END]);
+	signal(SIGINT, SIG_DFL);
 	execute_token(head, p_data->front, TRUE);
 	exit(g_exit_status);
 }
@@ -100,12 +104,12 @@ int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	{
 		dup2(fd[i][READ_END], STDIN_FILENO);
 		close(fd[i][READ_END]);
+		signal(SIGINT, SIG_DFL);
 		execute_token(head, p_data->front, TRUE);
 		exit(g_exit_status);
 	}
 	else if (pid > 0)
 	{
-		signal(SIGINT, signal_handler_2);
 		close(fd[i][READ_END]);
 		i = 0;
 		while (i < p_data->pipe_cnt + 1)

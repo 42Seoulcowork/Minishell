@@ -20,8 +20,6 @@ static void	run_builtin(t_env_node *head, t_token *token, int child)
 
 int	execute_token(t_env_node *head, t_token *token, int child)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	if (token->redir != NULL)
 	{
 		if (handle_redir(token->redir) == FALSE)

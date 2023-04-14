@@ -11,7 +11,7 @@ static t_env_node	*initialize(int ac, char **av, char **envp)
 
 int	ft_print_exit_free_env_all(void)
 {
-	write(1, "exit\n", 5);
+	write(STDOUT_FILENO, "exit\n", 5);
 	exit(0);
 }
 
@@ -50,14 +50,13 @@ int	main(int ac, char **av, char **envp)
 	t_p_data	start_data;
 
 	head = initialize(ac, av, envp);
-	ft_signal_init();
 	rl_catch_signals = 0; // TODO 메인 프로세스를 제외하고는 값을 1로 가져야 한다. 이유는 재깡님한테 문의
 	while (1)
 	{
+		ft_signal_init();
 		str = readline("minishell$ ");
 		if (!str)
 			return (ft_print_exit_free_env_all());
-		ft_signal_init();
 		if (str[0] != '\0')
 			add_history(str);
 		parsing(str, &parsed_data, head->next);
@@ -68,5 +67,4 @@ int	main(int ac, char **av, char **envp)
 		free_parsed_data(start_data.front);
 		free_s(str);
 	}
-	return (0);
 }

@@ -17,8 +17,8 @@ int	ft_print_exit_free_env_all(void)
 
 void	free_parsed_data(t_token *front)
 {
-	int	i;
-	t_token *tmp_front;
+	int		i;
+	t_token	*tmp_front;
 	t_redir	*tmp_redir;
 
 	while (front)
@@ -47,6 +47,7 @@ int	main(int ac, char **av, char **envp)
 	char		*str;
 	t_p_data	parsed_data;
 	t_env_node	*head;
+	t_p_data	start_data;
 
 	head = initialize(ac, av, envp);
 	ft_signal_init();
@@ -59,8 +60,10 @@ int	main(int ac, char **av, char **envp)
 		if (str[0] != '\0')
 			add_history(str);
 		parsing(str, &parsed_data, head->next);
+		start_data = parsed_data;
 		if (parsed_data.front && (parsed_data.front->cmd || parsed_data.front->redir))
 			execute(head, &parsed_data);
+		free_parsed_data(start_data.front);
 		free_s(str);
 	}
 	return (0);

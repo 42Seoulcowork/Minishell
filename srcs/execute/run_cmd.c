@@ -6,7 +6,7 @@ static char	*find_path(char *cmd, char **path)
 	int		i;
 
 	i = 0;
-	if (cmd != '\0')
+	if (cmd[0] != '\0')
 	{
 		while (path[i] != NULL) {
 			tmp = ft_strjoin_s(path[i], "/");

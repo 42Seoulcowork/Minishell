@@ -51,6 +51,7 @@ int	main(int ac, char **av, char **envp)
 
 	head = initialize(ac, av, envp);
 	ft_signal_init();
+	rl_catch_signals = 0;
 	while (1)
 	{
 		str = readline("minishell$ ");

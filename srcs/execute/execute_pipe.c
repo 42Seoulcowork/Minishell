@@ -11,17 +11,20 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 		pid = fork_s();
 	if (pid > 0)
 	{
-		signal(SIGINT, signal_handler_2);
+		signal(SIGINT, signal_handler);
 		wait(status);
 		signal(SIGINT, signal_handler);
 		handle_execute_exit_status(*status);
 	}
 	else if (pid == 0)
 	{
-		if (p_data->front->cmd_type == EXTERN_FUNC)
-			ft_signal_child();
-        flag = execute_token(head, p_data->front, FALSE);
-    }
+		if (p_data->front->cmd_type != EXTERN_FUNC)
+			signal(SIGINT, signal_handler);
+		else
+			ft_signal_default();
+		flag = execute_token(head, p_data->front, FALSE);
+		signal(SIGINT, signal_handler);
+	}
 	if (pid < 0 || flag == FALSE)
 		return (FALSE);
 	return (TRUE);
@@ -45,7 +48,7 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 	}
 	else if (pid > 0)
 	{
-		signal(SIGINT, signal_handler_2);
+		signal(SIGINT, signal_handler);
 		close(fd[0][WRITE_END]);
 		p_data->front = p_data->front->next;
 	}

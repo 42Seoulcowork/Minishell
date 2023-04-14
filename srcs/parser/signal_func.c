@@ -4,10 +4,8 @@ void	signal_handler(int sig)
 {
 	char	*tmp;
 
-	g_exit_status += sig;
 	if (sig == SIGINT)
 	{
-		g_exit_status = 128 + SIGINT;
 		rl_replace_line("", 0);
 		printf("\n");
 		rl_on_new_line();
@@ -26,26 +24,6 @@ void	signal_handler(int sig)
 	}
 }
 
-void	signal_handler_2(int sig)
-{
-	g_exit_status += sig;
-	if (sig == SIGINT)
-	{
-		g_exit_status = 130;
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	signal_handler_3(int sig)
-{
-	if (sig == SIGINT)
-	{
-		exit(1);
-	}
-}
-
 void	ft_signal_init(void)
 {
 	signal(SIGINT, signal_handler);
@@ -54,7 +32,6 @@ void	ft_signal_init(void)
 
 void	ft_signal_default(void)
 {
-	signal(SIGINT, signal_handler_3);
 	signal(SIGQUIT, signal_handler);
 }
 

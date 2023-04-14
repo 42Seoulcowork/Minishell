@@ -2,6 +2,8 @@
 
 void	signal_handler(int sig)
 {
+	char	*tmp;
+
 	g_exit_status += sig;
 	if (sig == SIGINT)
 	{
@@ -13,7 +15,13 @@ void	signal_handler(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
-		write(2, "Quit (core dumped)\n", 19);
+		tmp = ft_itoa(g_exit_status);
+		if (!tmp)
+			ft_allocation_error();
+		write(2, "Quit: ", 6);
+		write(2, tmp, ft_strlen(tmp));
+		write(2, "\n", 1);
+		free_s(tmp);
 		exit (1);
 	}
 }
@@ -34,4 +42,10 @@ void	ft_signal_init(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	ft_signal_default(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, signal_handler);
 }

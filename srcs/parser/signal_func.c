@@ -17,11 +17,11 @@ void	signal_handler(int sig)
 		tmp = ft_itoa(g_exit_status);
 		if (!tmp)
 			ft_allocation_error();
-		write(2, "Quit: ", 6);
-		write(2, tmp, ft_strlen(tmp));
-		write(2, "\n", 1);
+		write(STDERR_FILENO, "Quit: ", 6);
+		write(STDERR_FILENO, tmp, ft_strlen(tmp));
+		write(STDERR_FILENO, "\n", 1);
 		free_s(tmp);
-		exit (1);
+		exit(1);
 	}
 }
 
@@ -33,6 +33,6 @@ void	ft_signal_init(void)
 
 void	ft_signal_child(void)
 {
-
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, signal_handler);
 }

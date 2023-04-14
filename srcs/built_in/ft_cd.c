@@ -17,7 +17,7 @@ char	*ft_getenv(t_env_node *head, char *key)
 	return (NULL);
 }
 
-static void	ft_setenv(char *key, char *value, t_env_node *head)
+void	ft_setenv(char *key, char *value, t_env_node *head)
 {
 	if (value == NULL)
 		return ;

@@ -37,6 +37,7 @@ void		ft_cd(t_env_node *head, char **argv);
 void		ft_export(t_env_node *head, char **cmd);
 void		ft_unset(t_env_node *head, char **keys);
 char		*ft_getenv(t_env_node *head, char *key);
+void		ft_setenv(char *key, char *value, t_env_node *head);
 char		**ft_simple_split(char *tmp, char *equal_address);
 int			is_valid_name(int flag, char *cmd, int *is_addition_assignment);
 int			print_error_for_invalid_name(char *cmd, int flag);

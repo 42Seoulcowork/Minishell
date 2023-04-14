@@ -9,6 +9,12 @@ static t_env_node	*initialize(int ac, char **av, char **envp)
 	return (init_node(envp));
 }
 
+int	ft_print_exit_free_env_all(void)
+{
+	write(1, "exit\n", 5);
+	exit(0);
+}
+
 void	free_parsed_data(t_token *front)
 {
 	int	i;
@@ -40,28 +46,25 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*str;
 	t_p_data	parsed_data;
-	t_p_data	start_data;
 	t_env_node	*head;
 
 	head = initialize(ac, av, envp);
-	//signal_setting();
+	ft_signal_init();
 	while (1)
 	{
 		str = readline("minishell$ ");
 		if (!str)
-		{
-			printf("exit\n");
-			break ;
-		}
+			return (ft_print_exit_free_env_all());
+		ft_signal_init();
 		if (str[0] != '\0')
 			add_history(str);
 		parsing(str, &parsed_data, head->next);
-		start_data = parsed_data;
 		if (parsed_data.front && (parsed_data.front->cmd || parsed_data.front->redir))
+		{
 			execute(head, &parsed_data);
-		free_parsed_data(start_data.front);
+			printf("exit_status: %d\n", g_exit_status);
+		}
 		free_s(str);
 	}
-	//free_head();
 	return (0);
 }

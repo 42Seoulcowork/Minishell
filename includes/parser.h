@@ -104,4 +104,8 @@ void	ft_syntax_error(t_p_data *pdata, t_word *word);
 void	ft_open_error(void);
 void	ft_clear_all_pdata(t_p_data *pdata);
 
+void	signal_handler(int sig);
+void	signal_handler_2(int sig);
+void	ft_signal_init(void);
+
 #endif

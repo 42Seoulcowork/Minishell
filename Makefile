@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAG = -Wall -Wextra -Werror -g -fsanitize=address
 
 INC = -I./includes/
 

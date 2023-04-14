@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **envp)
 
 	head = initialize(ac, av, envp);
 	ft_signal_init();
-	rl_catch_signals = 0;
+	rl_catch_signals = 0; // TODO 메인 프로세스를 제외하고는 값을 1로 가져야 한다. 이유는 재깡님한테 문의
 	while (1)
 	{
 		str = readline("minishell$ ");

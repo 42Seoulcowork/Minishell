@@ -6,6 +6,7 @@ void	signal_handler(int sig)
 
 	if (sig == SIGINT)
 	{
+		g_exit_status = 1; // TODO 빈 프롬프트에 SIGINT를 넣으면 종료상태가 1로 변함, bash가
 		rl_replace_line("", 0);
 		printf("\n");
 		rl_on_new_line();
@@ -30,12 +31,8 @@ void	ft_signal_init(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ft_signal_default(void)
-{
-	signal(SIGQUIT, signal_handler);
-}
-
 void	ft_signal_child(void)
 {
+
 	signal(SIGINT, SIG_DFL);
 }

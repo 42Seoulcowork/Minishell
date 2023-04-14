@@ -6,18 +6,20 @@ static char	*find_path(char *cmd, char **path)
 	int		i;
 
 	i = 0;
-	while (path[i] != NULL)
+	if (cmd != '\0')
 	{
-		tmp = ft_strjoin_s(path[i], "/");
-		free_s(path[i]);
-		path[i] = ft_strjoin_s(tmp, cmd);
-		free_s(tmp);
-		if (access(path[i], F_OK) == 0)
-			return (ft_strdup_s(path[i]));
-		++i;
+		while (path[i] != NULL) {
+			tmp = ft_strjoin_s(path[i], "/");
+			free_s(path[i]);
+			path[i] = ft_strjoin_s(tmp, cmd);
+			free_s(tmp);
+			if (access(path[i], F_OK) == 0)
+				return (ft_strdup_s(path[i]));
+			++i;
+		}
+		if (access(cmd, F_OK) == 0 && cmd[0] == '/')
+			return (cmd);
 	}
-	if (access(cmd, F_OK) == 0 && cmd[0] == '/')
-		return (cmd);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);

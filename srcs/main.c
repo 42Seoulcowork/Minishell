@@ -61,7 +61,8 @@ int	main(int ac, char **av, char **envp)
 			add_history(str);
 		parsing(str, &parsed_data, head->next);
 		start_data = parsed_data;
-		if (parsed_data.front && (parsed_data.front->cmd || parsed_data.front->redir))
+		if (parsed_data.front && (parsed_data.front->cmd
+				|| parsed_data.front->redir))
 			execute(head, &parsed_data);
 		free_parsed_data(start_data.front);
 		free_s(str);

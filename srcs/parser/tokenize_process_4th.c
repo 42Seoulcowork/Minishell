@@ -65,5 +65,6 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word)
 	if (new->heredoc_fd == -1)
 		ft_open_error();
 	unlink(new->file_name);
+	free(tmp);
 	return (0);
 }

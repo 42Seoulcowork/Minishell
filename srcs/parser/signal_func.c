@@ -3,12 +3,10 @@
 void	signal_handler(int sig)
 {
 	g_exit_status += sig;
-	if (sig == 2)
+	if (sig == SIGINT)
 	{
 		g_exit_status = 130;
 		rl_on_new_line();
-		rl_replace_line("", 0);
-		printf("\033[%dC \n", rl_end + 2);
 		rl_redisplay();
 	}
 	if (sig == SIGQUIT)

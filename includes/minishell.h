@@ -60,7 +60,7 @@ void		handle_null_path(char *cmd);
 void		print_permission_denied(char *path, char *cmd);
 void		print_is_directory(char *cmd);
 void		free_env_path(char **env_path);
-void		handle_execute_errror(int status);
+void		handle_execute_exit_status(int status);
 
 /* execute_pipe */
 

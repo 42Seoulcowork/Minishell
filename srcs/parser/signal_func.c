@@ -6,9 +6,9 @@ void	signal_handler(int sig)
 	if (sig == 2)
 	{
 		g_exit_status = 130;
-		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		printf("\033[%dC \n", rl_end + 2);
 		rl_redisplay();
 	}
 	if (sig == SIGQUIT)

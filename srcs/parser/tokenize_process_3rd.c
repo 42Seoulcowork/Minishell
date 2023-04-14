@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static void	ft_append_new_redirect_struct(t_p_data *pdata);
@@ -6,13 +5,13 @@ static int	ft_put_re_put_del_word(t_p_data *pdata, t_redir *new, \
 t_word *word, int tmp_idx);
 
 void	ft_start_redirect_stt(t_p_data *pdata, char input, \
-			t_word *word, t_env_node *node)
+	t_word *word, t_env_node *node)
 {
-	if (word->re_stt == ON && word->re_idx != word->word_idx \
-	&& ft_redirection_process(pdata, word) == 1)
+	if (word->re_stt == ON && word->re_idx != word->word_idx
+		&& ft_redirection_process(pdata, word) == 1)
 		return ;
 	if (word->ex_stt == ON)
-		ft_expension_process(pdata, word, node);
+		ft_expension_process(pdata, word, node, -1);
 	(word->word)[++(word->word_idx)] = input;
 	if (word->re_stt == OFF)
 		word->re_idx = word->word_idx;

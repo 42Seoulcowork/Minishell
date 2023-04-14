@@ -1,8 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -16,6 +14,8 @@
 # include <term.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "../lib/libft.h"
 # include "parser.h"

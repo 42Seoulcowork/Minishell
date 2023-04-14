@@ -8,8 +8,8 @@ void	signal_handler(int sig)
 	if (sig == SIGINT)
 	{
 		g_exit_status = 1;
-		printf("\x1b[%dC  \b\b\n", rl_end + 11);
 		rl_replace_line("", 0);
+		printf("\n");
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -38,6 +38,14 @@ void	signal_handler_2(int sig)
 	}
 }
 
+void	signal_handler_3(int sig)
+{
+	if (sig == SIGINT)
+	{
+		exit(1);
+	}
+}
+
 void	ft_signal_init(void)
 {
 	signal(SIGINT, signal_handler);
@@ -46,6 +54,6 @@ void	ft_signal_init(void)
 
 void	ft_signal_default(void)
 {
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, signal_handler_3);
 	signal(SIGQUIT, signal_handler);
 }

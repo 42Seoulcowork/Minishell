@@ -29,15 +29,13 @@ t_redir *new, t_word *word, int i)
 	return (0);
 }
 
-static void	ft_here_doc_act(t_p_data *pdata, t_redir *new, char *tmp)
+static void	ft_here_doc_act(t_redir *new, char *tmp)
 {
 	char	*str;
 
 	while (1)
 	{
 		str = readline("> ");
-		if (!str)
-			ft_clear_all_pdata(pdata);
 		if (!str || ft_strcmp(tmp, str) == 0)
 		{
 			free(str);
@@ -59,7 +57,7 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word)
 	word->re_idx -= 2;
 	while (word->word[word->re_idx])
 		word->word[(word->re_idx)++] = '\0';
-	ft_here_doc_act(pdata, new, tmp);
+	ft_here_doc_act(new, tmp);
 	close(new->heredoc_fd);
 	new->heredoc_fd = open(new->file_name, O_RDONLY);
 	if (new->heredoc_fd == -1)

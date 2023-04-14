@@ -5,7 +5,7 @@ void	signal_handler(int sig)
 	g_exit_status += sig;
 	if (sig == SIGINT)
 	{
-		g_exit_status = 130;
+		g_exit_status = 1;
 		printf("\x1b[%dC  \b\b\n", rl_end + 11);
 		rl_replace_line("", 0);
 		rl_on_new_line();

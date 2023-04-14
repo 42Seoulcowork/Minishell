@@ -24,7 +24,7 @@ void	signal_handler_2(int sig)
 	if (sig == SIGINT)
 	{
 		g_exit_status = 130;
-		printf("\x1b[%dC  \b\b\n", rl_end + 11);
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}

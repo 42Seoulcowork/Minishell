@@ -5,10 +5,10 @@ void	signal_handler(int sig)
 	g_exit_status += sig;
 	if (sig == SIGINT)
 	{
-		g_exit_status = 130;
+		g_exit_status = 1;
 		rl_replace_line("", 0);
-//		printf("\n");
-//		rl_on_new_line();
+		printf("\n");
+		rl_on_new_line();
 		rl_redisplay();
 	}
 	if (sig == SIGQUIT)

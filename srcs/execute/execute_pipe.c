@@ -11,7 +11,7 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 		pid = fork_s();
 	if (pid > 0)
 	{
-		signal(SIGINT, signal_handler);
+		signal(SIGINT, signal_handler_for_parrent);
 		wait(status);
 		signal(SIGINT, signal_handler);
 		handle_execute_exit_status(*status);
@@ -45,7 +45,7 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 	}
 	else if (pid > 0)
 	{
-		signal(SIGINT, signal_handler);
+		signal(SIGINT, signal_handler_for_parrent);
 		close(fd[0][WRITE_END]);
 		p_data->front = p_data->front->next;
 	}

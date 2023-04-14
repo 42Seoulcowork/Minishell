@@ -35,7 +35,7 @@ void	tokenize(char **input, t_p_data *pdata, t_word *word, t_env_node *head)
 		ft_add_new_token_hpwtt(pdata, word, head);
 	else if ((word->sq_stt == ON && **input == '\'')
 		|| (word->dq_stt == ON && **input == '\"'))
-		ft_end_quoted_stt(pdata, *input, word);
+		ft_end_quoted_stt(pdata, *input, word, head);
 	else if ((word->sq_stt == OFF && word->dq_stt == OFF)
 		&& (**input == '\'' || **input == '\"'))
 		ft_start_quoted_stt(pdata, **input, word, head);

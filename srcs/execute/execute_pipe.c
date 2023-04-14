@@ -14,16 +14,13 @@ int	execute_no_pipe(t_env_node *head, t_p_data *p_data, int *status)
 		signal(SIGINT, signal_handler_2);
 		wait(status);
 		signal(SIGINT, signal_handler);
-		handle_execute_errror(*status);
+		handle_execute_exit_status(*status);
 	}
 	else if (pid == 0)
 	{
-		if (p_data->front->cmd_type != EXTERN_FUNC)
-			signal(SIGINT, signal_handler_2);
-		else
-			ft_signal_default();
+		if (p_data->front->cmd_type == EXTERN_FUNC)
+			ft_signal_child();
         flag = execute_token(head, p_data->front, FALSE);
-		signal(SIGINT, signal_handler);
     }
 	if (pid < 0 || flag == FALSE)
 		return (FALSE);
@@ -39,10 +36,10 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 	pid = fork_s();
 	if (pid == 0)
 	{
+		ft_signal_child();
 		close(fd[0][READ_END]);
 		dup2(fd[0][WRITE_END], STDOUT_FILENO);
 		close(fd[0][WRITE_END]);
-		ft_signal_default();
 		execute_token(head, p_data->front, TRUE);
 		exit(g_exit_status);
 	}
@@ -56,12 +53,12 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 
 static void	do_child(t_env_node *head, t_p_data *p_data, int **fd, int i)
 {
+	ft_signal_child();
 	close(fd[i][READ_END]);
 	dup2(fd[i - 1][READ_END], STDIN_FILENO);
 	close(fd[i - 1][READ_END]);
 	dup2(fd[i][WRITE_END], STDOUT_FILENO);
 	close(fd[i][WRITE_END]);
-	ft_signal_default();
 	execute_token(head, p_data->front, TRUE);
 	exit(g_exit_status);
 }
@@ -102,9 +99,9 @@ int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	status = 0;
 	if (pid == 0)
 	{
+		ft_signal_child();
 		dup2(fd[i][READ_END], STDIN_FILENO);
 		close(fd[i][READ_END]);
-		ft_signal_default();
 		execute_token(head, p_data->front, TRUE);
 		exit(g_exit_status);
 	}

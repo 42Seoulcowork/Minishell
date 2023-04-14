@@ -21,7 +21,7 @@ t_redir *new, t_word *word, int i)
 	tmp = ft_strjoin_s(".tmp", str);
 	free(str);
 	new->heredoc_fd = open(tmp, O_RDWR | O_CREAT, 0644);
-	if (new->heredoc_fd == -1)
+	if (!new->heredoc_fd)
 		ft_open_error();
 	while (tmp[++i])
 		new->file_name[i] = tmp[i];

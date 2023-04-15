@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	signal_handler_for_parrent(int sig)
+void	signal_handler_for_parent(int sig)
 {
 	if (sig == SIGINT)
 	{

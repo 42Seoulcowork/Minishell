@@ -18,23 +18,24 @@ static void	run_builtin(t_env_node *head, t_token *token, int child)
 		ft_exit(token->cmd, child);
 }
 
-int	execute_token(t_env_node *head, t_token *token, int child)
+void	execute_token(t_env_node *head, t_token *token, int child)
 {
 	if (token->redir != NULL)
 	{
 		if (handle_redir(token->redir) == FALSE)
 		{
 			g_exit_status = 1;
-			return (FALSE);
+			if (token->cmd_type == EXTERN_FUNC)
+				exit(1);
+			return ;
 		}
 	}
 	if (token->cmd == NULL)
-		return (FALSE);
+		return ;
 	if (token->cmd_type != EXTERN_FUNC)
 		run_builtin(head, token, child);
 	else
 		run_cmd(head, token);
-	return (TRUE);
 }
 
 void	handle_execute_exit_status(int status)
@@ -51,12 +52,7 @@ void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 	int	status;
 
 	if (p_data->pipe_cnt == 0)
-	{
-		if (execute_no_pipe(head, p_data, &status) == FALSE)
-			return ;
-		if (p_data->front->cmd_type != EXTERN_FUNC)
-			return ;
-	}
+		execute_no_pipe(head, p_data, &status);
 	else
 	{
 		fd = malloc_s(sizeof(int *) * p_data->pipe_cnt);
@@ -75,8 +71,8 @@ void	execute_p_data(t_env_node *head, t_p_data *p_data, int i)
 			++i;
 		}
 		free(fd);
+		handle_execute_exit_status(status);
 	}
-	handle_execute_exit_status(status);
 }
 
 void	execute(t_env_node *head, t_p_data *p_data)

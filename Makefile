@@ -62,7 +62,7 @@ all : $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C lib
-	@$(CC) $(CFLAG) $^ $(LIB_FLAG) $(R_FLAG) -o $@ #buntu는 object 파일이 라이브러리보다 앞에 있어야 한다.
+	@$(CC) $(CFLAG) $^ $(LIB_FLAG) $(R_FLAG) -o
 	@printf	"Get Ready for the Minishell\n"
 
 clean :
@@ -71,7 +71,7 @@ clean :
 	@printf	"Run to Clean\n"
 
 fclean :
-	@make clean -C lib
+	@make fclean -C lib
 	@$(RM) $(OBJS)
 	@$(RM) $(NAME)
 	@printf	"Run to fClean\n"

@@ -5,6 +5,7 @@
 # define ARG_MAX 262144
 # define ON 1
 # define OFF 0
+# define HERE_DOC_SIGINT -123
 
 typedef struct s_env_node
 {
@@ -19,7 +20,6 @@ typedef enum e_type
 	RE_HERE,
 	RE_OUTPUT,
 	RE_APPEND,
-	COMMAND
 }	t_type;
 
 typedef enum e_c_type
@@ -76,7 +76,6 @@ void	parsing(char *input, t_p_data *pdata, t_env_node *head);
 void	tokenize(char **input, t_p_data *pdata, t_word *word, t_env_node *head);
 void	ft_clear_word_struct(t_word *word);
 void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word);
-void	ft_append_cmd_to_token(t_p_data *pdata, t_word *word);
 
 void	ft_end_line_fin_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
 void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node);
@@ -91,15 +90,13 @@ void	ft_expension_process(t_p_data *pdata, t_word *word, \
 			t_env_node *node, int i);
 void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 			t_word *word, t_env_node *node);
-int		ft_redirection_process(t_p_data *pdata, t_word *word, t_env_node *node);
+int		ft_redirection_process(t_p_data *pdata, t_word *word);
 
 void	ft_handle_comment(t_word *word);
-void	ft_add_new_word(t_p_data *pdata, t_word *word, t_env_node *head);
 void	ft_clean_new_word_hpwtt(t_p_data *data, t_word *word, t_env_node *head);
 void	ft_add_or_start_new_char_in_word(t_p_data *pdata, char input, \
 			t_word *word, t_env_node *node);
-int		ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \
-			t_word *word, t_env_node *node);
+int		ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word);
 void	ft_allocation_error(void);
 void	ft_syntax_error(t_p_data *pdata, t_word *word);
 void	ft_open_error(void);
@@ -107,6 +104,7 @@ void	ft_clear_all_pdata(t_p_data *pdata);
 
 void	signal_handler(int sig);
 void	signal_handler_for_parent(int sig);
+void	signal_handler_for_heredoc(int sig);
 void	ft_signal_init(void);
 void	ft_signal_child(void);
 

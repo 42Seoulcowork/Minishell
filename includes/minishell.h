@@ -62,6 +62,7 @@ void		print_permission_denied(char *path, char *cmd);
 void		print_is_directory(char *cmd);
 void		free_env_path(char **env_path);
 void		handle_execute_exit_status(int status);
+char		**ft_split_for_init(char *str);
 
 /* execute_pipe */
 

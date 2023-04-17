@@ -1,5 +1,23 @@
 #include "minishell.h"
 
+char	**ft_split_for_init(char *str)
+{
+	int		i;
+	char	**s_spt;
+	char	*equal_address;
+
+	s_spt = malloc_s(sizeof(char *) * 3);
+	equal_address = ft_strchr(str, '=');
+	s_spt[0] = malloc_s(sizeof(char) * (ft_strlen(str) - ft_strlen(equal_address) + 1));
+	s_spt[2] = NULL;
+	s_spt[1] = ft_strdup_s(equal_address + 1);
+	i = -1;
+	while (str[++i] != '=')
+		s_spt[0][i] = str[i];
+	s_spt[0][i] = '\0';
+	return (s_spt);
+}
+
 t_env_node	*create_node(char *key, char *value)
 {
 	t_env_node	*new_node;

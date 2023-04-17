@@ -44,6 +44,7 @@ SRC =	main.c \
 		parser/error.c \
 		parser/system_error.c \
 		parser/signal_func.c \
+		parser/signal_func_for_heredoc.c \
 
 SRC_DIR = ./srcs/
 

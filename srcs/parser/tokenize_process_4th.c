@@ -47,16 +47,26 @@ t_redir *new, t_word *word)
 	return (0);
 }
 
-static void	ft_here_doc_act(t_redir *new, char *tmp, t_env_node *node)
+int empty_func(void)
+{
+	return (0);
+}
+
+static void	ft_here_doc_act(t_redir *new, char *tmp)
 {
 	char		*str;
-	t_env_node	*temp;
 
-	rl_catch_signals = 1;
-	temp = node;
-	while (1)
+	rl_event_hook = &empty_func;
+	rl_catch_signals = 0;
+	signal(SIGINT, signal_handler_for_heredoc);
+	while (g_exit_status != HERE_DOC_SIGINT)
 	{
 		str = readline("> ");
+		if (g_exit_status == HERE_DOC_SIGINT)
+		{
+			free_s(str);
+			break;
+		}
 		if (!str || ft_strcmp(tmp, str) == 0)
 		{
 			if (str)
@@ -67,10 +77,13 @@ static void	ft_here_doc_act(t_redir *new, char *tmp, t_env_node *node)
 		write(new->heredoc_fd, "\n", 1);
 		free(str);
 	}
+	rl_event_hook = 0;
+	rl_done = 0;
+	signal(SIGINT, signal_handler);
 }
 
 int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \
-	t_word *word, t_env_node *node)
+	t_word *word)
 {
 	char	*tmp;
 
@@ -80,8 +93,14 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \
 	word->re_idx -= 2;
 	while (word->word[word->re_idx])
 		word->word[(word->re_idx)++] = '\0';
-	ft_here_doc_act(new, tmp, node);
+	ft_here_doc_act(new, tmp);
 	close(new->heredoc_fd);
+	if (g_exit_status == HERE_DOC_SIGINT)
+	{
+		free(tmp);
+		g_exit_status = 1;
+		return (1);
+	}
 	new->heredoc_fd = open(new->file_name, O_RDONLY);
 	if (new->heredoc_fd == -1)
 		ft_open_error();

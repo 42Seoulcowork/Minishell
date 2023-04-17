@@ -88,7 +88,7 @@ t_env_node	*init_node(char **envp)
 	tmp_node = head_node;
 	while (envp[++i])
 	{
-		tmp = ft_split_s(envp[i], '=');
+		tmp = ft_split_for_init(envp[i]);
 		if (!ft_strcmp(tmp[0], "OLDPWD"))
 		{
 			free_s(tmp[1]);

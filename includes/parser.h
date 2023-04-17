@@ -91,15 +91,15 @@ void	ft_expension_process(t_p_data *pdata, t_word *word, \
 			t_env_node *node, int i);
 void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 			t_word *word, t_env_node *node);
-int		ft_redirection_process(t_p_data *pdata, t_word *word);
+int		ft_redirection_process(t_p_data *pdata, t_word *word, t_env_node *node);
 
 void	ft_handle_comment(t_word *word);
 void	ft_add_new_word(t_p_data *pdata, t_word *word, t_env_node *head);
 void	ft_clean_new_word_hpwtt(t_p_data *data, t_word *word, t_env_node *head);
 void	ft_add_or_start_new_char_in_word(t_p_data *pdata, char input, \
 			t_word *word, t_env_node *node);
-int		ft_redirect_here_doc(t_p_data *pdata, t_redir *new, t_word *word);
-
+int		ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \
+			t_word *word, t_env_node *node);
 void	ft_allocation_error(void);
 void	ft_syntax_error(t_p_data *pdata, t_word *word);
 void	ft_open_error(void);

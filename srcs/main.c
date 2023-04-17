@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **envp)
 	t_p_data	start_data;
 
 	head = initialize(ac, av, envp);
-	rl_catch_signals = 0; // TODO 메인 프로세스를 제외하고는 값을 1로 가져야 한다. 이유는 재깡님한테 문의
+	rl_catch_signals = 0;
 	while (1)
 	{
 		ft_signal_init();

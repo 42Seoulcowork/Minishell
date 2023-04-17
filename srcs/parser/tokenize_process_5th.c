@@ -16,7 +16,7 @@ void	ft_clean_new_word_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 			|| !ft_strcmp(word->word + word->re_idx, ">>")
 			|| !ft_strcmp(word->word + word->re_idx, "<<"))
 			return ;
-		if (ft_redirection_process(pdata, word) == 1)
+		if (ft_redirection_process(pdata, word, node) == 1)
 			return ;
 	}
 	ft_handle_present_w_cmd_to_token(pdata, word);

@@ -91,7 +91,7 @@ int	execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 		if (pipe_s(fd[i]) == FALSE)
 			return (-1);
 		pid = fork_s();
-		if (pid == 0) // 자식
+		if (pid == 0)
 			do_child(head, p_data, fd, i);
 		else if (pid > 0)
 		{

@@ -8,7 +8,7 @@ void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 	t_word *word, t_env_node *node)
 {
 	if (word->re_stt == ON && word->re_idx != word->word_idx
-		&& ft_redirection_process(pdata, word) == 1)
+		&& ft_redirection_process(pdata, word, node) == 1)
 		return ;
 	if (word->ex_stt == ON)
 		ft_expension_process(pdata, word, node, -1);
@@ -18,7 +18,7 @@ void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 	word->re_stt = ON;
 }
 
-int	ft_redirection_process(t_p_data *pdata, t_word *word)
+int	ft_redirection_process(t_p_data *pdata, t_word *word, t_env_node *node)
 {
 	t_redir	*new;
 	int		tmp_idx;
@@ -41,7 +41,7 @@ int	ft_redirection_process(t_p_data *pdata, t_word *word)
 		new->type = RE_OUTPUT;
 	word->re_stt = OFF;
 	if (new->type == RE_HERE)
-		return (ft_redirect_here_doc(pdata, new, word));
+		return (ft_redirect_here_doc(pdata, new, word, node));
 	return (ft_put_re_put_del_word(pdata, new, word, tmp_idx));
 }
 

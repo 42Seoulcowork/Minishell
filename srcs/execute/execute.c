@@ -25,7 +25,7 @@ void	execute_token(t_env_node *head, t_token *token, int child)
 		if (handle_redir(token->redir) == FALSE)
 		{
 			g_exit_status = 1;
-			if (token->cmd_type == EXTERN_FUNC)
+			if (token->cmd != NULL && token->cmd_type == EXTERN_FUNC)
 				exit(1);
 			return ;
 		}

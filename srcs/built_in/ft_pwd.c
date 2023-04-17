@@ -3,7 +3,7 @@
 void	ft_pwd(t_env_node *head)
 {
 	char	*path;
-	char 	*tmp;
+	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
 	if (tmp == NULL)

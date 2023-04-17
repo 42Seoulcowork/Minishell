@@ -47,20 +47,25 @@ static int	ft_atouc(const char *str)
 	return ((unsigned char)result);
 }
 
+int	get_input_status(char **args, int child)
+{
+	if (child == FALSE)
+		ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (!args[1])
+		exit(g_exit_status);
+	if (args[1][0] != '\0')
+		return (ft_atouc(args[1]));
+	else
+		return (-1);
+}
+
 void	ft_exit(char **args, int child)
 {
 	int		input_status;
 	char	*msg;
 	char	*tmp;
 
-	if (child == FALSE)
-		ft_putstr_fd("exit\n", STDERR_FILENO);
-	if (!args[1])
-		exit(g_exit_status);
-	if (args[1][0] != '\0')
-		input_status = ft_atouc(args[1]);
-	else
-		input_status = -1;
+	input_status = get_input_status(args, child);
 	if (input_status == -1)
 	{
 		tmp = ft_strjoin_s("minishell: exit: ", args[1]);

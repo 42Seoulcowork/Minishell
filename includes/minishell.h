@@ -63,6 +63,8 @@ void		print_is_directory(char *cmd);
 void		free_env_path(char **env_path);
 void		handle_execute_exit_status(int status);
 char		**ft_split_for_init(char *str);
+void		do_child(t_env_node *head, t_p_data *p_data, int **fd, int i);
+int			do_parent(t_p_data *p_data, pid_t pid, int **fd, int i);
 
 /* execute_pipe */
 

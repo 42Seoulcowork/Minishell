@@ -1,40 +1,5 @@
 #include "minishell.h"
 
-char	*ft_getenv(t_env_node *head, char *key)
-{
-	head = head->next;
-	while (head)
-	{
-		if (ft_strcmp(key, head->key) == 0)
-		{
-			if (head->value)
-				return (ft_strdup_s(head->value));
-			else
-				return (NULL);
-		}
-		head = head->next;
-	}
-	return (NULL);
-}
-
-void	ft_setenv(char *key, char *value, t_env_node *head)
-{
-	if (value == NULL)
-		return ;
-	head = head->next;
-	while (head != NULL)
-	{
-		if (ft_strcmp(key, head->key) == 0)
-		{
-			free_s(head->value);
-			head->value = ft_strdup_s(value);
-			free_s(value);
-			break ;
-		}
-		head = head->next;
-	}
-}
-
 static void	cd_with_path(t_env_node *head, char **path, \
 							char **old_path, char **argv)
 {
@@ -78,13 +43,11 @@ static char	*cd_with_oldpwd(t_env_node *head, char *old_path)
 	return (path);
 }
 
-void	ft_cd(t_env_node *head, char **argv)
+static char	*check_path(t_env_node *head, char **argv, char *old_path)
 {
-	char	*old_path;
-	char	*path;
 	char	*tmp;
+	char	*path;
 
-	old_path = getcwd(NULL, 0);
 	if (!argv[1])
 		path = ft_getenv(head, "HOME");
 	else if (argv[1][0] == '\0')
@@ -96,13 +59,21 @@ void	ft_cd(t_env_node *head, char **argv)
 		free_s(tmp);
 	}
 	else if (ft_strcmp(argv[1], "-") == 0)
-	{
 		path = cd_with_oldpwd(head, old_path);
-		if (!path)
-			return ;
-	}
 	else
 		path = ft_strdup_s(argv[1]);
+	return (path);
+}
+
+void	ft_cd(t_env_node *head, char **argv)
+{
+	char	*old_path;
+	char	*path;
+
+	old_path = getcwd(NULL, 0);
+	path = check_path(head, argv, old_path);
+	if (!path)
+		return ;
 	cd_with_path(head, &path, &old_path, argv);
 	free_s(old_path);
 	free_s(path);

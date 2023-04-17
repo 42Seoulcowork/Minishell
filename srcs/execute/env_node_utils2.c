@@ -16,7 +16,8 @@ char	**ft_split_for_init(char *str)
 	else
 	{
 		s_spt = malloc_s(sizeof(char *) * 3);
-		s_spt[0] = malloc_s(sizeof(char) * (ft_strlen(str) - ft_strlen(equal_address) + 1));
+		s_spt[0] = malloc_s(sizeof(char) * \
+			(ft_strlen(str) - ft_strlen(equal_address) + 1));
 		i = -1;
 		while (str[++i] != '=')
 			s_spt[0][i] = str[i];

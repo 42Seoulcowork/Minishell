@@ -46,18 +46,6 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 	}
 }
 
-static void	do_child(t_env_node *head, t_p_data *p_data, int **fd, int i)
-{
-	ft_signal_child();
-	close(fd[i][READ_END]);
-	dup2(fd[i - 1][READ_END], STDIN_FILENO);
-	close(fd[i - 1][READ_END]);
-	dup2(fd[i][WRITE_END], STDOUT_FILENO);
-	close(fd[i][WRITE_END]);
-	execute_token(head, p_data->front, TRUE);
-	exit(g_exit_status);
-}
-
 int	execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 {
 	int		i;
@@ -86,7 +74,6 @@ int	execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 
 int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 {
-	int		tmp;
 	int		status;
 	pid_t	pid;
 
@@ -102,14 +89,7 @@ int	execute_end_pipe(t_env_node *head, t_p_data *p_data, int **fd, int i)
 	}
 	else if (pid > 0)
 	{
-		close(fd[i][READ_END]);
-		i = 0;
-		while (i < p_data->pipe_cnt + 1)
-		{
-			if (pid == wait(&tmp))
-				status = tmp;
-			++i;
-		}
+		status = do_parent(p_data, pid, fd, i);
 		signal(SIGINT, signal_handler);
 	}
 	return (status);

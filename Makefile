@@ -22,11 +22,13 @@ SRC =	main.c \
 		execute/quick_sort.c \
 		execute/execute.c \
 		execute/execute_pipe.c \
+		execute/execute_pipe_utils.c \
 		execute/handle_redir.c \
 		execute/wrapper_sys_functions.c \
 		execute/wrapper_lib_functions.c \
 		execute/ft_split_s.c \
 		built_in/ft_cd.c \
+		built_in/ft_cd_utils.c \
 		built_in/ft_pwd.c \
 		built_in/ft_exit.c \
 		built_in/ft_echo.c \

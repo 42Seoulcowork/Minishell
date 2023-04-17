@@ -93,6 +93,7 @@ void	ft_start_redirect_stt(t_p_data *pdata, char input, \
 int		ft_redirection_process(t_p_data *pdata, t_word *word);
 
 void	ft_handle_comment(t_word *word);
+void	ft_here_doc_acting(t_redir *new, char *tmp);
 void	ft_clean_new_word_hpwtt(t_p_data *data, t_word *word, t_env_node *head);
 void	ft_add_or_start_new_char_in_word(t_p_data *pdata, char input, \
 			t_word *word, t_env_node *node);

@@ -59,25 +59,9 @@ static void	ft_here_doc_act(t_redir *new, char *tmp, t_env_node *node)
 		str = readline("> ");
 		if (!str || ft_strcmp(tmp, str) == 0)
 		{
-			free(str);
+			if (str)
+				free(str);
 			break ;
-		}
-		if (str[0] == '$')
-		{
-			while (node != NULL)
-			{
-				if (ft_strcmp(str + 1, node->key) == 0)
-				{
-					str = node->value;
-					break ;
-				}
-				node = node->next;
-			}
-			if (node == NULL)
-			{
-				str = ft_strdup("");
-			}
-			node = temp;
 		}
 		write(new->heredoc_fd, str, ft_strlen(str));
 		write(new->heredoc_fd, "\n", 1);

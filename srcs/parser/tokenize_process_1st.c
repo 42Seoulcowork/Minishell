@@ -50,7 +50,8 @@ void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 	pdata->pipe_cnt += 1;
 }
 
-void	ft_end_quoted_stt(t_p_data *pdata, char *input, t_word *word, t_env_node *node)
+void	ft_end_quoted_stt(t_p_data *pdata, char *input, \
+	t_word *word, t_env_node *node)
 {
 	char	tmp;
 

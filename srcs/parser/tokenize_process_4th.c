@@ -2,7 +2,7 @@
 
 static int	open_heredoc_fd(char *tmp, t_redir *new)
 {
-	int 	i;
+	int		i;
 	int		fd;
 	char	*tmp2;
 

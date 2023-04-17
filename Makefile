@@ -42,7 +42,6 @@ SRC =	main.c \
 		parser/tokenize_process_2nd.c \
 		parser/tokenize_process_3rd.c \
 		parser/tokenize_process_4th.c \
-		parser/tokenize_process_4th_utils.c \
 		parser/tokenize_process_5th.c \
 		parser/error.c \
 		parser/system_error.c \

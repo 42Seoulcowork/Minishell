@@ -47,17 +47,36 @@ t_redir *new, t_word *word)
 	return (0);
 }
 
-static int	empty_func(void)
+int empty_func(void)
 {
 	return (0);
 }
 
 static void	ft_here_doc_act(t_redir *new, char *tmp)
 {
+	char		*str;
+
 	rl_event_hook = &empty_func;
 	rl_catch_signals = 0;
 	signal(SIGINT, signal_handler_for_heredoc);
-	ft_here_doc_acting(new, tmp);
+	while (g_exit_status != HERE_DOC_SIGINT)
+	{
+		str = readline("> ");
+		if (g_exit_status == HERE_DOC_SIGINT)
+		{
+			free_s(str);
+			break;
+		}
+		if (!str || ft_strcmp(tmp, str) == 0)
+		{
+			if (str)
+				free(str);
+			break ;
+		}
+		write(new->heredoc_fd, str, ft_strlen(str));
+		write(new->heredoc_fd, "\n", 1);
+		free(str);
+	}
 	rl_event_hook = 0;
 	rl_done = 0;
 	signal(SIGINT, signal_handler);

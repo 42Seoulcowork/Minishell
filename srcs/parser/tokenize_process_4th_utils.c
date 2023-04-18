@@ -15,11 +15,11 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 		if (!str || ft_strcmp(tmp, str) == 0)
 		{
 			if (str)
-				free(str);
+				free_s(str);
 			return ;
 		}
 		write(new->heredoc_fd, str, ft_strlen(str));
 		write(new->heredoc_fd, "\n", 1);
-		free(str);
+		free_s(str);
 	}
 }

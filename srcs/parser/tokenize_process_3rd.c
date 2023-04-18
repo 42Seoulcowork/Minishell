@@ -51,7 +51,7 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 
 	if (pdata->now->redir == NULL)
 	{
-		pdata->now->redir = (t_redir *)malloc(sizeof(t_redir));
+		pdata->now->redir = (t_redir *)malloc_s(sizeof(t_redir));
 		if (!pdata->now->redir)
 			ft_allocation_error();
 		pdata->now->redir->next = NULL;
@@ -63,7 +63,7 @@ static void	ft_append_new_redirect_struct(t_p_data *pdata)
 		tmp = pdata->now->redir;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
-		tmp->next = (t_redir *)malloc(sizeof(t_redir));
+		tmp->next = (t_redir *)malloc_s(sizeof(t_redir));
 		if (!tmp->next)
 			ft_allocation_error();
 		tmp->next->next = NULL;

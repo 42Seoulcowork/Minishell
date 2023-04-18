@@ -10,16 +10,16 @@ static int	open_heredoc_fd(char *tmp, t_redir *new)
 	while (access(tmp, F_OK) == 0)
 	{
 		tmp2 = ft_strdup_s(tmp);
-		free(tmp);
+		free_s(tmp);
 		tmp = ft_strjoin(tmp2, "1");
-		free(tmp2);
+		free_s(tmp2);
 	}
 	fd = open(tmp, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
 		ft_open_error();
 	while (tmp[++i])
 		new->file_name[i] = tmp[i];
-	free(tmp);
+	free_s(tmp);
 	return (fd);
 }
 
@@ -42,7 +42,7 @@ t_redir *new, t_word *word)
 	if (!str)
 		ft_allocation_error();
 	tmp = ft_strjoin_s("/tmp/.tmp", str);
-	free(str);
+	free_s(str);
 	new->heredoc_fd = open_heredoc_fd(tmp, new);
 	return (0);
 }
@@ -86,6 +86,6 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \
 	if (new->heredoc_fd == -1)
 		ft_open_error();
 	unlink(new->file_name);
-	free(tmp);
+	free_s(tmp);
 	return (0);
 }

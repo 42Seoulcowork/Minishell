@@ -36,30 +36,26 @@ void	ft_handle_present_w_cmd_to_token(t_p_data *pdata, t_word *word)
 
 	if (word->word[0] == '\0' && word->sq_stt == OFF && word->dq_stt == OFF)
 		return ;
-	new_cmd = (char **)malloc(sizeof(char *) * \
+	new_cmd = (char **)malloc_s(sizeof(char *) * \
 		(ft_pointers_len(pdata->now->cmd) + 2));
 	i = -1;
 	while (++i < ft_pointers_len(pdata->now->cmd))
 		new_cmd[i] = (pdata->now->cmd)[i];
-	new_word = ft_strdup(word->word);
-	if (!new_word)
-		ft_allocation_error();
+	new_word = ft_strdup_s(word->word);
 	if (i == 0)
 		ft_find_cmd_type(pdata, new_word, -1);
 	new_cmd[i] = new_word;
 	new_cmd[i + 1] = NULL;
 	temp = pdata->now->cmd;
 	pdata->now->cmd = new_cmd;
-	free(temp);
+	free_s(temp);
 }
 
 static void	ft_find_cmd_type(t_p_data *pdata, char *new_word, int i)
 {
 	char	*tmp;
 
-	tmp = ft_strdup(new_word);
-	if (!tmp)
-		ft_allocation_error();
+	tmp = ft_strdup_s(new_word);
 	while (tmp[++i])
 		tmp[i] = ft_tolower(tmp[i]);
 	if (!ft_strcmp(tmp, "echo"))
@@ -78,7 +74,7 @@ static void	ft_find_cmd_type(t_p_data *pdata, char *new_word, int i)
 		pdata->now->cmd_type = EXIT_FUNC;
 	else
 		pdata->now->cmd_type = EXTERN_FUNC;
-	free(tmp);
+	free_s(tmp);
 }
 
 void	ft_clear_all_pdata(t_p_data *pdata)
@@ -94,17 +90,17 @@ void	ft_clear_all_pdata(t_p_data *pdata)
 		{
 			tmp = pdata->front->redir;
 			pdata->front->redir = pdata->front->redir->next;
-			free(tmp);
+			free_s(tmp);
 		}
 		if (pdata->front->cmd)
 		{
 			i = -1;
 			while (pdata->front->cmd[++i])
-				free(pdata->front->cmd[i]);
-			free(pdata->front->cmd);
+				free_s(pdata->front->cmd[i]);
+			free_s(pdata->front->cmd);
 		}
 		pdata->front = pdata->front->next;
-		free(pdata->now);
+		free_s(pdata->now);
 	}
 	pdata->now = NULL;
 }

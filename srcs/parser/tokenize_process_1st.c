@@ -37,7 +37,7 @@ void	ft_add_new_token_hpwtt(t_p_data *pdata, t_word *word, t_env_node *node)
 		ft_syntax_error(pdata, word);
 		return ;
 	}
-	new_token = (t_token *)malloc(sizeof(t_token));
+	new_token = (t_token *)malloc_s(sizeof(t_token));
 	if (!new_token)
 		ft_allocation_error();
 	ft_clear_word_struct(word);

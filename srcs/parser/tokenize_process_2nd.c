@@ -15,7 +15,7 @@ t_word *word, t_env_node *node)
 		tmp = ft_itoa(g_exit_status);
 		while (tmp[++i])
 			word->word[++(word->word_idx)] = tmp[i];
-		free(tmp);
+		free_s(tmp);
 	}
 	else
 	{

@@ -65,7 +65,10 @@ int	main(int ac, char **av, char **envp)
 		start_data = parsed_data;
 		if (parsed_data.front && (parsed_data.front->cmd
 				|| parsed_data.front->redir))
+		{
+			printf("ㅇㅏ 들어왔잖아요\n");
 			execute(head, &parsed_data);
+		}
 		free_parsed_data(start_data.front);
 		free_s(str);
 	}

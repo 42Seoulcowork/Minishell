@@ -26,6 +26,4 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 	}
 	signal(SIGINT, signal_handler_for_parent);
 	wait(NULL);
-	signal(SIGINT, signal_handler);
-	g_exit_status = WEXITSTATUS(g_exit_status);
 }

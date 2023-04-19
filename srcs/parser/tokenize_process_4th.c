@@ -47,20 +47,9 @@ t_redir *new, t_word *word)
 	return (0);
 }
 
-static int	empty_func(void)
-{
-	return (0);
-}
-
 static void	ft_here_doc_act(t_redir *new, char *tmp)
 {
-	rl_event_hook = &empty_func;
-	rl_catch_signals = 0;
-	signal(SIGINT, signal_handler_for_heredoc);
 	ft_here_doc_acting(new, tmp);
-	rl_event_hook = 0;
-	rl_done = 0;
-	signal(SIGINT, signal_handler);
 }
 
 int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \

@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -fsanitize=address
 
 INC = -I./includes/
 
@@ -47,7 +47,6 @@ SRC =	main.c \
 		parser/error.c \
 		parser/system_error.c \
 		parser/signal_func.c \
-		parser/signal_func_for_heredoc.c \
 
 SRC_DIR = ./srcs/
 

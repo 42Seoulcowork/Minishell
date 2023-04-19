@@ -6,6 +6,7 @@ void	signal_handler_for_parent(int sig)
 	{
 		g_exit_status = 1;
 		rl_replace_line("", 0);
+		printf("\n");
 		rl_redisplay();
 	}
 }

@@ -52,9 +52,9 @@ int	main(int ac, char **av, char **envp)
 	t_p_data	start_data;
 
 	head = initialize(ac, av, envp);
-	rl_catch_signals = 0;
 	while (1)
 	{
+		rl_catch_signals = 0;
 		ft_signal_init();
 		str = readline("minishell$ ");
 		if (!str)

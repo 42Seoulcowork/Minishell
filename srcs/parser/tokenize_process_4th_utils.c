@@ -5,7 +5,7 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 	char	*str;
 	pid_t	pid;
 
-	signal(SIGINT, SIG_IGN);
+	rl_catch_signals = 1;
 	pid = fork_s();
 	if (pid == 0)
 	{

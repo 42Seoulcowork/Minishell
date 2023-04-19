@@ -33,6 +33,8 @@ void	free_parsed_data(t_token *front)
 		while (front->redir)
 		{
 			tmp_redir = front->redir;
+			if (front->redir->type == RE_HERE && front->redir->heredoc_fd != -1)
+				close(front->redir->heredoc_fd);
 			front->redir = front->redir->next;
 			free_s(tmp_redir);
 		}

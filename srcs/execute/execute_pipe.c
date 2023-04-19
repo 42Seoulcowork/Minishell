@@ -26,8 +26,7 @@ void	execute_first_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 {
 	pid_t	pid;
 
-	if (pipe_s(fd[0]) == FALSE)
-		return ;
+	pipe_s(fd[0]);
 	pid = fork_s();
 	if (pid == 0)
 	{
@@ -55,8 +54,7 @@ int	execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 	while (i < p_data->pipe_cnt - 1)
 	{
 		++i;
-		if (pipe_s(fd[i]) == FALSE)
-			return (-1);
+		pipe_s(fd[i]);
 		pid = fork_s();
 		if (pid == 0)
 			do_child(head, p_data, fd, i);
@@ -66,8 +64,6 @@ int	execute_middle_pipe(t_env_node *head, t_p_data *p_data, int **fd)
 			close(fd[i][WRITE_END]);
 			p_data->front = p_data->front->next;
 		}
-		else
-			return (-1);
 	}
 	return (i);
 }

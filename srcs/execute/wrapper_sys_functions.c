@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	pipe_s(int fd[2])
+void	pipe_s(int fd[2])
 {
 	int	error_check;
 
@@ -9,9 +9,8 @@ int	pipe_s(int fd[2])
 	{
 		g_exit_status = 1;
 		perror("pipe");
-		return (FALSE);
+		exit(g_exit_status);
 	}
-	return (TRUE);
 }
 
 int	fork_s(void)
@@ -23,7 +22,7 @@ int	fork_s(void)
 	{
 		g_exit_status = 1;
 		perror("fork");
-		return (error_check);
+		exit(g_exit_status);
 	}
 	return (error_check);
 }

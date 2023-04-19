@@ -31,7 +31,8 @@ typedef enum e_c_type
 	EXPORT_FUNC,
 	UNSET_FUNC,
 	ENV_FUNC,
-	EXIT_FUNC
+	EXIT_FUNC,
+	DEFAULT,
 }	t_c_type;
 
 typedef struct s_redir

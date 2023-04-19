@@ -5,7 +5,7 @@ static void	ft_init_token_word(t_p_data *pdata, t_word *word)
 	pdata->now = pdata->front;
 	pdata->pipe_cnt = 0;
 	pdata->front->cmd = NULL;
-	pdata->front->cmd_type = EXTERN_FUNC;
+	pdata->front->cmd_type = DEFAULT;
 	pdata->front->redir = NULL;
 	pdata->front->next = NULL;
 	ft_clear_word_struct(word);

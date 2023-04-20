@@ -4,6 +4,7 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 {
 	char	*str;
 	pid_t	pid;
+	int		status;
 
 	rl_catch_signals = 1;
 	pid = fork_s();
@@ -25,5 +26,10 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 		}
 	}
 	signal(SIGINT, signal_handler_for_parent);
-	wait(NULL);
+	wait(&status);
+	if (WIFSIGNALED(status))
+	{
+		printf("\n");
+		g_exit_status = 1;
+	}
 }

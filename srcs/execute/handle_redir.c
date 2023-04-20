@@ -24,7 +24,7 @@ static int	handle_redir_here(t_redir *redir)
 {
 	dup2(redir->heredoc_fd, STDIN_FILENO);
 	close(redir->heredoc_fd);
-    redir->heredoc_fd = -1;
+	redir->heredoc_fd = -1;
 	return (TRUE);
 }
 

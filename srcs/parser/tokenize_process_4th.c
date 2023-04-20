@@ -65,12 +65,6 @@ int	ft_redirect_here_doc(t_p_data *pdata, t_redir *new, \
 		word->word[(word->re_idx)++] = '\0';
 	ft_here_doc_act(new, tmp);
 	close(new->heredoc_fd);
-	if (g_exit_status == HERE_DOC_SIGINT)
-	{
-		free(tmp);
-		g_exit_status = 1;
-		return (1);
-	}
 	new->heredoc_fd = open(new->file_name, O_RDONLY);
 	if (new->heredoc_fd == -1)
 		ft_open_error();

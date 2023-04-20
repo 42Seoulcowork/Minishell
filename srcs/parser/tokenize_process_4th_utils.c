@@ -6,6 +6,8 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 	pid_t	pid;
 	int		status;
 
+	if (g_exit_status == HERE_DOC_SIGINT)
+		return ;
 	rl_catch_signals = 1;
 	pid = fork_s();
 	if (pid == 0)
@@ -30,6 +32,6 @@ void	ft_here_doc_acting(t_redir *new, char *tmp)
 	if (WIFSIGNALED(status))
 	{
 		printf("\n");
-		g_exit_status = 1;
+		g_exit_status = HERE_DOC_SIGINT;
 	}
 }

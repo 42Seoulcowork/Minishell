@@ -18,7 +18,7 @@ static char	*find_path(char *cmd, char **path)
 				return (ft_strdup_s(path[i]));
 			++i;
 		}
-		if (access(cmd, F_OK) == 0 && cmd[0] == '/')
+		if (access(cmd, F_OK) == 0 && ft_strchr(cmd, '/') != NULL)
 			return (cmd);
 	}
 	ft_putstr_fd("minishell: ", STDERR_FILENO);

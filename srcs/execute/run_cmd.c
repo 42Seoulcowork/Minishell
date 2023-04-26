@@ -44,7 +44,7 @@ char	*check_path(t_env_node *head, t_token *token)
 	char	*path;
 	char	**env_path;
 
-	if (token->cmd[0][0] == '.' || token->cmd[0][0] == '/')
+	if (token->cmd[0][0] == '.' || ft_strchr(token->cmd[0], '/') != NULL)
 	{
 		is_directory(token->cmd[0]);
 		if (access(*(token->cmd), F_OK) == -1)

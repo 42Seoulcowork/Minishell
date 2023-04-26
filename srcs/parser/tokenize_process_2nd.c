@@ -22,7 +22,9 @@ t_word *word, t_env_node *node)
 		if (word->ex_stt == ON)
 			ft_expension_process(pdata, word, node, -1);
 		(word->word)[++(word->word_idx)] = '$';
-		word->ex_stt = ON;
+		if (*(*input + 1) != '\0' && *(*input + 1) != '|' \
+		&& *(*input + 1) != ' ' && *(*input + 1) != '\t')
+			word->ex_stt = ON;
 		word->ex_idx = word->word_idx;
 	}
 }

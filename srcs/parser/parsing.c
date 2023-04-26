@@ -44,7 +44,8 @@ void	tokenize(char **input, t_p_data *pdata, t_word *word, t_env_node *head)
 	else if (word->dq_stt == OFF && word->sq_stt == OFF
 		&& (**input == '<' || **input == '>'))
 		ft_start_redirect_stt(pdata, **input, word, head);
-	else if (word->dq_stt == OFF && word->sq_stt == OFF && **input == ' ')
+	else if (word->dq_stt == OFF && word->sq_stt == OFF
+		&& (**input == ' ' || **input == '\t'))
 		ft_clean_new_word_hpwtt(pdata, word, head);
 	else if (**input == '#' && word->word[0] == '\0'
 		&& word->dq_stt == OFF && word->sq_stt == OFF)

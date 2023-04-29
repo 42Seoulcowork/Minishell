@@ -59,7 +59,7 @@ static void	print_args(char **args, int *newline_flag)
 		count += ft_strlen(args[i]) + 1;
 	str = malloc_s(count);
 	i = -1;
-	while (str[++i])
+	while (++i < count)
 		str[i] = '\0';
 	*newline_flag = 1;
 	str_index = loop_echo(args, str, newline_flag, 0);

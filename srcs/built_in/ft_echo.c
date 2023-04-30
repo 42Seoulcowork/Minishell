@@ -49,7 +49,7 @@ static void	print_args(char **args, int *newline_flag)
 	int		i;
 	int		j;
 	int		str_index;
-	size_t	count;
+	ssize_t	count;
 	char	*str;
 
 	i = 0;
